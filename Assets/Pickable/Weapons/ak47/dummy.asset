@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23117d9fb4a82a4f985dd18d139a0eb, type: 3}
+  m_Name: dummy
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  flyingItemPrefab: {fileID: 1650554321861568, guid: 5c846350b2d2a63499fae198c9a4bd6b,
+    type: 2}
+  throwableSpeed: 15
+  damageAsThrowable: 10
+  timeToWaitToShootAgain: 0.4
+  bulletDamage: 1
+  totalBullets: 0
+  bulletPrefab: {fileID: 0}
+  fireWeaponPS: {fileID: 0}
+  guntip: {fileID: 0}
+  shotSound: {fileID: 8300000, guid: acf2e2f439cb17b41b650af5c996c322, type: 3}

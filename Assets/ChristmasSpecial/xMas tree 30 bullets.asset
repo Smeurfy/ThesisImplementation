@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23117d9fb4a82a4f985dd18d139a0eb, type: 3}
+  m_Name: xMas tree 30 bullets
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 4b0d6d2eaebf658429d1e247afdb5d20, type: 3}
+  flyingItemPrefab: {fileID: 1650554321861568, guid: b956867003b672a4c80bf52a6945acfe,
+    type: 2}
+  throwableSpeed: 14
+  damageAsThrowable: 7
+  timeToWaitToShootAgain: 0.2
+  bulletDamage: 1
+  totalBullets: 30
+  bulletPrefab: {fileID: 114841062090137144, guid: a5c5a6121facafc45b82f40ec7fb1a8a,
+    type: 2}
+  bulletTypeImage: {fileID: 21300000, guid: 1765140db1a5af04aad802f6badfec7e, type: 3}
+  hatImage: {fileID: 21300000, guid: 3743ab586b737084cb521d14a0a28d3b, type: 3}
+  fireWeaponPS: {fileID: 198966286884846848, guid: 124be98824f61b348a87eaccc5a82445,
+    type: 2}
+  guntip: {fileID: 4764144290802792, guid: 27a35a70cdb546741b2c384a0332c3f4, type: 2}
+  shotSound: {fileID: 8300000, guid: acf2e2f439cb17b41b650af5c996c322, type: 3}

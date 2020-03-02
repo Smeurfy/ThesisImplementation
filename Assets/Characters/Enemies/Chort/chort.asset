@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c503c009254fc7a4a9d8fcf6d8a17cfa, type: 3}
+  m_Name: chort
+  m_EditorClassIdentifier: 
+  enemyTypeTag: Chort
+  mutation: {fileID: 0}
+  attackDistance: -1
+  durationOfPush: -1
+  stoppingDistanceToPlayer: -1
+  MovementSpeed: -1
+  stoppingDistanceToPatrolPoint: -1
+  healthPoints: 9
+  dps: -1
+  secondsBetweenShots: 4
+  penaltyMultiplierForGettingShotByEnemy: 7
+  bonusMultiplierForHittingEnemyOnDeath: 7
+  died:
+  - {fileID: 8300000, guid: c04b881da996b134aa1cb4f6a53f3270, type: 3}
+  shot:
+  - {fileID: 8300000, guid: 94411e8fe48313746a851b120ae388f7, type: 3}

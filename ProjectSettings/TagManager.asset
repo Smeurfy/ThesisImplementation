@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Dungeon
+  - FirstRoom
+  - Jail
+  - BulletHolder
+  - DamageIndicator
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - EnemyBullets
+  - PlayerBullets
+  - Enemy
+  - Player
+  - FlyingItem
+  - Traps
+  - Weapon
+  - Bombs
+  - PlayerShield
+  - BulletDrops
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: traps
+    uniqueID: 3636542977
+    locked: 0
+  - name: Player
+    uniqueID: 4015070705
+    locked: 0
+  - name: Weapon
+    uniqueID: 2645456407
+    locked: 0
