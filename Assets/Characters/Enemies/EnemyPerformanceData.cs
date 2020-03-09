@@ -17,11 +17,11 @@ public class EnemyPerformanceData : MonoBehaviour
     private void Start()
     {
         InitializeClassVariables();
-        if(GameManager.instance.IsUsingModel())
-        {
-            SubscribeToEnemyTakingDamageEvents();
-            SubscribeToPlayerDyingEvent();
-        }
+        //if(GameManager.instance.IsUsingModel())
+        //{
+        //    SubscribeToEnemyTakingDamageEvents();
+        //    SubscribeToPlayerDyingEvent();
+        //}
     }
 
     private void DamagedByBullet(int damageToTake)

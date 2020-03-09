@@ -2482,6 +2482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponToBePickedUp: {fileID: 11400000, guid: 9c1ff407ae6d68d4dab39018fa840f72, type: 2}
+  typeOfBullet: {fileID: 0}
 --- !u!114 &114307796767621322
 MonoBehaviour:
   m_ObjectHideFlags: 1

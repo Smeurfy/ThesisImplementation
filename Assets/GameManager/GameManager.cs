@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float secondsToWaitBeforeReset;
     [SerializeField] private Transform player;
     [SerializeField] private AudioClip victorySound;
-    [SerializeField] private bool usingModel = false;
+    //[SerializeField] private bool usingModel = false;
 
     private int playerAssignedNumber = -5;
     private DungeonManager dungeonManager;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public int GetMainGameSceneNumber() { return gameSceneNumber; }
     public int GetVictorySceneNumber() { return victorySceneNumber; }
     public Vector2 GetRespawnPosition() { return playerRespawnPosition; }
-    public bool IsUsingModel() { return usingModel; }
+    //public bool IsUsingModel() { return usingModel; }
     public int GetPlayerAssignedNumber() { return playerAssignedNumber; }
     public int GetNumberOfRoomsToVictory() { return GetComponent<ScoreManager>().GetNumberOfRoomsToBeatDungeon(); }
     #endregion

@@ -20,47 +20,47 @@ public class PossibleChallengeData
         int numberOfEnemiesInPossibleChallenge = Random.Range(2, 5);
         possibleEnemies = new TypeOfEnemy[numberOfEnemiesInPossibleChallenge];
         PopulatePossibleChallenge(numberOfEnemiesInPossibleChallenge);
-        UpdatePredictedPerformanceValue();
-        UpdateVarietyValue();
+        //UpdatePredictedPerformanceValue();
+        //UpdateVarietyValue();
         return this;
     }
 
-    private void UpdatePredictedPerformanceValue()
-    {
-        int numberOfTagsInChallenge = 0;
-        int predictedPerformanceSum = 0;
-        int averagePredictedPerformance = 0;
-        int numberOfEnemiesAsPercentage = 0;
-        foreach(TypeOfEnemy enemy in possibleEnemies)
-        {
-            //Debug.Log("\n" + enemy.GetEnemyTypeTag());
-            numberOfTagsInChallenge++;
-            predictedPerformanceSum += PerformanceData.instance.GetPerformanceForTag(enemy.GetEnemyTypeTag());
-        }
-        averagePredictedPerformance = predictedPerformanceSum / numberOfTagsInChallenge;
+    //private void UpdatePredictedPerformanceValue()
+    //{
+    //    int numberOfTagsInChallenge = 0;
+    //    int predictedPerformanceSum = 0;
+    //    int averagePredictedPerformance = 0;
+    //    int numberOfEnemiesAsPercentage = 0;
+    //    foreach(TypeOfEnemy enemy in possibleEnemies)
+    //    {
+    //        //Debug.Log("\n" + enemy.GetEnemyTypeTag());
+    //        numberOfTagsInChallenge++;
+    //        predictedPerformanceSum += PerformanceData.instance.GetPerformanceForTag(enemy.GetEnemyTypeTag());
+    //    }
+    //    averagePredictedPerformance = predictedPerformanceSum / numberOfTagsInChallenge;
 
-        numberOfEnemiesAsPercentage = (int)(Mathf.InverseLerp(4, 2, numberOfTagsInChallenge) * 100);
+    //    numberOfEnemiesAsPercentage = (int)(Mathf.InverseLerp(4, 2, numberOfTagsInChallenge) * 100);
 
-        predictedPerformanceValue  = (int) (averagePredictedPerformance * performanceWeight) +  
-                                     (int) (numberOfEnemiesAsPercentage * (1 - performanceWeight));
-        /*Debug.Log("avgPredic: " + averagePredictedPerformance +
-                    "\t enemies as %: " + numberOfEnemiesAsPercentage +
-                    "\t predicted total: " + predictedPerformanceValue);*/
-        predictedPerformanceValue = Mathf.Clamp(predictedPerformanceValue, 0, 100);
-    }
+    //    predictedPerformanceValue  = (int) (averagePredictedPerformance * performanceWeight) +  
+    //                                 (int) (numberOfEnemiesAsPercentage * (1 - performanceWeight));
+    //    /*Debug.Log("avgPredic: " + averagePredictedPerformance +
+    //                "\t enemies as %: " + numberOfEnemiesAsPercentage +
+    //                "\t predicted total: " + predictedPerformanceValue);*/
+    //    predictedPerformanceValue = Mathf.Clamp(predictedPerformanceValue, 0, 100);
+    //}
     
-    private void UpdateVarietyValue()
-    {
-        int numberOfTagsInChallenge = 0;
-        int noveltySum = 0;
-        foreach(TypeOfEnemy enemy in possibleEnemies)
-        {
-            numberOfTagsInChallenge++;
-            noveltySum += NoveltyData.instance.GetNoveltyForTag(enemy.GetEnemyTypeTag());
-        }
-        noveltyValue = noveltySum / numberOfTagsInChallenge;
-        //Debug.Log("nov: " + noveltyValue);
-    }
+    //private void UpdateVarietyValue()
+    //{
+    //    int numberOfTagsInChallenge = 0;
+    //    int noveltySum = 0;
+    //    foreach(TypeOfEnemy enemy in possibleEnemies)
+    //    {
+    //        numberOfTagsInChallenge++;
+    //        noveltySum += NoveltyData.instance.GetNoveltyForTag(enemy.GetEnemyTypeTag());
+    //    }
+    //    noveltyValue = noveltySum / numberOfTagsInChallenge;
+    //    //Debug.Log("nov: " + noveltyValue);
+    //}
     private void PopulatePossibleChallenge(int numberOfEnemiesInPossibleChallenge)
     {
         for (int i = 0; i < numberOfEnemiesInPossibleChallenge; i++)

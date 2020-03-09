@@ -15,11 +15,11 @@ public class EnemyTimeBasedPerformance : MonoBehaviour
     private void Start()
     {
         healthSystem = GetComponent<EnemyHealthSystem>();
-        if(GameManager.instance.IsUsingModel())
-        {
-            healthSystem.OnEnemyTakeFirstDamage += StartTimer;
-            healthSystem.OnEnemyDie += StopTimer;
-        }
+        //if(GameManager.instance.IsUsingModel())
+        //{
+        //    healthSystem.OnEnemyTakeFirstDamage += StartTimer;
+        //    healthSystem.OnEnemyDie += StopTimer;
+        //}
     }
 
     private void Update()

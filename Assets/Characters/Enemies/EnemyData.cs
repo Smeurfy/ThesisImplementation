@@ -10,18 +10,18 @@ public class EnemyData : MonoBehaviour
         typeOfEnemy = type;
         if (typeOfEnemy.GetEnemyTypeTag() != "target")
         {
-            InitializePerformanceCalculationMethod();
+            //InitializePerformanceCalculationMethod();
         }
     }
     
-    private void InitializePerformanceCalculationMethod()
+    /*private void InitializePerformanceCalculationMethod()
     {
         var performanceCalculationMethod = PerformanceData.instance.GetPerformanceCalculationMethod();
         if(performanceCalculationMethod == PerformanceCalculationMethod.basedOnHits)
         {
             gameObject.AddComponent<EnemyPerformanceData>();
         }
-    }
+    }*/
 
     public TypeOfEnemy GetTypeOfEnemy() { return typeOfEnemy; }
     

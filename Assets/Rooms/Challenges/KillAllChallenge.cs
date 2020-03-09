@@ -10,8 +10,8 @@ public class KillAllChallenge : RoomChallenge
 
     private void Start()
     {
-        if(GameManager.instance.IsUsingModel())
-            GameManager.instance.GetPlayerReference().GetComponent<PlayerHealthSystem>().OnPlayerDied += UpdatePerformanceForAliveEnemies;
+        //if(GameManager.instance.IsUsingModel())
+        //    GameManager.instance.GetPlayerReference().GetComponent<PlayerHealthSystem>().OnPlayerDied += UpdatePerformanceForAliveEnemies;
     }
 
     private void UpdatePerformanceForAliveEnemies()

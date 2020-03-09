@@ -21,14 +21,14 @@ public class RegularBullet : TypeOfBullet
         {
             objectHitted.TakeDamage(damage);
         }
-        if(PerformanceData.instance.GetPerformanceCalculationMethod() == PerformanceCalculationMethod.basedOnHits)
-        {
-            if (collision.gameObject.GetComponent<PlayerHealthSystem>())
-            {
-                // FOR THIS TO WORK ENEMYPERFORMANCEDATA has to be added to all enemy prefabs again
-                gameObject.GetComponentInParent<EnemyPerformanceData>().PlayerWasShot();
-            }
-        }
+        //if(performancedata.instance.getperformancecalculationmethod() == performancecalculationmethod.basedonhits)
+        //{
+        //    if (collision.gameobject.getcomponent<playerhealthsystem>())
+        //    {
+        //        // for this to work enemyperformancedata has to be added to all enemy prefabs again
+        //        gameobject.getcomponentinparent<enemyperformancedata>().playerwasshot();
+        //    }
+        //}
         Destroy(gameObject);
     }
 }

@@ -16,7 +16,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private GameObject switchesHolderGameObject;
     [SerializeField] private GameObject itemsHolderGameObject;
     [SerializeField] private GameObject spawnPointsGameObject;
-    [SerializeField] private Transform nextRoomsPosition;
+    [SerializeField] private Vector3 nextRoom;
+    [SerializeField] private Vector3 playerRoomInitialPosition;
 
     private int roomID;
     private int challengesCleared = 0;
@@ -32,12 +33,15 @@ public class RoomManager : MonoBehaviour
     #region getters
 
     public Transform GetEnemyHolder() { return enemiesHolderGameObject.transform; }  // maybe delete, depends if this exists in DungeonManager
-    public Vector3 GetNextRoomsPosition() { return nextRoomsPosition.position; }
     internal int GetIntendedPerformanceValue() { return intendedPerformanceValue; }
     internal int GetIntendedNoveltyValue() { return intendedVarietyValue; }
     internal int GetRoomID() { return roomID; }
+    public Vector3 GetPositionNextRoom() {return nextRoom;}
+    public Vector3 GetPlayerRoomInitialPosition() {return playerRoomInitialPosition;}
 
     #endregion
+
+    public void setPositionNextRoom(Vector3 position) {nextRoom = position;}
 
     private void Awake()
     {
@@ -104,6 +108,8 @@ public class RoomManager : MonoBehaviour
 
     private void FreezePlayer()
     {
+        var player = GameObject.FindGameObjectWithTag("Player");;
+        player.transform.position = this.transform.position - playerRoomInitialPosition;
         PlayerMovement.characterCanReceiveInput = false;
         StartCoroutine(PlayerCanUpdateAgain());
         previousRoomsDoorManager.OnPlayerEnteredRoom -= FreezePlayer;

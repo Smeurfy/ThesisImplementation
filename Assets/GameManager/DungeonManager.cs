@@ -7,29 +7,30 @@ public class DungeonManager : MonoBehaviour
     public static DungeonManager instance;
     public List<PossibleChallengeData> possibleChallenges;
 
-    [SerializeField] [Range(0, 1)] private float performanceWeight;
-    [SerializeField] private float noveltyWeight;
+    //[SerializeField] [Range(0, 1)] private float performanceWeight;
+    //[SerializeField] private float noveltyWeight;
 
     [SerializeField] private int numberOfChallengesToGenerate;
     [SerializeField] private GameObject[] roomToSpawnNextPrefab;
     [SerializeField] private Transform roomsHolder;
     [SerializeField] private Transform enemyBulletHolder;
     [SerializeField] private List<RoomManager> allRooms;
+    [SerializeField] private int numberOfMecanics;
 
     private int roomID = -1;
     private int nextRoomToGenerateIndex = 0;
     private ScoreManager scoreManager;
 
     #region getters
-    public float GetPerformanceWeight() { return performanceWeight; }
-    public float GetNoveltyWeight() { return noveltyWeight; }
+    //public float GetPerformanceWeight() { return performanceWeight; }
+    //public float GetNoveltyWeight() { return noveltyWeight; }
     public Transform GetBulletHolder() { return enemyBulletHolder; }
     public int GetNumberOfRoomsToBeatDungeon() { return scoreManager.GetNumberOfRoomsToBeatDungeon(); }
     #endregion
 
     private void Awake()
     {
-        noveltyWeight = 1 - performanceWeight;
+        //noveltyWeight = 1 - performanceWeight;
         MakeThisObjectSingleton();
         InitializePossibleChallengesList();
         scoreManager = GetComponent<ScoreManager>();
@@ -37,10 +38,10 @@ public class DungeonManager : MonoBehaviour
     
     private void Start()
     {
-        if(ReadModelValuesFromPlayer.instance)
-        {
-            SubscribeToModelValuesPicker();
-        }
+        //if(ReadModelValuesFromPlayer.instance)
+        //{
+        //    SubscribeToModelValuesPicker();
+        //}
         CreateNextRoom();
         GenerateChallengeForFirstRoom();
         SceneManager.sceneLoaded += SceneLoaded;
@@ -48,13 +49,29 @@ public class DungeonManager : MonoBehaviour
 
     private void CreateNextRoom()
     {
+        var nextRoomPosition = allRooms[nextRoomToGenerateIndex].GetPositionNextRoom();
         SetNextCameraPosition();
         GameObject nextRoom = Instantiate(roomToSpawnNextPrefab[0],
-                                          allRooms[nextRoomToGenerateIndex].GetNextRoomsPosition(),
+                                          allRooms[nextRoomToGenerateIndex].GetPositionNextRoom(),
                                           Quaternion.identity,
                                           roomsHolder);
+
         RenameRoom(nextRoom);
+       
+        
+        if(nextRoomToGenerateIndex % numberOfMecanics < numberOfMecanics)            
+        {
+            nextRoomPosition.y -= 12;
+        }
+        else{
+            nextRoomPosition.x += 18;
+        }
+        
+        
+        nextRoom.GetComponentInChildren<RoomManager>().setPositionNextRoom(nextRoomPosition);
         allRooms.Add(nextRoom.GetComponentInChildren<RoomManager>());
+        
+        
     }
 
     private void GenerateChallengeForFirstRoom()
@@ -73,7 +90,7 @@ public class DungeonManager : MonoBehaviour
         allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
         allRooms[nextRoomToGenerateIndex].RoomCleared += GenerateChallengeForNextRoom;
         allRooms[nextRoomToGenerateIndex].RoomCleared += scoreManager.UpdateScore;
-        allRooms[nextRoomToGenerateIndex].RoomCleared += PerformanceData.instance.UpdateTagPerformanceMedian;
+        //allRooms[nextRoomToGenerateIndex].RoomCleared += PerformanceData.instance.UpdateTagPerformanceMedian;
         nextRoomToGenerateIndex++;
     }
 
@@ -113,33 +130,34 @@ public class DungeonManager : MonoBehaviour
         if (roomID != 0 && CameraLookAtRoom.instance)
         {
             int nextRoomIndex = roomID - 1;
-            CameraLookAtRoom.instance.NextRoomsPosition(allRooms[nextRoomIndex].GetNextRoomsPosition());
+            CameraLookAtRoom.instance.NextRoomsPosition(allRooms[nextRoomIndex].GetPositionNextRoom());
         }
     }
     
-    private void RenameRoom(GameObject nextRoom)
+    public void RenameRoom(GameObject nextRoom)
     {
         int nextRoomsID = roomID;
         nextRoom.name = "Room " + nextRoomsID++;
-    }
 
-    private void SubscribeToModelValuesPicker()
-    {
-        ReadModelValuesFromPlayer.instance.OnValuesSubmitted += SetNoveltyAndPerformanceWeight;
-    }
+    }       
 
-    private void SetNoveltyAndPerformanceWeight(int newNoveltyWeight, int desiredNovelty)
-    {
-        print(newNoveltyWeight + " " + desiredNovelty);   //delete
-        noveltyWeight = (float) newNoveltyWeight / 100;
-        performanceWeight = 1 - noveltyWeight;
-        print("novelty weight " + noveltyWeight + " perf wei: " + performanceWeight);
+    //private void SubscribeToModelValuesPicker()
+    //{
+    //    ReadModelValuesFromPlayer.instance.OnValuesSubmitted += SetNoveltyAndPerformanceWeight;
+    //}
 
-        FindObjectOfType<FirstRoom>().GetComponent<NoveltyAndPerformanceFunctions>().SetNoveltyValueByPlayersInput(desiredNovelty);
+    //private void SetNoveltyAndPerformanceWeight(int newNoveltyWeight, int desiredNovelty)
+    //{
+    //    print(newNoveltyWeight + " " + desiredNovelty);   //delete
+    //    noveltyWeight = (float) newNoveltyWeight / 100;
+    //    performanceWeight = 1 - noveltyWeight;
+    //    print("novelty weight " + noveltyWeight + " perf wei: " + performanceWeight);
 
-        ReadModelValuesFromPlayer.instance.OnValuesSubmitted -= SetNoveltyAndPerformanceWeight;
-        Destroy(ReadModelValuesFromPlayer.instance.gameObject);
-    }
+    //    FindObjectOfType<FirstRoom>().GetComponent<NoveltyAndPerformanceFunctions>().SetNoveltyValueByPlayersInput(desiredNovelty);
+
+    //    ReadModelValuesFromPlayer.instance.OnValuesSubmitted -= SetNoveltyAndPerformanceWeight;
+    //    Destroy(ReadModelValuesFromPlayer.instance.gameObject);
+    //}
 
     private void SceneLoaded(Scene loadedScene, LoadSceneMode arg1)
     {
