@@ -1409,11 +1409,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114731638515965010, guid: fba91bb27fe1fee4186a5cdcbc689244,
+    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
-      propertyPath: playerRespawnTransform
+      propertyPath: mutatedEnemiesJail
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1770048467}
     - target: {fileID: 114753464685062938, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
       propertyPath: roomsHolder
@@ -1429,51 +1429,6 @@ Prefab:
       propertyPath: allRooms.Array.data[0]
       value: 
       objectReference: {fileID: 2028966235}
-    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: mutatedEnemiesJail
-      value: 
-      objectReference: {fileID: 1770048467}
-    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: scoreBoard
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: numberOfRoomsToWin
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: desiredAmountOfMutatedEnemies
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114731638515965010, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: usingModel
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753464685062938, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: performanceWeight
-      value: 0.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753464685062938, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: numberOfChallengesToGenerate
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114731638515965010, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: gameSceneNumber
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753464685062938, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: numberOfMecanics
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fba91bb27fe1fee4186a5cdcbc689244, type: 2}
   m_IsPrefabAsset: 0
@@ -1658,6 +1613,86 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224534741676649600, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224534741676649600, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224534741676649600, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224534741676649600, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224269619185228060, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224269619185228060, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224269619185228060, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224269619185228060, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224067130880565870, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224067130880565870, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224067130880565870, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224067130880565870, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224564649037889348, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224564649037889348, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224564649037889348, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224564649037889348, guid: 31d77c0b3a803434b956f818613519ed,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31d77c0b3a803434b956f818613519ed, type: 2}

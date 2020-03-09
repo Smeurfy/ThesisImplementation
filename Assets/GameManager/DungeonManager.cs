@@ -23,14 +23,13 @@ public class DungeonManager : MonoBehaviour
 
     #region getters
     //public float GetPerformanceWeight() { return performanceWeight; }
-    //public float GetNoveltyWeight() { return noveltyWeight; }
+    public int GetNumberOfMecanics() { return numberOfMecanics; }
     public Transform GetBulletHolder() { return enemyBulletHolder; }
     public int GetNumberOfRoomsToBeatDungeon() { return scoreManager.GetNumberOfRoomsToBeatDungeon(); }
     #endregion
 
     private void Awake()
     {
-        //noveltyWeight = 1 - performanceWeight;
         MakeThisObjectSingleton();
         InitializePossibleChallengesList();
         scoreManager = GetComponent<ScoreManager>();
@@ -59,12 +58,13 @@ public class DungeonManager : MonoBehaviour
         RenameRoom(nextRoom);
        
         
-        if(nextRoomToGenerateIndex % numberOfMecanics < numberOfMecanics)            
+        if(nextRoomToGenerateIndex % numberOfMecanics < numberOfMecanics - 1)            
         {
             nextRoomPosition.y -= 12;
         }
         else{
             nextRoomPosition.x += 18;
+            nextRoomPosition.y = 0;
         }
         
         

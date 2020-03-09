@@ -193,7 +193,6 @@ MonoBehaviour:
   victorySceneNumber: 2
   secondsToWaitBeforeReset: 2.8
   player: {fileID: 0}
-  playerRespawnTransform: {fileID: 0}
   victorySound: {fileID: 8300000, guid: ae563d30da771c6448da32a8afe0ad25, type: 3}
 --- !u!114 &114753464685062938
 MonoBehaviour:
@@ -206,15 +205,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c87f30a24e86e45b545789da448366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  performanceWeight: 0
-  noveltyWeight: 0
-  numberOfChallengesToGenerate: 10
+  numberOfChallengesToGenerate: 6
   roomToSpawnNextPrefab:
   - {fileID: 1936690420780442, guid: 167dd0cf17509084ba2f77fb9377705c, type: 2}
   roomsHolder: {fileID: 0}
   enemyBulletHolder: {fileID: 0}
   allRooms:
   - {fileID: 0}
+  numberOfMecanics: 3
 --- !u!114 &114898225653702740
 MonoBehaviour:
   m_ObjectHideFlags: 1

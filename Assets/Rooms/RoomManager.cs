@@ -21,8 +21,6 @@ public class RoomManager : MonoBehaviour
 
     private int roomID;
     private int challengesCleared = 0;
-    private int intendedPerformanceValue = -1;
-    private int intendedVarietyValue = -1;
     private float secondsBeforeUnfreezing = 1.5f;
     private List<RoomChallenge> typesOfRoom;
     private List<Transform> spawnPointPositions;
@@ -33,8 +31,6 @@ public class RoomManager : MonoBehaviour
     #region getters
 
     public Transform GetEnemyHolder() { return enemiesHolderGameObject.transform; }  // maybe delete, depends if this exists in DungeonManager
-    internal int GetIntendedPerformanceValue() { return intendedPerformanceValue; }
-    internal int GetIntendedNoveltyValue() { return intendedVarietyValue; }
     internal int GetRoomID() { return roomID; }
     public Vector3 GetPositionNextRoom() {return nextRoom;}
     public Vector3 GetPlayerRoomInitialPosition() {return playerRoomInitialPosition;}
@@ -58,14 +54,6 @@ public class RoomManager : MonoBehaviour
             AddComponentsBasedOnRoomType();                     // TODO this shouldn't be here, but it needs to be called after Generating the challenge for a room
             SubscribeToTypeOfRoomWinningCondition();
         }
-        CalculateIntendedPerformanceAndVariety();
-    }
-
-    private void CalculateIntendedPerformanceAndVariety()
-    {
-        var functions = GetComponent<NoveltyAndPerformanceFunctions>();
-        intendedPerformanceValue = (int)functions.CalculateIntendedPerformanceValueForRoom(roomID);
-        intendedVarietyValue = (int)functions.CalculateIntendedNoveltyValueForRoom(roomID);
     }
 
     public void GenerateChallengeForThisRoom()
