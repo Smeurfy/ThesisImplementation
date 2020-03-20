@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114066037054289716}
   - component: {fileID: 114898225653702740}
   - component: {fileID: 114107471125638486}
+  - component: {fileID: 114469358501467362}
   - component: {fileID: 82650260110988010}
   m_Layer: 0
   m_Name: game manager
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mutatedEnemiesJail: {fileID: 0}
-  desiredAmountOfMutatedEnemies: 6
+  desiredAmountOfMutatedEnemies: 0
   enemyTypePrefabs:
   - {fileID: 1840466695169132, guid: 7a4c5f6ca329f344397a9b0c38851298, type: 2}
   - {fileID: 1914784437845604, guid: 2b8c232406731d94ba118711d13726e9, type: 2}
@@ -178,6 +179,22 @@ MonoBehaviour:
   numberOfRoomsToWin: 20
   scoreBoard: {fileID: 0}
   activateShieldOnRoomNumber: 5
+--- !u!114 &114469358501467362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318369121762974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c19e0a74afb67fa43b3d97f6183487df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  increaseNumberOfBullets: 2
+  increaseNumberOfWaves: 1
+  increaseBulletSpeed: 1
+  increaseMovSpeed: 1
+  iceZombieAttackSpeed: 1
 --- !u!114 &114731638515965010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,14 +222,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c87f30a24e86e45b545789da448366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfChallengesToGenerate: 6
+  numberOfChallengesToGenerate: 0
   roomToSpawnNextPrefab:
   - {fileID: 1936690420780442, guid: 167dd0cf17509084ba2f77fb9377705c, type: 2}
   roomsHolder: {fileID: 0}
   enemyBulletHolder: {fileID: 0}
   allRooms:
   - {fileID: 0}
-  numberOfMecanics: 3
+  globalTier: 0
 --- !u!114 &114898225653702740
 MonoBehaviour:
   m_ObjectHideFlags: 1

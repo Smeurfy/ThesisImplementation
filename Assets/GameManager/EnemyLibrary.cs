@@ -138,8 +138,16 @@ public class EnemyLibrary : MonoBehaviour
     }
 
     public TypeOfEnemy GetRandomEnemy()
-    {
+    { 
         return possibleEnemies[Random.Range(0, possibleEnemies.Count)];
+    }
+
+    public List<TypeOfEnemy> GetSpecificEnemy(int i, int j)
+    {
+        List<TypeOfEnemy> aux = new List<TypeOfEnemy>();
+        aux.Add(possibleEnemies[i]);
+        aux.Add(possibleEnemies[j]);
+        return aux;
     }
 
     private void CheckIfEnemyTypePrefabsIsEmpty()

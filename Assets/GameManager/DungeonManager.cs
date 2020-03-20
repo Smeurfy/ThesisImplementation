@@ -6,47 +6,46 @@ public class DungeonManager : MonoBehaviour
 {
     public static DungeonManager instance;
     public List<PossibleChallengeData> possibleChallenges;
-
-    //[SerializeField] [Range(0, 1)] private float performanceWeight;
-    //[SerializeField] private float noveltyWeight;
+    public Dictionary<TypeOfEnemy, int> tierOfEnemies = new Dictionary<TypeOfEnemy, int>();
 
     [SerializeField] private int numberOfChallengesToGenerate;
     [SerializeField] private GameObject[] roomToSpawnNextPrefab;
     [SerializeField] private Transform roomsHolder;
     [SerializeField] private Transform enemyBulletHolder;
     [SerializeField] private List<RoomManager> allRooms;
-    [SerializeField] private int numberOfMecanics;
+    [SerializeField] private int globalTier = 0;
 
     private int roomID = -1;
     private int nextRoomToGenerateIndex = 0;
     private ScoreManager scoreManager;
+    private bool firstTimeGeneratingChallenges = true;
+    
 
     #region getters
-    //public float GetPerformanceWeight() { return performanceWeight; }
-    public int GetNumberOfMecanics() { return numberOfMecanics; }
+    public int GetGlobalTier() { return globalTier; }
     public Transform GetBulletHolder() { return enemyBulletHolder; }
     public int GetNumberOfRoomsToBeatDungeon() { return scoreManager.GetNumberOfRoomsToBeatDungeon(); }
+    public int GetRoomID(){ return roomID;}
+    public bool GetFirstTimeGeneratingChallenges(){ return firstTimeGeneratingChallenges;}
+    public List<RoomManager> GetAllRooms(){ return allRooms;}
     #endregion
 
     private void Awake()
     {
         MakeThisObjectSingleton();
-        InitializePossibleChallengesList();
+        
         scoreManager = GetComponent<ScoreManager>();
     }
     
     private void Start()
     {
-        //if(ReadModelValuesFromPlayer.instance)
-        //{
-        //    SubscribeToModelValuesPicker();
-        //}
+        InitializePossibleChallengesList();
         CreateNextRoom();
         GenerateChallengeForFirstRoom();
         SceneManager.sceneLoaded += SceneLoaded;
     }
 
-    private void CreateNextRoom()
+    public void CreateNextRoom()
     {
         var nextRoomPosition = allRooms[nextRoomToGenerateIndex].GetPositionNextRoom();
         SetNextCameraPosition();
@@ -56,22 +55,9 @@ public class DungeonManager : MonoBehaviour
                                           roomsHolder);
 
         RenameRoom(nextRoom);
-       
-        
-        if(nextRoomToGenerateIndex % numberOfMecanics < numberOfMecanics - 1)            
-        {
-            nextRoomPosition.y -= 12;
-        }
-        else{
-            nextRoomPosition.x += 18;
-            nextRoomPosition.y = 0;
-        }
-        
-        
+        nextRoomPosition.x += 18;
         nextRoom.GetComponentInChildren<RoomManager>().setPositionNextRoom(nextRoomPosition);
-        allRooms.Add(nextRoom.GetComponentInChildren<RoomManager>());
-        
-        
+        allRooms.Add(nextRoom.GetComponentInChildren<RoomManager>());  
     }
 
     private void GenerateChallengeForFirstRoom()
@@ -82,7 +68,6 @@ public class DungeonManager : MonoBehaviour
 
     private void GenerateChallengeForNextRoom()
     {
-        //print(nextRoomToGenerateIndex + " " + GetComponent<ScoreManager>().GetNumberOfRoomsToBeatDungeon());
         if (nextRoomToGenerateIndex <= GetComponent<ScoreManager>().GetNumberOfRoomsToBeatDungeon())
         {
             CreateNextRoom();
@@ -90,8 +75,9 @@ public class DungeonManager : MonoBehaviour
         allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
         allRooms[nextRoomToGenerateIndex].RoomCleared += GenerateChallengeForNextRoom;
         allRooms[nextRoomToGenerateIndex].RoomCleared += scoreManager.UpdateScore;
-        //allRooms[nextRoomToGenerateIndex].RoomCleared += PerformanceData.instance.UpdateTagPerformanceMedian;
+
         nextRoomToGenerateIndex++;
+        firstTimeGeneratingChallenges = false;
     }
 
     internal RoomManager GetRoomManagerByRoomID(int roomID)
@@ -109,6 +95,12 @@ public class DungeonManager : MonoBehaviour
 
     private void InitializePossibleChallengesList()
     {
+        var enemiesCount = EnemyLibrary.instance.GetAllPossibleEnemies().Count;
+        for (int i = enemiesCount; i > 0 ; i--)
+        {
+            numberOfChallengesToGenerate += i;
+        }
+        numberOfChallengesToGenerate -= enemiesCount;
         possibleChallenges = new List<PossibleChallengeData>
         {
             Capacity = numberOfChallengesToGenerate
@@ -119,10 +111,9 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    internal int AssignRoomID()
+    internal void AssignRoomID()
     {
         roomID++;
-        return roomID;
     }
     
     private void SetNextCameraPosition()
@@ -141,24 +132,6 @@ public class DungeonManager : MonoBehaviour
 
     }       
 
-    //private void SubscribeToModelValuesPicker()
-    //{
-    //    ReadModelValuesFromPlayer.instance.OnValuesSubmitted += SetNoveltyAndPerformanceWeight;
-    //}
-
-    //private void SetNoveltyAndPerformanceWeight(int newNoveltyWeight, int desiredNovelty)
-    //{
-    //    print(newNoveltyWeight + " " + desiredNovelty);   //delete
-    //    noveltyWeight = (float) newNoveltyWeight / 100;
-    //    performanceWeight = 1 - noveltyWeight;
-    //    print("novelty weight " + noveltyWeight + " perf wei: " + performanceWeight);
-
-    //    FindObjectOfType<FirstRoom>().GetComponent<NoveltyAndPerformanceFunctions>().SetNoveltyValueByPlayersInput(desiredNovelty);
-
-    //    ReadModelValuesFromPlayer.instance.OnValuesSubmitted -= SetNoveltyAndPerformanceWeight;
-    //    Destroy(ReadModelValuesFromPlayer.instance.gameObject);
-    //}
-
     private void SceneLoaded(Scene loadedScene, LoadSceneMode arg1)
     {
         if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
@@ -175,6 +148,11 @@ public class DungeonManager : MonoBehaviour
             GenerateChallengeForFirstRoom();
             
         }
+    }
+
+    public void IncreaseGlobalTier()
+    {
+        globalTier++;
     }
 
     private void MakeThisObjectSingleton()

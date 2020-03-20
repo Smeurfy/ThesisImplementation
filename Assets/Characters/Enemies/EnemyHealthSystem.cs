@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Thesis.Enemy
 {
@@ -23,6 +24,8 @@ namespace Thesis.Enemy
         private bool hasBeenDamage = false;
         private EnemyController controller;
 
+        private EnemyData enemyData;
+
         public event Action OnEnemyDie = delegate { };
         public event Action OnEnemyTakeFirstDamage = delegate { };
         public event Action<int> OnEnemyTakeDamageFromItem = delegate { };
@@ -31,7 +34,7 @@ namespace Thesis.Enemy
 
         private new void Start()
         {
-            var enemyData = GetComponent<EnemyData>();
+            enemyData = GetComponent<EnemyData>();
             audioSource = GetComponent<AudioSource>();
             diedSoundFX = enemyData.GetDiedSoundFX();
             initialHp = enemyData.GetInitialHealth();
@@ -166,6 +169,17 @@ namespace Thesis.Enemy
 
         private IEnumerator DestroyEnemy()
         {
+            //Tier update
+            try
+            {
+                DungeonManager.instance.tierOfEnemies[enemyData.GetTypeOfEnemy()]++;
+                Debug.Log( DungeonManager.instance.tierOfEnemies[enemyData.GetTypeOfEnemy()] + " " + enemyData.GetTypeOfEnemy().name);
+            }
+            catch(KeyNotFoundException)
+            {
+                Debug.Log("bah bah erro dicionario");
+            }
+            
             if(particles)
             {
                 while (particles.isPlaying || audioSource.isPlaying)
@@ -173,7 +187,10 @@ namespace Thesis.Enemy
                     yield return new WaitForEndOfFrame();
                 }
             }
+
+            
             Destroy(gameObject);
+            
         }
         
         private void InitializeHealthBar()

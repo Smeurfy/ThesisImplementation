@@ -19,7 +19,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private Vector3 nextRoom;
     [SerializeField] private Vector3 playerRoomInitialPosition;
 
-    private int roomID;
+    [SerializeField] private int roomID;
     private int challengesCleared = 0;
     private float secondsBeforeUnfreezing = 1.5f;
     private List<RoomChallenge> typesOfRoom;
@@ -27,6 +27,14 @@ public class RoomManager : MonoBehaviour
 
     private RoomChallengeGenerator roomChallengeGenerator;
     private DoorManager previousRoomsDoorManager;
+
+    public bool tryAgain = true;
+
+    public bool keepGoing = true;
+
+    //debug purposes
+    public List<TypeOfEnemy> enemy1;
+    public List<TypeOfEnemy> enemy2;
     
     #region getters
 
@@ -48,7 +56,8 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        roomID = DungeonManager.instance.AssignRoomID();
+        roomID = DungeonManager.instance.GetRoomID();
+        DungeonManager.instance.AssignRoomID();
         if (GetComponent<FirstRoom>())
         {
             AddComponentsBasedOnRoomType();                     // TODO this shouldn't be here, but it needs to be called after Generating the challenge for a room

@@ -5,7 +5,7 @@ using Thesis.Enemy;
 public class IceZombiePhysicalAttack : EnemyPhysicalAttack 
 {
     [SerializeField] float DurationOfAttackInSecs = 2f;
-    [SerializeField] float attackFlightSpeed = 5f;
+    [SerializeField] public float attackFlightSpeed = 5f;
     [SerializeField] private Animator animator;
     
     private IceZombieController iceZombieController;

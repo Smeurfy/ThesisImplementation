@@ -5,10 +5,10 @@ public class BulletSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
     [Header("Bullet")]
-    [SerializeField] private byte numberOfBullets = 25;
-    [SerializeField] private byte bulletSpeed = 3;
+    [SerializeField] public int numberOfBullets = 25;
+    [SerializeField] public int bulletSpeed = 3;
     [Header("Wave")]
-    [SerializeField] private byte numberOfWaves = 1;
+    [SerializeField] public int numberOfWaves = 1;
     [SerializeField] private byte secondsBetweenWaves = 2;
     [Header("Shot Type")]
     [SerializeField] private bool shootAllAtTheSameTime = true;

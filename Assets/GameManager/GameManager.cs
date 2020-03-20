@@ -86,16 +86,25 @@ public class GameManager : MonoBehaviour
 
     internal void ResetGame()
     {
-        if(!reseting)
+        if(DungeonManager.instance.GetAllRooms()[DungeonManager.instance.GetRoomID()])
         {
             FindObjectOfType<PlayerHealthSystem>().OnPlayerDied -= ResetGame;
-            reseting = true;
-            if(this == null)
-            {
-                instance.StartCoroutine(WaitAndResetGame());
-            }
-            else { StartCoroutine(WaitAndResetGame()); }
+            DungeonManager.instance.CreateNextRoom();
         }
+        else
+        {
+            if(!reseting)
+            {
+                FindObjectOfType<PlayerHealthSystem>().OnPlayerDied -= ResetGame;
+                reseting = true;
+                if(this == null)
+                {
+                    instance.StartCoroutine(WaitAndResetGame());
+                }
+                else { StartCoroutine(WaitAndResetGame()); }
+            }
+        }
+        
     }
     
     private IEnumerator WaitAndResetGame()

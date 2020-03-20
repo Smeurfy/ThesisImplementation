@@ -2,7 +2,7 @@
 
 public class RespawnWeaponIfOutOfRoom : MonoBehaviour 
 {
-    [SerializeField] Transform weaponRespawnPoint;
+    public Transform weaponRespawnPoint;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -10,7 +10,7 @@ public class RespawnWeaponIfOutOfRoom : MonoBehaviour
         {
             collision.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             weaponRespawnPoint.GetComponent<ParticleSystem>().Play();
-            collision.gameObject.transform.position = weaponRespawnPoint.position;
+            collision.gameObject.transform.position = weaponRespawnPoint.position;  
         }
     }
 }
