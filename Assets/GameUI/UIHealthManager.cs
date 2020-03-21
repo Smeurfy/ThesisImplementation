@@ -15,7 +15,7 @@ public class UIHealthManager : MonoBehaviour
         }
         SceneManager.sceneUnloaded += DereferencePlayerHealth;
         healthText = GetComponentInChildren<TextMeshProUGUI>();
-        UpdateHealthText(12);
+        UpdateHealthText(player.GetCurrentHP());
         player.OnPlayerHealthUpdate += UpdateHealthText;
     }
 

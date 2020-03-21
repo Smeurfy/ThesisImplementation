@@ -10,7 +10,7 @@ public class HealthSystem : MonoBehaviour
         currentHp = initialHp;    
     }
 
-    public int GetInitialHp() { return initialHp; }
+    public int GetCurrentHP() { return currentHp; }
 
     public virtual void TakeDamage(int damageToTake)
     {
