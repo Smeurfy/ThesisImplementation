@@ -43,6 +43,7 @@ public class PauseMenuManager : MonoBehaviour
     public void ResumeGame()
     {
         menuHolder.SetActive(false);
+        print("resume game");
         OnGameIsPaused(menuHolder.activeSelf);
     }
 

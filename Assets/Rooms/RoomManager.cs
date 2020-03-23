@@ -27,12 +27,12 @@ public class RoomManager : MonoBehaviour
 
     private RoomChallengeGenerator roomChallengeGenerator;
     private DoorManager previousRoomsDoorManager;
-
-    public bool tryAgain = true;
-
-    public bool keepGoing = true;
+    public PossibleChallengeData challengeOfThisRoom;
 
     //debug purposes
+    
+    public TypeOfEnemy enem1;
+    public TypeOfEnemy enem2;
     public List<TypeOfEnemy> enemy1;
     public List<TypeOfEnemy> enemy2;
     
@@ -49,9 +49,12 @@ public class RoomManager : MonoBehaviour
 
     private void Awake()
     {
+        playerRoomInitialPosition = GetComponentInParent<Transform>().transform.position - new Vector3(6, 0, 0);
         typesOfRoom = new List<RoomChallenge>();
         GetSpawnPoints();
         roomChallengeGenerator = GetComponent<RoomChallengeGenerator>();
+        PlayerHealthSystem.instance.OnPlayerDied += DisableEnemies;
+        AfterDeathOptions.instance.OnTryAgain += RepeatChallenge;
     }
 
     private void Start()
@@ -105,8 +108,9 @@ public class RoomManager : MonoBehaviour
 
     private void FreezePlayer()
     {
+        PlayerHealthSystem.instance.hpBeforeChallenge = PlayerHealthSystem.instance.GetCurrentHP();
         var player = GameObject.FindGameObjectWithTag("Player");;
-        player.transform.position = this.transform.position - playerRoomInitialPosition;
+        player.transform.position = playerRoomInitialPosition;
         PlayerMovement.characterCanReceiveInput = false;
         StartCoroutine(PlayerCanUpdateAgain());
         previousRoomsDoorManager.OnPlayerEnteredRoom -= FreezePlayer;
@@ -212,5 +216,29 @@ public class RoomManager : MonoBehaviour
                 room.SetRoomExits(doorsHolderGameObject);
             }
         }
+    }
+
+    public void DisableEnemies()
+    {
+        foreach (Transform enemy in enemiesHolderGameObject.transform)
+        {
+            Destroy(enemy.gameObject);
+        }
+        PlayerHealthSystem.instance.OnPlayerDied -= DisableEnemies;
+    }
+
+    public void RepeatChallenge()
+    {
+        AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
+        if(this.roomID == DungeonManager.instance.playersRoom)
+        {
+            foreach(TypeOfEnemy toe in challengeOfThisRoom.GetTypeOfEnemies())
+            {
+                var enemyPrefab = EnemyLibrary.instance.GetEnemyTypePrefab(toe);
+                GameObject spawnedEnemy = Instantiate(enemyPrefab, GetRandomSpawnPoint().position, Quaternion.identity, this.GetEnemyHolder());
+                GameManager.instance.GetComponentInChildren<TierEvolution>().ApplyMutation(spawnedEnemy);
+            }
+        }
+        
     }
 }

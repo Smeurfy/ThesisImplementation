@@ -60,6 +60,7 @@ public class DoorManager : MonoBehaviour
         ChangeDoorIsOpen(true);
         audioSource.PlayOneShot(openDoor);
         animator.SetBool(animatorBoolIsOpened, true);
+        DungeonManager.instance.playersRoom++;
     }
     
     private void CloseDoor()

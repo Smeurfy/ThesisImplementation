@@ -19,6 +19,7 @@ public class DungeonManager : MonoBehaviour
     private int nextRoomToGenerateIndex = 0;
     private ScoreManager scoreManager;
     private bool firstTimeGeneratingChallenges = true;
+    public int playersRoom = -1;
     
 
     #region getters
@@ -32,8 +33,7 @@ public class DungeonManager : MonoBehaviour
 
     private void Awake()
     {
-        MakeThisObjectSingleton();
-        
+        MakeThisObjectSingleton();        
         scoreManager = GetComponent<ScoreManager>();
     }
     
@@ -134,6 +134,8 @@ public class DungeonManager : MonoBehaviour
 
     private void SceneLoaded(Scene loadedScene, LoadSceneMode arg1)
     {
+        Debug.Log("scene loaded");
+
         if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
         {
             roomsHolder = GameObject.FindGameObjectWithTag("Dungeon").transform;
@@ -141,6 +143,9 @@ public class DungeonManager : MonoBehaviour
             allRooms.Add(GameObject.FindGameObjectWithTag("FirstRoom").GetComponent<RoomManager>());
             enemyBulletHolder = GameObject.FindGameObjectWithTag("BulletHolder").transform;
 
+            tierOfEnemies.Clear();
+            globalTier = 0;
+            firstTimeGeneratingChallenges = true;
             roomID = -1;
             nextRoomToGenerateIndex = 0;
 

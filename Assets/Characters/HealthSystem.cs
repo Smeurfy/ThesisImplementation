@@ -5,9 +5,12 @@ public class HealthSystem : MonoBehaviour
     protected int initialHp;
     protected int currentHp;
 
+    public int hpBeforeChallenge;
+
     protected void Start()
     {
-        currentHp = initialHp;    
+        currentHp = initialHp;
+        hpBeforeChallenge = initialHp;
     }
 
     public int GetCurrentHP() { return currentHp; }

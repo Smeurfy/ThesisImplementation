@@ -27,6 +27,7 @@ public class PlayerShoot : MonoBehaviour
     private BulletManager currentBulletManager;
     private AudioSource audioSource;
     private AudioClip shotSound;
+    private Weapon weaponBeforeChallenge;
     
     private const string shootButton = "Shoot Weapon";
     private const string RECOIL_TRIGGER = "recoil";

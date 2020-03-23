@@ -50,6 +50,7 @@ public class ShieldManager : MonoBehaviour
     {
         if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
         {
+            isShieldUnlocked = false;
             shieldUI = FindObjectOfType<ShieldUIManager>();
             shieldUI.gameObject.SetActive(isShieldUnlocked);
             shieldIsCharged = false;

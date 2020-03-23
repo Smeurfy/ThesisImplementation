@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour 
 {
     public static GameManager instance;
-    public event Action OnGameOver = delegate { }; 
+    //public event Action OnGameOver = delegate { }; 
     public event Action OnGameWon = delegate { }; 
 
     [SerializeField] private int gameSceneNumber;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         MakeThisObjectSingleton();
         player = FindObjectOfType<PlayerHealthSystem>().transform;
-        FindObjectOfType<PlayerHealthSystem>().OnPlayerDied += ResetGame;
+        FindObjectOfType<AfterDeathOptions>().OnRestart += ResetGame;
         dungeonManager = GetComponent<DungeonManager>();
         ScoreManager.OnWinAchieved += WinGame;
         SceneManager.sceneLoaded += EnablePlayerAndGetWinFadeReference;
@@ -86,16 +86,17 @@ public class GameManager : MonoBehaviour
 
     internal void ResetGame()
     {
-        if(DungeonManager.instance.GetAllRooms()[DungeonManager.instance.GetRoomID()])
-        {
-            FindObjectOfType<PlayerHealthSystem>().OnPlayerDied -= ResetGame;
-            DungeonManager.instance.CreateNextRoom();
-        }
-        else
-        {
+        Debug.Log("resetGame");
+        // if(DungeonManager.instance.GetAllRooms()[DungeonManager.instance.GetRoomID()])
+        // {
+        //     FindObjectOfType<AfterDeathOptions>().OnRestart -= ResetGame;
+        //     DungeonManager.instance.CreateNextRoom();
+        // }
+        // else
+        // {
             if(!reseting)
             {
-                FindObjectOfType<PlayerHealthSystem>().OnPlayerDied -= ResetGame;
+                FindObjectOfType<AfterDeathOptions>().OnRestart -= ResetGame;
                 reseting = true;
                 if(this == null)
                 {
@@ -103,13 +104,14 @@ public class GameManager : MonoBehaviour
                 }
                 else { StartCoroutine(WaitAndResetGame()); }
             }
-        }
+       //}
         
     }
     
     private IEnumerator WaitAndResetGame()
     {
-        OnGameOver();
+        //OnGameOver();
+        Debug.Log("waitAndReset");                       
         yield return new WaitForSecondsRealtime(secondsToWaitBeforeReset);
         SceneManager.LoadScene(gameSceneNumber);
         player.GetComponent<PlayerHealthSystem>().EnablePlayerControls();

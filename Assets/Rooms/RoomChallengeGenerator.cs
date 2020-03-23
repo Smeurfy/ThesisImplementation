@@ -7,7 +7,6 @@ public class RoomChallengeGenerator : MonoBehaviour
     private void Start()
     {
         roomManager = GetComponent<RoomManager>();
-
     }
     
     public void GenerateChallengeForNextRoom()
@@ -16,6 +15,9 @@ public class RoomChallengeGenerator : MonoBehaviour
             GeneratePossibleChallengesPopulation();
         CheckForTierUpdate();
         var bestChallenge = PickBestChallengeFromPossiblePopulation();
+        roomManager.challengeOfThisRoom = bestChallenge;
+        roomManager.enem1 = roomManager.challengeOfThisRoom.GetTypeOfEnemies()[0];
+        roomManager.enem2 = roomManager.challengeOfThisRoom.GetTypeOfEnemies()[1];
         CreateChallengeInGame(bestChallenge);
     }
 
@@ -70,12 +72,12 @@ public class RoomChallengeGenerator : MonoBehaviour
                 if(!DungeonManager.instance.tierOfEnemies.ContainsKey(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]))
                 {
                     DungeonManager.instance.tierOfEnemies.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0], 0);
-                    //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0])   ;
+                    //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]);
                 }
                 if(!DungeonManager.instance.tierOfEnemies.ContainsKey(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]))
                 {
                     DungeonManager.instance.tierOfEnemies.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1], 0);
-                    //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1])   ;
+                    //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]);
                 }
             }
             Debug.Log(DungeonManager.instance.tierOfEnemies.Count + " is the size of the dictionary with the tiers of each enemy")   ;

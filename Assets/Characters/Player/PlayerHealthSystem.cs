@@ -38,6 +38,7 @@ public class PlayerHealthSystem : HealthSystem
 
     new private void Start()
     {
+        AfterDeathOptions.instance.OnTryAgain += EnablePlayer;
         GetReferencesToAttributes();
         initialHp = startingHp;
         base.Start();
@@ -46,6 +47,7 @@ public class PlayerHealthSystem : HealthSystem
     
     internal override void CharacterDied()
     {
+        AfterDeathOptions.instance.afterDeathMenu.SetActive(true);
         audioSource.PlayOneShot(soundFXHolder.GetDiedSound(), 1f);
         if(!alreadySignaledPlayerDeath)
         {
@@ -57,7 +59,7 @@ public class PlayerHealthSystem : HealthSystem
 
     private IEnumerator DisablePlayer()
     {
-        Camera.main.GetComponentInChildren<Animator>().enabled = true;
+        //Camera.main.GetComponentInChildren<Animator>().enabled = true;
         PlayerCanControlCharacter(false);
         canTakeDamage = false;
         while (audioSource.isPlaying)
@@ -65,6 +67,20 @@ public class PlayerHealthSystem : HealthSystem
             yield return new WaitForEndOfFrame();
         }
         gameObject.SetActive(false);
+    }
+
+    public void EnablePlayer()
+    {
+        //PlayerCanControlCharacter(true);
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponentInChildren<PlayerShoot>().enabled = true;
+        GetComponent<ThrowItem>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+        currentHp = hpBeforeChallenge;
+        OnPlayerHealthUpdate(currentHp);
+        transform.position = DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition();
+        canTakeDamage = true;
+        gameObject.SetActive(true);
     }
 
     public void EnablePlayerControls()
