@@ -21,7 +21,7 @@ public class PossibleChallengeData
                     challengesCombination.Add(EnemyLibrary.instance.GetSpecificEnemy(i,j));
             }
         }
-        Debug.Log("done");
+        //Debug.Log("done");
         firstTime = false;
     }
 

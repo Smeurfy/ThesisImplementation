@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d23117d9fb4a82a4f985dd18d139a0eb, type: 3}
-  m_Name: xMas tree no bullets
+  m_Name: xmas tree no bullets
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 4b0d6d2eaebf658429d1e247afdb5d20, type: 3}
   flyingItemPrefab: {fileID: 1650554321861568, guid: b956867003b672a4c80bf52a6945acfe,

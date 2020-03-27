@@ -43,6 +43,7 @@ namespace Thesis.Enemy
             hasEffectOnDeath = enemyData.HasOnDeathEffect();
             InitializeHealthBar();
             base.Start();
+            AfterDeathOptions.instance.OnTryAgain += EnableVariables;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -123,6 +124,7 @@ namespace Thesis.Enemy
                     HUD.SetActive(false);
                 }
                 audioSource.PlayOneShot(diedSoundFX);
+                Debug.Log("INIMIGO MORRE " + gameObject.name);
                 OnEnemyDie();
                 // notify that character is dead -> for roomManager 
                 // notify that character is dead -> for points
@@ -173,7 +175,7 @@ namespace Thesis.Enemy
             try
             {
                 DungeonManager.instance.tierOfEnemies[enemyData.GetTypeOfEnemy()]++;
-                Debug.Log( DungeonManager.instance.tierOfEnemies[enemyData.GetTypeOfEnemy()] + " " + enemyData.GetTypeOfEnemy().name);
+                //Debug.Log( DungeonManager.instance.tierOfEnemies[enemyData.GetTypeOfEnemy()] + " " + enemyData.GetTypeOfEnemy().name);
             }
             catch(KeyNotFoundException)
             {
@@ -200,6 +202,10 @@ namespace Thesis.Enemy
                 remaningHealth.fillAmount = 1;
                 damageVisualization.fillAmount = 1;
             }
+        }
+
+        private void EnableVariables(){
+            stillAlive = true;
         }
     }
 }

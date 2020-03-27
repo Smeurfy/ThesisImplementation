@@ -80,7 +80,7 @@ public class RoomChallengeGenerator : MonoBehaviour
                     //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]);
                 }
             }
-            Debug.Log(DungeonManager.instance.tierOfEnemies.Count + " is the size of the dictionary with the tiers of each enemy")   ;
+            //Debug.Log(DungeonManager.instance.tierOfEnemies.Count + " is the size of the dictionary with the tiers of each enemy")   ;
             
     }
 }

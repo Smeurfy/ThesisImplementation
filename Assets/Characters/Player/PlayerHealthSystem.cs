@@ -71,7 +71,7 @@ public class PlayerHealthSystem : HealthSystem
 
     public void EnablePlayer()
     {
-        //PlayerCanControlCharacter(true);
+        alreadySignaledPlayerDeath = false;
         GetComponent<PlayerMovement>().enabled = true;
         GetComponentInChildren<PlayerShoot>().enabled = true;
         GetComponent<ThrowItem>().enabled = true;
@@ -93,6 +93,7 @@ public class PlayerHealthSystem : HealthSystem
         GetComponent<PlayerMovement>().enabled = state;
         GetComponentInChildren<PlayerShoot>().enabled = state;
         GetComponent<ThrowItem>().enabled = state;
+        GetComponent<Collider2D>().enabled = state;
         if (state)
         {
             GetComponent<Collider2D>().enabled = true;

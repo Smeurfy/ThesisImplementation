@@ -14,6 +14,7 @@ public abstract class RoomChallenge : MonoBehaviour
 
     internal void ChallengeComplete()
     {
+        Debug.Log("challengeComplete");
         RoomCleared();
     }
 }

@@ -16,6 +16,9 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private AudioClip noBulletsSound;
     [SerializeField] private Image bulletTypeImage;
     [SerializeField] private SpriteRenderer hatImage;
+    [SerializeField] private GameObject[] weaponsPrefab;
+
+
 
     private ParticleSystem shootingPS;
     private bool isHoldingThrowable;
@@ -27,7 +30,7 @@ public class PlayerShoot : MonoBehaviour
     private BulletManager currentBulletManager;
     private AudioSource audioSource;
     private AudioClip shotSound;
-    private Weapon weaponBeforeChallenge;
+    [SerializeField]private Weapon weaponBeforeChallenge;
     
     private const string shootButton = "Shoot Weapon";
     private const string RECOIL_TRIGGER = "recoil";
@@ -52,6 +55,7 @@ public class PlayerShoot : MonoBehaviour
         gameObject.GetComponentInParent<ThrowItem>().OnPlayerThrow += DroppedThrowable;
         PauseMenuManager.instance.OnGameIsPaused += GameIsPaused;
         SceneManager.sceneUnloaded += DereferencePause;
+        AfterDeathOptions.instance.OnTryAgain += EnableWeapon;
     }
 
     private void DereferencePause(Scene sceneToUnload)
@@ -152,6 +156,7 @@ public class PlayerShoot : MonoBehaviour
     private void PickUpThrowable(GameObject throwableToPickUp)
     {
         weaponBeingHeld = throwableToPickUp.GetComponent<WeaponPickup>().GetWeapon();
+        weaponBeforeChallenge = weaponBeingHeld;
         shotSound = weaponBeingHeld.GetShotSound();
         bulletTypeImage.sprite = weaponBeingHeld.GetBulletTypeImage();
         hatImage.sprite = weaponBeingHeld.GetHatImage();
@@ -187,5 +192,20 @@ public class PlayerShoot : MonoBehaviour
     private void GameIsPaused(bool isGamePaused)
     {
         this.isGamePaused = isGamePaused;
+    }
+
+    private void EnableWeapon()
+    {
+        Debug.Log("Enable Weapon");
+        foreach (GameObject item in weaponsPrefab)
+        {
+            Debug.Log("item name " + item.name);
+            Debug.Log("weapon before challenge name " + weaponBeforeChallenge.name);
+            if(item.name == weaponBeforeChallenge.name && !FindObjectOfType<WeaponPickup>()){
+                Debug.Log("arma");
+                var weapon = Instantiate(item, DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition(), Quaternion.identity);
+            }
+        }
+        //AfterDeathOptions.instance.OnTryAgain -= EnableWeapon;
     }
 }

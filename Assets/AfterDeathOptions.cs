@@ -34,8 +34,12 @@ public class AfterDeathOptions : MonoBehaviour
 
 	public void TryAgain()
 	{
-		Debug.Log("try again");
-		OnTryAgain();
+		if(OnTryAgain != null)
+		{
+			Debug.Log("try again");
+			OnTryAgain();
+		}
+			
 	}
 
 	public void Restart()

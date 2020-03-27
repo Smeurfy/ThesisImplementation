@@ -5,19 +5,9 @@ using UnityEngine;
 public class KillAllChallenge : RoomChallenge
 {
     private List<EnemyHealthSystem> enemies;
-    private int enemiesKilled = 0;
-    private int totalNumberOfEnemies;
+    [SerializeField]public int enemiesKilled = 0;
+    [SerializeField]public int totalNumberOfEnemies;
 
-    private void Start()
-    {
-        //if(GameManager.instance.IsUsingModel())
-        //    GameManager.instance.GetPlayerReference().GetComponent<PlayerHealthSystem>().OnPlayerDied += UpdatePerformanceForAliveEnemies;
-    }
-
-    private void UpdatePerformanceForAliveEnemies()
-    {
-        PerformanceData.instance.UpdatePerformanceForAliveEnemies(enemies);
-    }
 
     private void Update()
     {
@@ -40,7 +30,6 @@ public class KillAllChallenge : RoomChallenge
         if (enemiesKilled == totalNumberOfEnemies)
         {
             ChallengeComplete();
-            GameManager.instance.GetPlayerReference().GetComponent<PlayerHealthSystem>().OnPlayerDied -= UpdatePerformanceForAliveEnemies;
             Destroy(this);
         }
     }

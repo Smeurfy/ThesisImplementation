@@ -867,7 +867,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430193a0d3c9c2148877caa3a7920d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHp: 12
+  hpBeforeChallenge: 0
+  startingHp: 1
   flashingScreenOnDamage: {fileID: 0}
 --- !u!114 &114232381947201146
 MonoBehaviour:
@@ -981,6 +982,10 @@ MonoBehaviour:
   noBulletsSound: {fileID: 8300000, guid: ed99a788c3d135d49b9bdd99a207f133, type: 3}
   bulletTypeImage: {fileID: 114521965233945720}
   hatImage: {fileID: 212060651465326154}
+  weaponsPrefab:
+  - {fileID: 1630885334715198, guid: 3fd30177efbfc6b40a4c749175cbb9fc, type: 2}
+  - {fileID: 1217802526450294, guid: 01dc7ecc32a729e44beb1843e3979d94, type: 2}
+  weaponBeforeChallenge: {fileID: 0}
 --- !u!114 &114825039247007896
 MonoBehaviour:
   m_ObjectHideFlags: 1
