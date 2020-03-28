@@ -24,7 +24,7 @@ namespace Thesis.Enemy
         private bool hasBeenDamage = false;
         private EnemyController controller;
 
-        private EnemyData enemyData;
+        public EnemyData enemyData;
 
         public event Action OnEnemyDie = delegate { };
         public event Action OnEnemyTakeFirstDamage = delegate { };
@@ -124,7 +124,6 @@ namespace Thesis.Enemy
                     HUD.SetActive(false);
                 }
                 audioSource.PlayOneShot(diedSoundFX);
-                Debug.Log("INIMIGO MORRE " + gameObject.name);
                 OnEnemyDie();
                 // notify that character is dead -> for roomManager 
                 // notify that character is dead -> for points
@@ -170,18 +169,7 @@ namespace Thesis.Enemy
         }
 
         private IEnumerator DestroyEnemy()
-        {
-            //Tier update
-            try
-            {
-                DungeonManager.instance.tierOfEnemies[enemyData.GetTypeOfEnemy()]++;
-                //Debug.Log( DungeonManager.instance.tierOfEnemies[enemyData.GetTypeOfEnemy()] + " " + enemyData.GetTypeOfEnemy().name);
-            }
-            catch(KeyNotFoundException)
-            {
-                Debug.Log("bah bah erro dicionario");
-            }
-            
+        {                  
             if(particles)
             {
                 while (particles.isPlaying || audioSource.isPlaying)
@@ -190,7 +178,6 @@ namespace Thesis.Enemy
                 }
             }
 
-            
             Destroy(gameObject);
             
         }

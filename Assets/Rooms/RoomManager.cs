@@ -113,7 +113,6 @@ public class RoomManager : MonoBehaviour
 
     private void FreezePlayer()
     {
-        //Debug.Log("freezplayer");
         PlayerHealthSystem.instance.hpBeforeChallenge = PlayerHealthSystem.instance.GetCurrentHP();
         var player = GameObject.FindGameObjectWithTag("Player");;
         player.transform.position = playerRoomInitialPosition;
@@ -124,7 +123,6 @@ public class RoomManager : MonoBehaviour
 
     private void WaitToShowChallenge()
     {
-        //Debug.Log("wait to show challenge");
         StartCoroutine(ShowChallenge());
         previousRoomsDoorManager.OnPlayerEnteredRoom -= WaitToShowChallenge;
     }
@@ -172,6 +170,7 @@ public class RoomManager : MonoBehaviour
         if (challengesCleared == typesOfRoom.Count)
         {
             Debug.Log("Room Cleared");
+            UpdateTierOfMonsters();
             RoomCleared();
         }
     }
@@ -203,8 +202,7 @@ public class RoomManager : MonoBehaviour
             case (ConditionToOpen.opened):
                 RoomCleared();
                 break;
-            case (ConditionToOpen.killAll):
-                Debug.Log("kill all");                
+            case (ConditionToOpen.killAll):               
                 gameObject.AddComponent<KillAllChallenge>().InitializeEnemies(enemiesHolderGameObject);
                 break;
             case (ConditionToOpen.pressSwitch):
@@ -232,18 +230,18 @@ public class RoomManager : MonoBehaviour
         //     }
         // }
         
-        Debug.Log(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this);
-        Debug.Log(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom));
-        Debug.Log(this);
+        // Debug.Log(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this);
+        // Debug.Log(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom));
+        // Debug.Log(this);
         if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this)
             {
                 var room = GetComponent<RoomChallenge>();
-                Debug.Log(room.name);
+                // Debug.Log(room.name);
                 typesOfRoom = new List<RoomChallenge>();
                 room.RoomCleared += CheckIfAllChallengesHaveBeenOvercome;
-                Debug.Log("adiciona quarto");
+                // Debug.Log("adiciona quarto");
                 typesOfRoom.Add(room);
-                Debug.Log(typesOfRoom[0]);
+                // Debug.Log(typesOfRoom[0]);
                 room.SetRoomExits(doorsHolderGameObject);
             }
     }
@@ -270,6 +268,8 @@ public class RoomManager : MonoBehaviour
             }
         } 
         HideChallenge();
+        PlayerMovement.characterCanReceiveInput = false;
+        StartCoroutine(PlayerCanUpdateAgain());
         if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this){
             gameObject.GetComponent<KillAllChallenge>().enemiesKilled = 0;
             gameObject.GetComponent<KillAllChallenge>().totalNumberOfEnemies = 0;
@@ -278,5 +278,26 @@ public class RoomManager : MonoBehaviour
            
         SubscribeToTypeOfRoomWinningCondition();
         StartCoroutine(ShowChallenge());
+    }
+
+    private void UpdateTierOfMonsters(){
+
+        if(!GetComponent<FirstRoom>()){
+            //update tier of monsters when completes the challenge
+            foreach (TypeOfEnemy enemy in challengeOfThisRoom.GetTypeOfEnemies())
+            {   
+                try
+                {
+                    DungeonManager.instance.tierOfEnemies[enemy]++;
+                    Debug.Log(DungeonManager.instance.tierOfEnemies[enemy] + " tier monstro");
+                }
+                catch(KeyNotFoundException)
+                {
+                    Debug.Log("bah bah erro dicionario");
+                }    
+            }
+        }
+        
+        
     }
 }

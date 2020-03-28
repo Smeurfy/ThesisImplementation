@@ -44,6 +44,7 @@ public class RoomChallengeGenerator : MonoBehaviour
             if(possibleChallenge.challengeAvailable && DungeonManager.instance.tierOfEnemies[possibleChallenge.GetTypeOfEnemies()[0]] == DungeonManager.instance.GetGlobalTier() && 
                                                        DungeonManager.instance.tierOfEnemies[possibleChallenge.GetTypeOfEnemies()[1]] == DungeonManager.instance.GetGlobalTier())
             {
+                Debug.Log("Devolvo MONSTRTODS");
                 return possibleChallenge;
             }
         }
