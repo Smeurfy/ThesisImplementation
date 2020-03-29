@@ -9,6 +9,7 @@ TagManager:
   - Jail
   - BulletHolder
   - DamageIndicator
+  - Weapon
   layers:
   - Default
   - TransparentFX

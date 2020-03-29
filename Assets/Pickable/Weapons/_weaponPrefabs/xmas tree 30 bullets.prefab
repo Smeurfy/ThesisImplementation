@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 114611036750148622}
   m_Layer: 14
   m_Name: xmas tree 30 bullets
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

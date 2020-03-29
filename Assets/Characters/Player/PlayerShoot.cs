@@ -31,6 +31,8 @@ public class PlayerShoot : MonoBehaviour
     private AudioSource audioSource;
     private AudioClip shotSound;
     [SerializeField]private Weapon weaponBeforeChallenge;
+    [SerializeField]private int bulletsBeforeChallenge;
+    
     
     private const string shootButton = "Shoot Weapon";
     private const string RECOIL_TRIGGER = "recoil";
@@ -56,6 +58,7 @@ public class PlayerShoot : MonoBehaviour
         PauseMenuManager.instance.OnGameIsPaused += GameIsPaused;
         SceneManager.sceneUnloaded += DereferencePause;
         AfterDeathOptions.instance.OnTryAgain += EnableWeapon;
+        DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
     }
 
     private void DereferencePause(Scene sceneToUnload)
@@ -194,6 +197,13 @@ public class PlayerShoot : MonoBehaviour
         this.isGamePaused = isGamePaused;
     }
 
+    private void BulletsBeforeChallenge()
+    {
+        Debug.Log("entrei NO bULLETS");
+        bulletsBeforeChallenge = currentBulletManager.AvailableBulletsCount();
+        DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
+    }
+
     private void EnableWeapon()
     {
         Debug.Log("Enable Weapon");
@@ -204,6 +214,7 @@ public class PlayerShoot : MonoBehaviour
             if(item.name == weaponBeforeChallenge.name && !FindObjectOfType<WeaponPickup>()){
                 Debug.Log("arma");
                 var weapon = Instantiate(item, DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition(), Quaternion.identity);
+                weapon.GetComponent<BulletManager>().SetAvailableBullets(bulletsBeforeChallenge);
             }
         }
         //AfterDeathOptions.instance.OnTryAgain -= EnableWeapon;

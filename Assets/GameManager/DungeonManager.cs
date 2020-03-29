@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class DungeonManager : MonoBehaviour
 {
     public static DungeonManager instance;
-    public List<PossibleChallengeData> possibleChallenges;
+    //public List<PossibleChallengeData> possibleChallenges;
     public Dictionary<TypeOfEnemy, int> tierOfEnemies = new Dictionary<TypeOfEnemy, int>();
 
     [SerializeField] private int numberOfChallengesToGenerate;
@@ -39,7 +39,8 @@ public class DungeonManager : MonoBehaviour
     
     private void Start()
     {
-        InitializePossibleChallengesList();
+        //InitializePossibleChallengesList();
+        InitializeMonstersTier();
         CreateNextRoom();
         GenerateChallengeForFirstRoom();
         SceneManager.sceneLoaded += SceneLoaded;
@@ -93,23 +94,30 @@ public class DungeonManager : MonoBehaviour
         return allRooms[0];
     }
 
-    private void InitializePossibleChallengesList()
-    {
-        var enemiesCount = EnemyLibrary.instance.GetAllPossibleEnemies().Count;
-        for (int i = enemiesCount; i > 0 ; i--)
+    private void InitializeMonstersTier(){
+        foreach (var enemy in EnemyLibrary.instance.GetAllPossibleEnemies())
         {
-            numberOfChallengesToGenerate += i;
+            tierOfEnemies.Add(enemy, 0);
         }
-        numberOfChallengesToGenerate -= enemiesCount;
-        possibleChallenges = new List<PossibleChallengeData>
-        {
-            Capacity = numberOfChallengesToGenerate
-        };
-        for (int i = 0; i < possibleChallenges.Capacity; i++)
-        {
-            possibleChallenges.Add(new PossibleChallengeData());
-        }
+
     }
+    // private void InitializePossibleChallengesList()
+    // {
+    //     var enemiesCount = EnemyLibrary.instance.GetAllPossibleEnemies().Count;
+    //     for (int i = enemiesCount; i > 0 ; i--)
+    //     {
+    //         numberOfChallengesToGenerate += i;
+    //     }
+    //     numberOfChallengesToGenerate -= enemiesCount;
+    //     possibleChallenges = new List<PossibleChallengeData>
+    //     {
+    //         Capacity = numberOfChallengesToGenerate
+    //     };
+    //     for (int i = 0; i < possibleChallenges.Capacity; i++)
+    //     {
+    //         possibleChallenges.Add(new PossibleChallengeData());
+    //     }
+    // }
 
     internal void AssignRoomID()
     {
@@ -148,6 +156,7 @@ public class DungeonManager : MonoBehaviour
             firstTimeGeneratingChallenges = true;
             roomID = -1;
             nextRoomToGenerateIndex = 0;
+            playersRoom = -1;
 
             CreateNextRoom();
             GenerateChallengeForFirstRoom();

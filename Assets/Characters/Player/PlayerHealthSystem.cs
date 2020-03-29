@@ -43,6 +43,7 @@ public class PlayerHealthSystem : HealthSystem
         initialHp = startingHp;
         base.Start();
         OnPlayerHealthUpdate(currentHp);
+        OnPlayerDied += DestroyWeapons;
     }
     
     internal override void CharacterDied()
@@ -173,6 +174,15 @@ public class PlayerHealthSystem : HealthSystem
     {
         currentHp = startingHp;
         flashingScreenOnDamage = Camera.main.GetComponentInChildren<Image>();
+    }
+
+    private void DestroyWeapons()
+    {
+        var objs = GameObject.FindGameObjectsWithTag("Weapon");
+        foreach (var item in objs)
+        {
+            Destroy(item);
+        }
     }
 
     private void MakeThisObjectSingleton()

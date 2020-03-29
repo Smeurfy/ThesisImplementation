@@ -43,6 +43,8 @@ public class RoomManager : MonoBehaviour
     public Vector3 GetPositionNextRoom() {return nextRoom;}
     public Vector3 GetPlayerRoomInitialPosition() {return playerRoomInitialPosition;}
 
+    public GameObject GetDoorHolder() {return doorsHolderGameObject;}
+
     #endregion
 
     public void setPositionNextRoom(Vector3 position) {nextRoom = position;}
@@ -296,8 +298,6 @@ public class RoomManager : MonoBehaviour
                     Debug.Log("bah bah erro dicionario");
                 }    
             }
-        }
-        
-        
+        }   
     }
 }
