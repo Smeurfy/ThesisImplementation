@@ -50,7 +50,9 @@ public class PossibleChallengeData
 
     private void CheckDifferenceBetweenTiers(){
         var tierOfEnemies = DungeonManager.instance.tierOfEnemies;
-        if(possibleEnemies[0] != possibleEnemies[1] && Mathf.Abs(tierOfEnemies[possibleEnemies[0]] - tierOfEnemies[possibleEnemies[1]]) <= 2)
+        var skipedChallenges = DungeonManager.instance.skipedChallenges;
+        if(possibleEnemies[0] != possibleEnemies[1] && Mathf.Abs(tierOfEnemies[possibleEnemies[0]] - tierOfEnemies[possibleEnemies[1]]) <= 2
+                                                    && !skipedChallenges.Contains(possibleEnemies))
         {
             possibleChallenge = false;
         }

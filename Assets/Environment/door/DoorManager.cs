@@ -4,7 +4,8 @@ using UnityEngine;
 public class DoorManager : MonoBehaviour
 {
     public enum DoorsPosition { right, left, top, down }
-    public event Action OnPlayerEnteredRoom  = delegate { };
+    public event Action OnPlayerEnteredRoom = delegate { };
+    public event Action<bool> OnPlayerSurvivedRemaininBullets = delegate { };
 
     [SerializeField] private DoorsPosition doorPositionInRoom = DoorsPosition.right;
     [SerializeField] private AudioClip openDoor;
@@ -21,6 +22,8 @@ public class DoorManager : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         GetComponentInParent<RoomManager>().RoomCleared += OpenDoor;
+        AfterDeathOptions.instance.OnTryAgain += CloseDoor;
+        AfterDeathOptions.instance.OnSkip += CloseDoor;
         StartTriggerToCloseDoorAfterPlayerEnteredTheRoom();
     }
 
@@ -29,6 +32,8 @@ public class DoorManager : MonoBehaviour
         var triggerObject = other.gameObject;
         if (triggerObject.GetComponent<PlayerMovement>())
         {
+            DungeonManager.instance.playersRoom++;
+            OnPlayerSurvivedRemaininBullets(true);
             OnPlayerEnteredRoom();
             UpdateCameraToLookAtNewRoom();
             CloseDoor();
@@ -48,7 +53,7 @@ public class DoorManager : MonoBehaviour
     {
         foreach (Collider2D collider in GetComponents<Collider2D>())
         {
-            if(collider.isTrigger)
+            if (collider.isTrigger)
             {
                 Destroy(collider);
             }
@@ -60,14 +65,14 @@ public class DoorManager : MonoBehaviour
         ChangeDoorIsOpen(true);
         audioSource.PlayOneShot(openDoor);
         animator.SetBool(animatorBoolIsOpened, true);
-        DungeonManager.instance.playersRoom++;
     }
-    
+
     private void CloseDoor()
     {
         ChangeDoorIsOpen(false);
         audioSource.PlayOneShot(closeDoor);
         animator.SetBool(animatorBoolIsOpened, false);
+        OnPlayerSurvivedRemaininBullets(false);
     }
 
     private void ChangeDoorIsOpen(bool newState)

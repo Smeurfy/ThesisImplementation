@@ -2,6 +2,10 @@
 
 public class RegularBullet : TypeOfBullet
 {
+    private void Start(){
+        AfterDeathOptions.instance.OnTryAgain += DestroyBullet;
+    }
+
     public override void SetTarget(Vector2 target)
     {
         SetBulletDirection(target);
@@ -30,5 +34,11 @@ public class RegularBullet : TypeOfBullet
         //    }
         //}
         Destroy(gameObject);
+    }
+
+    private void DestroyBullet(){
+        if(this){
+            Destroy(gameObject);
+        }
     }
 }

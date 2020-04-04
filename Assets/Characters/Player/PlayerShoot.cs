@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PlayerShoot : MonoBehaviour 
+public class PlayerShoot : MonoBehaviour
 {
     public event Action<int> OnItemPickup = delegate { };
     public event Action OnItemThrow = delegate { };
@@ -30,16 +30,16 @@ public class PlayerShoot : MonoBehaviour
     private BulletManager currentBulletManager;
     private AudioSource audioSource;
     private AudioClip shotSound;
-    [SerializeField]private Weapon weaponBeforeChallenge;
-    [SerializeField]private int bulletsBeforeChallenge;
-    
-    
+    [SerializeField] private Weapon weaponBeforeChallenge;
+    [SerializeField] private int bulletsBeforeChallenge;
+
+
     private const string shootButton = "Shoot Weapon";
     private const string RECOIL_TRIGGER = "recoil";
     private const string RESET_HAT_TRIGGER = "reset";
 
     #region getters
-    public Weapon GetWeaponBeingHeld () { return weaponBeingHeld; }
+    public Weapon GetWeaponBeingHeld() { return weaponBeingHeld; }
     public bool IsPlayerHoldingThrowable() { return isHoldingThrowable; }
     public int GetRemainingBullets() { return currentBulletManager.AvailableBulletsCount(); }
     #endregion
@@ -58,6 +58,7 @@ public class PlayerShoot : MonoBehaviour
         PauseMenuManager.instance.OnGameIsPaused += GameIsPaused;
         SceneManager.sceneUnloaded += DereferencePause;
         AfterDeathOptions.instance.OnTryAgain += EnableWeapon;
+        AfterDeathOptions.instance.OnSkip += EnableWeapon;
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
     }
 
@@ -77,7 +78,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if(ShootingButtonHeldDown() && PlayerMovement.characterCanReceiveInput && weaponBeingHeld != null)
+        if (ShootingButtonHeldDown() && PlayerMovement.characterCanReceiveInput && weaponBeingHeld != null)
         {
             AttemptToShoot();
         }
@@ -89,20 +90,20 @@ public class PlayerShoot : MonoBehaviour
         {
             ShootWeapon();
         }
-        else if(!currentBulletManager.HasAvailableBullets())
+        else if (!currentBulletManager.HasAvailableBullets())
         {
             PlayNoBulletsSound();
         }
     }
-    
+
     private void ShootWeapon() // TODO consider changing this Instantiate to a pool of bullets for optimazation's sake
     {
         nextShotAvailable = false;
         PlayShotSoundFX();
         TypeOfBullet bullet = Instantiate(weaponBeingHeld.GetBulletPrefab(), tipOfTheGun.position, Quaternion.identity, null);
 
-        if(! (bullet is AOEBullet))
-        { 
+        if (!(bullet is AOEBullet))
+        {
             bullet.gameObject.layer = (int)DefinedLayers.PlayerBullets;
             var playerBullet = bullet.gameObject.AddComponent<PlayerBullet>();
             playerBullet.SetDamage(weaponBeingHeld.GetBulletDamage());
@@ -130,7 +131,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void PlayNoBulletsSound()
     {
-        if(!audioSource.isPlaying)
+        if (!audioSource.isPlaying)
         {
             audioSource.pitch = 1f;
             audioSource.PlayOneShot(noBulletsSound);
@@ -142,13 +143,13 @@ public class PlayerShoot : MonoBehaviour
         StopAllCoroutines();
         PickUpThrowable(throwableToPickUp);
     }
-        
+
     private void DroppedThrowable()
     {
         OnItemThrow();
         weaponBeingHeld = null;
         hatImage.sprite = null;
-        if(shootingPS != null)
+        if (shootingPS != null)
             Destroy(shootingPS.gameObject);
         currentBulletManager = null;
         isHoldingThrowable = false;
@@ -178,7 +179,7 @@ public class PlayerShoot : MonoBehaviour
         yield return new WaitForSecondsRealtime(weaponBeingHeld.GetTimeToWaitToShootAgain());
         nextShotAvailable = true;
     }
-    
+
     private bool ShootingButtonHeldDown()
     {
         return Input.GetButton(shootButton);
@@ -191,7 +192,7 @@ public class PlayerShoot : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
     }
-    
+
     private void GameIsPaused(bool isGamePaused)
     {
         this.isGamePaused = isGamePaused;
@@ -199,9 +200,11 @@ public class PlayerShoot : MonoBehaviour
 
     private void BulletsBeforeChallenge()
     {
+
         Debug.Log("entrei NO bULLETS");
         bulletsBeforeChallenge = currentBulletManager.AvailableBulletsCount();
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
+
     }
 
     private void EnableWeapon()
@@ -211,7 +214,8 @@ public class PlayerShoot : MonoBehaviour
         {
             Debug.Log("item name " + item.name);
             Debug.Log("weapon before challenge name " + weaponBeforeChallenge.name);
-            if(item.name == weaponBeforeChallenge.name && !FindObjectOfType<WeaponPickup>()){
+            if (item.name == weaponBeforeChallenge.name && !FindObjectOfType<WeaponPickup>())
+            {
                 Debug.Log("arma");
                 var weapon = Instantiate(item, DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition(), Quaternion.identity);
                 weapon.GetComponent<BulletManager>().SetAvailableBullets(bulletsBeforeChallenge);

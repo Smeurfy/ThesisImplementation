@@ -39,6 +39,7 @@ public class PlayerHealthSystem : HealthSystem
     new private void Start()
     {
         AfterDeathOptions.instance.OnTryAgain += EnablePlayer;
+        AfterDeathOptions.instance.OnSkip += EnablePlayer;
         GetReferencesToAttributes();
         initialHp = startingHp;
         base.Start();
@@ -48,7 +49,6 @@ public class PlayerHealthSystem : HealthSystem
     
     internal override void CharacterDied()
     {
-        AfterDeathOptions.instance.afterDeathMenu.SetActive(true);
         audioSource.PlayOneShot(soundFXHolder.GetDiedSound(), 1f);
         if(!alreadySignaledPlayerDeath)
         {
@@ -68,6 +68,7 @@ public class PlayerHealthSystem : HealthSystem
             yield return new WaitForEndOfFrame();
         }
         gameObject.SetActive(false);
+        AfterDeathOptions.instance.afterDeathMenu.SetActive(true);
     }
 
     public void EnablePlayer()
@@ -91,7 +92,8 @@ public class PlayerHealthSystem : HealthSystem
 
     private void PlayerCanControlCharacter(bool state)
     {
-        GetComponent<PlayerMovement>().enabled = state;
+        //GetComponent<PlayerMovement>().enabled = state;
+        PlayerMovement.characterCanReceiveInput = state;
         GetComponentInChildren<PlayerShoot>().enabled = state;
         GetComponent<ThrowItem>().enabled = state;
         GetComponent<Collider2D>().enabled = state;

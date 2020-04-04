@@ -8,6 +8,7 @@ public class KillAllChallenge : RoomChallenge
     [SerializeField]public int enemiesKilled = 0;
     [SerializeField]public int totalNumberOfEnemies;
 
+
     private void Update()
     {
         CheckIfAllEnemiesAreDead();

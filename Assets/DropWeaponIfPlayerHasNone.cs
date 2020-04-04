@@ -6,6 +6,7 @@ public class DropWeaponIfPlayerHasNone : MonoBehaviour
     [SerializeField] Transform weaponSpawnTransform;
 
     private bool hasAnyWeaponEnteredTheRoom = false;
+    
 
     // if a weapon is thrown to the room or the player comes in with a weapon, nothing happens, if neither of this scenarios is true, then we drop a weapon
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,7 +22,10 @@ public class DropWeaponIfPlayerHasNone : MonoBehaviour
         }
         else
         {
-            Instantiate(weaponToDrop, weaponSpawnTransform.position, Quaternion.identity);
+            //Trigger runs before the update of the var playersRoom so kinda hammered
+            int aux = DungeonManager.instance.playersRoom;
+            aux++;
+            Instantiate(weaponToDrop, DungeonManager.instance.GetRoomManagerByRoomID(aux).GetPlayerRoomInitialPosition(), Quaternion.identity);
             Destroy(gameObject);
         }
     }

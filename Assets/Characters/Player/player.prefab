@@ -985,7 +985,10 @@ MonoBehaviour:
   weaponsPrefab:
   - {fileID: 1630885334715198, guid: 3fd30177efbfc6b40a4c749175cbb9fc, type: 2}
   - {fileID: 1217802526450294, guid: 01dc7ecc32a729e44beb1843e3979d94, type: 2}
+  - {fileID: 1630885334715198, guid: 810bca15328ccde468b7889b06cebb07, type: 2}
+  currentBulletManager: {fileID: 0}
   weaponBeforeChallenge: {fileID: 0}
+  bulletsBeforeChallenge: 0
 --- !u!114 &114825039247007896
 MonoBehaviour:
   m_ObjectHideFlags: 1

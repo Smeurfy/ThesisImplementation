@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,7 @@ public class DungeonManager : MonoBehaviour
 {
     public static DungeonManager instance;
     //public List<PossibleChallengeData> possibleChallenges;
+
     public Dictionary<TypeOfEnemy, int> tierOfEnemies = new Dictionary<TypeOfEnemy, int>();
 
     [SerializeField] private int numberOfChallengesToGenerate;
@@ -14,12 +16,14 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private Transform enemyBulletHolder;
     [SerializeField] private List<RoomManager> allRooms;
     [SerializeField] private int globalTier = 0;
+    public List<TypeOfEnemy[]> skipedChallenges = new List<TypeOfEnemy[]>();
 
     private int roomID = -1;
     private int nextRoomToGenerateIndex = 0;
     private ScoreManager scoreManager;
     private bool firstTimeGeneratingChallenges = true;
     public int playersRoom = -1;
+    private bool canCreateNextRoom = false;
     
 
     #region getters
@@ -35,6 +39,7 @@ public class DungeonManager : MonoBehaviour
     {
         MakeThisObjectSingleton();        
         scoreManager = GetComponent<ScoreManager>();
+       
     }
     
     private void Start()
@@ -63,22 +68,26 @@ public class DungeonManager : MonoBehaviour
 
     private void GenerateChallengeForFirstRoom()
     {
-        allRooms[0].RoomCleared += GenerateChallengeForNextRoom;
+        allRooms[0].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += GenerateChallengeForNextRoom;
         nextRoomToGenerateIndex = 1;
     }
 
-    private void GenerateChallengeForNextRoom()
+    private void GenerateChallengeForNextRoom(bool value)
     {
-        if (nextRoomToGenerateIndex <= GetComponent<ScoreManager>().GetNumberOfRoomsToBeatDungeon())
-        {
-            CreateNextRoom();
-        }
-        allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
-        allRooms[nextRoomToGenerateIndex].RoomCleared += GenerateChallengeForNextRoom;
-        allRooms[nextRoomToGenerateIndex].RoomCleared += scoreManager.UpdateScore;
+        if(value){
+            if (nextRoomToGenerateIndex <= GetComponent<ScoreManager>().GetNumberOfRoomsToBeatDungeon())
+            {
+                CreateNextRoom();
+            }
+            allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
+            allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += GenerateChallengeForNextRoom;
+            allRooms[nextRoomToGenerateIndex].RoomCleared += scoreManager.UpdateScore;
 
-        nextRoomToGenerateIndex++;
-        firstTimeGeneratingChallenges = false;
+            nextRoomToGenerateIndex++;
+            firstTimeGeneratingChallenges = false;
+        }
+
+        
     }
 
     internal RoomManager GetRoomManagerByRoomID(int roomID)
