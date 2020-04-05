@@ -325,6 +325,7 @@ public class RoomManager : MonoBehaviour
                 try
                 {
                     DungeonManager.instance.tierOfEnemies[enemy]++;
+                    FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponent<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy]);
                     Debug.Log(DungeonManager.instance.tierOfEnemies[enemy] + " tier monstro");
                 }
                 catch(KeyNotFoundException)
