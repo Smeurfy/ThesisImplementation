@@ -7,7 +7,7 @@ public class PossibleChallengeData
     public List<List<TypeOfEnemy>> challengesCombination = new List<List<TypeOfEnemy>>();
     internal TypeOfEnemy[] GetTypeOfEnemies() { return possibleEnemies; }
     private bool firstTime = true;
-    public bool challengeAvailable = true; 
+    public bool challengeAvailable = true;
     private bool possibleChallenge = true;
 
     // private void CreateChallenges()
@@ -38,24 +38,42 @@ public class PossibleChallengeData
 
     private void PopulatePossibleChallenge(int numberOfEnemiesInPossibleChallenge)
     {
-        while(possibleChallenge){
+        while (possibleChallenge)
+        {
             for (int i = 0; i < numberOfEnemiesInPossibleChallenge; i++)
             {
                 possibleEnemies[i] = EnemyLibrary.instance.GetRandomEnemy();
             }
             CheckDifferenceBetweenTiers();
+            if(DungeonManager.instance.DungeonBeaten()){
+                possibleChallenge = false;
+            }
         }
-        
+
     }
 
-    private void CheckDifferenceBetweenTiers(){
+    private void CheckDifferenceBetweenTiers()
+    {
         var tierOfEnemies = DungeonManager.instance.tierOfEnemies;
-        var skipedChallenges = DungeonManager.instance.skipedChallenges;
-        if(possibleEnemies[0] != possibleEnemies[1] && Mathf.Abs(tierOfEnemies[possibleEnemies[0]] - tierOfEnemies[possibleEnemies[1]]) <= 2
-                                                    && !skipedChallenges.Contains(possibleEnemies))
+
+        if (possibleEnemies[0] != possibleEnemies[1] && Mathf.Abs(tierOfEnemies[possibleEnemies[0]] - tierOfEnemies[possibleEnemies[1]]) <= 2
+                                                    && !checkIfChallengeSkipped())
         {
             possibleChallenge = false;
         }
     }
-        
+
+    private bool checkIfChallengeSkipped()
+    {
+        var skipedChallenges = DungeonManager.instance.skipedChallenges;
+        foreach (var item in skipedChallenges)
+        {
+            if ((item[0] == possibleEnemies[0] && item[1] == possibleEnemies[1]) || (item[1] == possibleEnemies[0] && item[0] == possibleEnemies[1]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

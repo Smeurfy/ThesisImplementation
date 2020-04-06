@@ -8,7 +8,7 @@ public class MonsterTierView : MonoBehaviour {
 
 	// Update is called once per frame
 		void Update(){
-		if(Input.GetKeyDown(KeyCode.T)){
+		if(Input.GetKeyDown(KeyCode.Tab)){
 			canvas.gameObject.SetActive(!canvas.gameObject.activeSelf);
 		}
 	}

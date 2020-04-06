@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour 
 {
     public static GameManager instance;
-    //public event Action OnGameOver = delegate { }; 
     public event Action OnGameWon = delegate { }; 
 
     [SerializeField] private int gameSceneNumber;
@@ -68,7 +67,7 @@ public class GameManager : MonoBehaviour
         }
         soundSource.PlayOneShot(victorySound);
         OnGameWon();
-        JsonWriter.instance.UpdateRunRoomsClearedOnVictory();
+        //JsonWriter.instance.UpdateRunRoomsClearedOnVictory();
         fadeToBlack.enabled = true;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         if(player)

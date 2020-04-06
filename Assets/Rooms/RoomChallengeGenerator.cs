@@ -3,12 +3,12 @@
 public class RoomChallengeGenerator : MonoBehaviour
 {
     private RoomManager roomManager;
-    
+
     private void Start()
     {
         roomManager = GetComponent<RoomManager>();
     }
-    
+
     public void GenerateChallengeForNextRoom()
     {
         // if(DungeonManager.instance.GetFirstTimeGeneratingChallenges())
@@ -50,17 +50,24 @@ public class RoomChallengeGenerator : MonoBehaviour
         //         return possibleChallenge;
         //     }
         // }
-        
+
         //bestChallenge = DungeonManager.instance.possibleChallenges[Random.Range(0, DungeonManager.instance.possibleChallenges.Count)];
-        return possibleChallengeData; 
+        return possibleChallengeData;
     }
 
     private void CreateChallengeInGame(PossibleChallengeData bestChallenge)
     {
-        foreach(TypeOfEnemy toe in bestChallenge.GetTypeOfEnemies())
+        var lastSpawnPosition = new Vector3();
+        foreach (TypeOfEnemy toe in bestChallenge.GetTypeOfEnemies())
         {
+            var randomPosition = roomManager.GetRandomSpawnPoint().position;
+            while (lastSpawnPosition == randomPosition)
+            {
+                randomPosition = roomManager.GetRandomSpawnPoint().position;
+            }
             var enemyPrefab = EnemyLibrary.instance.GetEnemyTypePrefab(toe);
-            GameObject spawnedEnemy = Instantiate(enemyPrefab, roomManager.GetRandomSpawnPoint().position, Quaternion.identity, roomManager.GetEnemyHolder());
+            GameObject spawnedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.identity, roomManager.GetEnemyHolder());
+            lastSpawnPosition = randomPosition;
             GameManager.instance.GetComponentInChildren<TierEvolution>().ApplyMutation(spawnedEnemy);
         }
     }
@@ -87,6 +94,6 @@ public class RoomChallengeGenerator : MonoBehaviour
         //         }
         //     }
         //     //Debug.Log(DungeonManager.instance.tierOfEnemies.Count + " is the size of the dictionary with the tiers of each enemy")   ;
-            
-     }
+
+    }
 }

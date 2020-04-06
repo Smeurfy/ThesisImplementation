@@ -74,26 +74,44 @@ public class DungeonManager : MonoBehaviour
     {
         if (value)
         {
-            if (!DungeonBeaten())
-            {
+            // if (!DungeonBeaten())
+            // {
                 CreateNextRoom();
-            }
+            // }
+
             allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
             allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += GenerateChallengeForNextRoom;
             allRooms[nextRoomToGenerateIndex].RoomCleared += scoreManager.UpdateScore;
+            AfterDeathOptions.instance.OnSkip += scoreManager.UpdateScore;
 
             nextRoomToGenerateIndex++;
             firstTimeGeneratingChallenges = false;
         }
     }
 
-    private bool DungeonBeaten(){
-        foreach (var item in tierOfEnemies)
+    public bool DungeonBeaten()
+    {
+        foreach (var enemy in tierOfEnemies)
         {
-            if(item.Value == 4){
+            var tierEnemy = enemy.Value;
+            foreach (var item in skipedChallenges)
+            {
+                if (tierEnemy == 4)
+                {
+                    break;
+                }
+                if (item[0] == enemy.Key || item[1] == enemy.Key)
+                {
+                    tierEnemy++;
+                }
+            }
+
+            if (tierEnemy >= 4)
+            {
                 continue;
             }
-            else{
+            else
+            {
                 return false;
             }
         }
@@ -173,6 +191,7 @@ public class DungeonManager : MonoBehaviour
 
             tierOfEnemies.Clear();
             tierOfEnemies = new Dictionary<TypeOfEnemy, int>();
+            skipedChallenges = new List<TypeOfEnemy[]>();
             InitializeMonstersTier();
             firstTimeGeneratingChallenges = true;
             roomID = -1;

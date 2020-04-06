@@ -160,11 +160,11 @@ MonoBehaviour:
   - {fileID: 1471408501489438, guid: f77a21ace62b06841b8774ba3500445c, type: 2}
   - {fileID: 1015130553419496, guid: 9d35534d2e18156478ea65989b018f55, type: 2}
   - {fileID: 1908729465408552, guid: 04d79b9cda7cf0e4cb5b8a6ced57e54b, type: 2}
+  - {fileID: 1626615492058380, guid: 2d2992bd0aa286843b4fa4aedb02fcee, type: 2}
   - {fileID: 1677851457544892, guid: e821c8baea7a06d49b093b71159ff284, type: 2}
   - {fileID: 1388176606074540, guid: 5d77afb3987b48a45b07c78b2689a009, type: 2}
   - {fileID: 1016459060962374, guid: 8fd3b7e63a23c9d4aa9cf9699cd7c5b1, type: 2}
   - {fileID: 1451395243094344, guid: 2b8f14c01c0e6944bb5a05c9669924a7, type: 2}
-  - {fileID: 1626615492058380, guid: 2d2992bd0aa286843b4fa4aedb02fcee, type: 2}
 --- !u!114 &114107471125638486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSceneNumber: 1
   victorySceneNumber: 2
-  secondsToWaitBeforeReset: 3
+  secondsToWaitBeforeReset: 1
   player: {fileID: 0}
   victorySound: {fileID: 8300000, guid: ae563d30da771c6448da32a8afe0ad25, type: 3}
 --- !u!114 &114753464685062938

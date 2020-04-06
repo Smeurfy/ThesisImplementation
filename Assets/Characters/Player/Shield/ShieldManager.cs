@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ShieldManager : MonoBehaviour 
+public class ShieldManager : MonoBehaviour
 {
     public event Action<bool> OnShieldActivation = delegate { };
 
@@ -18,7 +18,7 @@ public class ShieldManager : MonoBehaviour
     private const string activateShieldButton = "Use Shield";
     public static bool isShieldUnlocked = false;
     private bool shieldIsCharged = false;
-    
+
     private void Start()
     {
         DontDestroyOnLoad(this);
@@ -31,12 +31,20 @@ public class ShieldManager : MonoBehaviour
         }
         shieldUI.gameObject.SetActive(false);
         ScoreManager.OnReachedShieldUnlockRoom += UnlockShield;
+        AfterDeathOptions.instance.OnTryAgain += ResetShield;
+        AfterDeathOptions.instance.OnSkip += ResetShield;
         SceneManager.sceneLoaded += FindShieldUIController;
+    }
+
+    private void ResetShield()
+    {
+        shield.SetActive(false);
+        OnShieldActivation(false);
     }
 
     private void UnlockShield()
     {
-        if(!isShieldUnlocked)
+        if (!isShieldUnlocked)
         {
             isShieldUnlocked = true;
             audioPlayer.PlayOneShot(shieldUnlocked);
@@ -55,6 +63,8 @@ public class ShieldManager : MonoBehaviour
             shieldUI.gameObject.SetActive(isShieldUnlocked);
             shieldIsCharged = false;
             shieldUI.OnShieldIsCharged += EnableShieldActivation;
+            AfterDeathOptions.instance.OnTryAgain += ResetShield;
+            AfterDeathOptions.instance.OnSkip += ResetShield;
             shieldController.gameObject.SetActive(false);
         }
     }
@@ -66,7 +76,7 @@ public class ShieldManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown(activateShieldButton) && shieldIsCharged)
+        if (Input.GetButtonDown(activateShieldButton) && shieldIsCharged)
         {
             EnableShield();
             shieldIsCharged = false;

@@ -32,8 +32,8 @@ public class ScoreManager : MonoBehaviour
     public void UpdateScore()
     {
         roomsClearedCount++;
-        OnUpdateScore(roomsClearedCount);
-        if(roomsClearedCount == numberOfRoomsToWin)
+        //OnUpdateScore(roomsClearedCount);
+        if(DungeonManager.instance.DungeonBeaten())
         {
             OnWinAchieved();
         }

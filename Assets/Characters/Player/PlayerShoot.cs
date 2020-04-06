@@ -44,14 +44,8 @@ public class PlayerShoot : MonoBehaviour
     public int GetRemainingBullets() { return currentBulletManager.AvailableBulletsCount(); }
     #endregion
 
-    void Awake()
-    {
-        Debug.Log("PLAYER SHOOT AWAKE");
-    }
-
     void Start()
     {
-        Debug.Log("PLAYER SHOOT STARTY");
         isHoldingThrowable = weaponBeingHeld ? true : false;
         GetAttributeReferences();
         if (isHoldingThrowable)
@@ -214,14 +208,14 @@ public class PlayerShoot : MonoBehaviour
 
     private void EnableWeapon()
     {
-        Debug.Log("Enable Weapon");
+        // Debug.Log("Enable Weapon");
         foreach (GameObject item in weaponsPrefab)
         {
-            Debug.Log("item name " + item.name);
-            Debug.Log("weapon before challenge name " + weaponBeforeChallenge.name);
+            // Debug.Log("item name " + item.name);
+            // Debug.Log("weapon before challenge name " + weaponBeforeChallenge.name);
             if (item.name == weaponBeforeChallenge.name && !FindObjectOfType<WeaponPickup>())
             {
-                Debug.Log("arma");
+                // Debug.Log("arma");
                 var weapon = Instantiate(item, DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition(), Quaternion.identity);
                 weapon.GetComponent<BulletManager>().SetAvailableBullets(bulletsBeforeChallenge);
             }

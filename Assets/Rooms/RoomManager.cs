@@ -63,7 +63,6 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Room manager");
         roomID = DungeonManager.instance.GetRoomID();
         DungeonManager.instance.AssignRoomID();
         if (GetComponent<FirstRoom>())
@@ -264,12 +263,19 @@ public class RoomManager : MonoBehaviour
     public void RepeatChallenge()
     {
         AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
+        var lastSpawnPosition = new Vector3();
         if (this.roomID == DungeonManager.instance.playersRoom)
         {
             foreach (TypeOfEnemy toe in challengeOfThisRoom.GetTypeOfEnemies())
             {
                 var enemyPrefab = EnemyLibrary.instance.GetEnemyTypePrefab(toe);
-                GameObject spawnedEnemy = Instantiate(enemyPrefab, GetRandomSpawnPoint().position, Quaternion.identity, this.GetEnemyHolder());
+                var randomPosition = GetRandomSpawnPoint().position;
+                while (lastSpawnPosition == randomPosition)
+                {
+                    randomPosition = GetRandomSpawnPoint().position;
+                }
+                GameObject spawnedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.identity, this.GetEnemyHolder());
+                lastSpawnPosition = randomPosition;
                 GameManager.instance.GetComponentInChildren<TierEvolution>().ApplyMutation(spawnedEnemy);
             }
         }

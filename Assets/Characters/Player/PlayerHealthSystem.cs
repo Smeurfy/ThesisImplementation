@@ -28,7 +28,6 @@ public class PlayerHealthSystem : HealthSystem
 
     private void Awake()
     {
-        Debug.Log("awake");
         shieldManager = GetComponent<ShieldManager>();
         shieldManager.OnShieldActivation += UpdateShieldState;
         shieldIsBeingUsed = false;
