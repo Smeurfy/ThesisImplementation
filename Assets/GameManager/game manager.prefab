@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSceneNumber: 1
   victorySceneNumber: 2
-  secondsToWaitBeforeReset: 2.8
+  secondsToWaitBeforeReset: 3
   player: {fileID: 0}
   victorySound: {fileID: 8300000, guid: ae563d30da771c6448da32a8afe0ad25, type: 3}
 --- !u!114 &114753464685062938
@@ -229,7 +229,7 @@ MonoBehaviour:
   enemyBulletHolder: {fileID: 0}
   allRooms:
   - {fileID: 0}
-  globalTier: 0
+  playersRoom: -1
 --- !u!114 &114898225653702740
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -30,7 +30,7 @@ public class ShowMonsterTier : MonoBehaviour
 
     private void Populate()
     {
-        int auxX = x / 7;
+        int auxX = x / 6;
         int auxY = y / (EnemyLibrary.instance.GetAllPossibleEnemies().Count + 1);
 
         Vector3 incrY = Vector3.zero;
@@ -38,7 +38,7 @@ public class ShowMonsterTier : MonoBehaviour
         {
             gridLayout.Add(new List<Image>());
             Vector3 incrX = Vector3.zero;
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < 6; j++)
             {
 
                 var obj = Instantiate(image, startingPosition + incrX + incrY, Quaternion.identity, gameObject.transform);
@@ -87,7 +87,7 @@ public class ShowMonsterTier : MonoBehaviour
         {
             if (a)
             {
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < 6; j++)
                 {
                     if (string.Compare(gridLayout[i][j].name, name) == 0)
                     {
@@ -98,11 +98,10 @@ public class ShowMonsterTier : MonoBehaviour
             }
 
         }
-        for (int i = 0; i < 7  ; i++)
+        for (int i = 0; i < 6  ; i++)
         {
             if (i != 0 && (i - 1) < tier)
             {
-                Debug.Log("bora bora");
                 aux[i].GetComponent<Image>().color = new Color(0f, 1f, 0f);
             }
 

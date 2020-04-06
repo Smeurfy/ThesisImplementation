@@ -5,7 +5,7 @@ using Thesis.Enemy;
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerHealthSystem : HealthSystem 
+public class PlayerHealthSystem : HealthSystem
 {
     public static PlayerHealthSystem instance;
 
@@ -14,7 +14,7 @@ public class PlayerHealthSystem : HealthSystem
 
     public event Action OnPlayerDied = delegate { };
     public event Action<int> OnPlayerHealthUpdate = delegate { };
-    
+
     private Animator animator;
     private AudioSource audioSource;
     private AudioClipHolder soundFXHolder;
@@ -28,6 +28,7 @@ public class PlayerHealthSystem : HealthSystem
 
     private void Awake()
     {
+        Debug.Log("awake");
         shieldManager = GetComponent<ShieldManager>();
         shieldManager.OnShieldActivation += UpdateShieldState;
         shieldIsBeingUsed = false;
@@ -38,6 +39,7 @@ public class PlayerHealthSystem : HealthSystem
 
     new private void Start()
     {
+        Debug.Log("Start");
         AfterDeathOptions.instance.OnTryAgain += EnablePlayer;
         AfterDeathOptions.instance.OnSkip += EnablePlayer;
         GetReferencesToAttributes();
@@ -46,11 +48,11 @@ public class PlayerHealthSystem : HealthSystem
         OnPlayerHealthUpdate(currentHp);
         OnPlayerDied += DestroyWeapons;
     }
-    
+
     internal override void CharacterDied()
     {
         audioSource.PlayOneShot(soundFXHolder.GetDiedSound(), 1f);
-        if(!alreadySignaledPlayerDeath)
+        if (!alreadySignaledPlayerDeath)
         {
             alreadySignaledPlayerDeath = true;
             OnPlayerDied();
@@ -73,16 +75,22 @@ public class PlayerHealthSystem : HealthSystem
 
     public void EnablePlayer()
     {
-        alreadySignaledPlayerDeath = false;
-        GetComponent<PlayerMovement>().enabled = true;
-        GetComponentInChildren<PlayerShoot>().enabled = true;
-        GetComponent<ThrowItem>().enabled = true;
-        GetComponent<Collider2D>().enabled = true;
-        currentHp = hpBeforeChallenge;
-        OnPlayerHealthUpdate(currentHp);
-        transform.position = DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition();
-        canTakeDamage = true;
-        gameObject.SetActive(true);
+        if (this != null)
+        {
+
+            alreadySignaledPlayerDeath = false;
+            GetComponent<PlayerMovement>().enabled = true;
+            GetComponentInChildren<PlayerShoot>().enabled = true;
+            GetComponent<ThrowItem>().enabled = true;
+            GetComponent<Collider2D>().enabled = true;
+            currentHp = hpBeforeChallenge;
+            OnPlayerHealthUpdate(currentHp);
+            transform.position = DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition();
+            canTakeDamage = true;
+            gameObject.SetActive(true);
+
+        }
+
     }
 
     public void EnablePlayerControls()
@@ -115,9 +123,9 @@ public class PlayerHealthSystem : HealthSystem
 
     public override void TakeDamage(int damageToTake)   // player ALWAYS takes 1 point of damage
     {
-        if(!shieldIsBeingUsed)
-        { 
-            if(canTakeDamage)
+        if (!shieldIsBeingUsed)
+        {
+            if (canTakeDamage)
             {
                 canTakeDamage = false;
                 base.TakeDamage(1);
@@ -152,7 +160,7 @@ public class PlayerHealthSystem : HealthSystem
             TakeCollisionDamageFromEnemy(collidedObject);
         }
     }
-    
+
     private void TakeCollisionDamageFromEnemy(GameObject enemy)
     {
         TakeDamage(1);
@@ -166,16 +174,28 @@ public class PlayerHealthSystem : HealthSystem
 
     private void GetReferencesToAttributes()
     {
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
-        soundFXHolder = GetComponent<AudioClipHolder>();
-        flashingScreenOnDamage.enabled = false;
+        if (this != null)
+        {
+            animator = GetComponent<Animator>();
+            audioSource = GetComponent<AudioSource>();
+            soundFXHolder = GetComponent<AudioClipHolder>();
+            flashingScreenOnDamage.enabled = false;
+        }
     }
 
     private void GetFlashingDamageIndicatorReference(Scene arg0, LoadSceneMode arg1)
     {
-        currentHp = startingHp;
+        AfterDeathOptions.instance.OnTryAgain += EnablePlayer;
+        AfterDeathOptions.instance.OnSkip += EnablePlayer;
         flashingScreenOnDamage = Camera.main.GetComponentInChildren<Image>();
+        GetReferencesToAttributes();
+        initialHp = startingHp;
+        base.Start();
+        OnPlayerHealthUpdate(currentHp);
+        OnPlayerDied += DestroyWeapons;
+
+        currentHp = startingHp;
+
     }
 
     private void DestroyWeapons()

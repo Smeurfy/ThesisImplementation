@@ -636,11 +636,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
   secondsToShowDamageBar: 1
   HUD: {fileID: 1542547278033464}
   remaningHealth: {fileID: 114790346381573018}
   damageVisualization: {fileID: 114311755727403658}
   bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
+  enemyData: {fileID: 0}
 --- !u!114 &114538886597946344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5423,7 +5425,7 @@ SpriteRenderer:
   m_SortingLayerID: -279896591
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1aff7b536ae7d3b4eade9575d8a26444, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e97f466a272b4f9459438a2d63b2e48b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

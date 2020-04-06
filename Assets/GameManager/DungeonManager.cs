@@ -15,7 +15,6 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private Transform roomsHolder;
     [SerializeField] private Transform enemyBulletHolder;
     [SerializeField] private List<RoomManager> allRooms;
-    [SerializeField] private int globalTier = 0;
     public List<TypeOfEnemy[]> skipedChallenges = new List<TypeOfEnemy[]>();
 
     private int roomID = -1;
@@ -24,24 +23,23 @@ public class DungeonManager : MonoBehaviour
     private bool firstTimeGeneratingChallenges = true;
     public int playersRoom = -1;
     private bool canCreateNextRoom = false;
-    
+
 
     #region getters
-    public int GetGlobalTier() { return globalTier; }
     public Transform GetBulletHolder() { return enemyBulletHolder; }
     public int GetNumberOfRoomsToBeatDungeon() { return scoreManager.GetNumberOfRoomsToBeatDungeon(); }
-    public int GetRoomID(){ return roomID;}
-    public bool GetFirstTimeGeneratingChallenges(){ return firstTimeGeneratingChallenges;}
-    public List<RoomManager> GetAllRooms(){ return allRooms;}
+    public int GetRoomID() { return roomID; }
+    public bool GetFirstTimeGeneratingChallenges() { return firstTimeGeneratingChallenges; }
+    public List<RoomManager> GetAllRooms() { return allRooms; }
     #endregion
 
     private void Awake()
     {
-        MakeThisObjectSingleton();        
+        MakeThisObjectSingleton();
         scoreManager = GetComponent<ScoreManager>();
-       
+
     }
-    
+
     private void Start()
     {
         //InitializePossibleChallengesList();
@@ -63,7 +61,7 @@ public class DungeonManager : MonoBehaviour
         RenameRoom(nextRoom);
         nextRoomPosition.x += 18;
         nextRoom.GetComponentInChildren<RoomManager>().setPositionNextRoom(nextRoomPosition);
-        allRooms.Add(nextRoom.GetComponentInChildren<RoomManager>());  
+        allRooms.Add(nextRoom.GetComponentInChildren<RoomManager>());
     }
 
     private void GenerateChallengeForFirstRoom()
@@ -74,8 +72,9 @@ public class DungeonManager : MonoBehaviour
 
     private void GenerateChallengeForNextRoom(bool value)
     {
-        if(value){
-            if (nextRoomToGenerateIndex <= GetComponent<ScoreManager>().GetNumberOfRoomsToBeatDungeon())
+        if (value)
+        {
+            if (!DungeonBeaten())
             {
                 CreateNextRoom();
             }
@@ -86,24 +85,36 @@ public class DungeonManager : MonoBehaviour
             nextRoomToGenerateIndex++;
             firstTimeGeneratingChallenges = false;
         }
+    }
 
-        
+    private bool DungeonBeaten(){
+        foreach (var item in tierOfEnemies)
+        {
+            if(item.Value == 4){
+                continue;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
     }
 
     internal RoomManager GetRoomManagerByRoomID(int roomID)
     {
-        foreach(RoomManager roomManager in allRooms)
+        foreach (RoomManager roomManager in allRooms)
         {
-            if(roomManager.GetRoomID() == roomID)
+            if (roomManager.GetRoomID() == roomID)
             {
                 return roomManager;
             }
         }
-        Debug.LogError("previous roomManager was not found, can't hide challenge");
+        //Debug.LogError("previous roomManager was not found, can't hide challenge");
         return allRooms[0];
     }
 
-    private void InitializeMonstersTier(){
+    private void InitializeMonstersTier()
+    {
         foreach (var enemy in EnemyLibrary.instance.GetAllPossibleEnemies())
         {
             tierOfEnemies.Add(enemy, 0);
@@ -132,7 +143,7 @@ public class DungeonManager : MonoBehaviour
     {
         roomID++;
     }
-    
+
     private void SetNextCameraPosition()
     {
         if (roomID != 0 && CameraLookAtRoom.instance)
@@ -141,13 +152,13 @@ public class DungeonManager : MonoBehaviour
             CameraLookAtRoom.instance.NextRoomsPosition(allRooms[nextRoomIndex].GetPositionNextRoom());
         }
     }
-    
+
     public void RenameRoom(GameObject nextRoom)
     {
         int nextRoomsID = roomID;
         nextRoom.name = "Room " + nextRoomsID++;
 
-    }       
+    }
 
     private void SceneLoaded(Scene loadedScene, LoadSceneMode arg1)
     {
@@ -161,7 +172,8 @@ public class DungeonManager : MonoBehaviour
             enemyBulletHolder = GameObject.FindGameObjectWithTag("BulletHolder").transform;
 
             tierOfEnemies.Clear();
-            globalTier = 0;
+            tierOfEnemies = new Dictionary<TypeOfEnemy, int>();
+            InitializeMonstersTier();
             firstTimeGeneratingChallenges = true;
             roomID = -1;
             nextRoomToGenerateIndex = 0;
@@ -169,13 +181,8 @@ public class DungeonManager : MonoBehaviour
 
             CreateNextRoom();
             GenerateChallengeForFirstRoom();
-            
-        }
-    }
 
-    public void IncreaseGlobalTier()
-    {
-        globalTier++;
+        }
     }
 
     private void MakeThisObjectSingleton()

@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114477864536245014}
   - component: {fileID: 114970081867455190}
   m_Layer: 14
-  m_Name: candyCane AOE
+  m_Name: AOE weapon
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -44,8 +44,14 @@ public class PlayerShoot : MonoBehaviour
     public int GetRemainingBullets() { return currentBulletManager.AvailableBulletsCount(); }
     #endregion
 
+    void Awake()
+    {
+        Debug.Log("PLAYER SHOOT AWAKE");
+    }
+
     void Start()
     {
+        Debug.Log("PLAYER SHOOT STARTY");
         isHoldingThrowable = weaponBeingHeld ? true : false;
         GetAttributeReferences();
         if (isHoldingThrowable)
@@ -60,6 +66,7 @@ public class PlayerShoot : MonoBehaviour
         AfterDeathOptions.instance.OnTryAgain += EnableWeapon;
         AfterDeathOptions.instance.OnSkip += EnableWeapon;
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
+        SceneManager.sceneLoaded += DoStuff;
     }
 
     private void DereferencePause(Scene sceneToUnload)
@@ -198,10 +205,8 @@ public class PlayerShoot : MonoBehaviour
         this.isGamePaused = isGamePaused;
     }
 
-    private void BulletsBeforeChallenge()
+    public void BulletsBeforeChallenge()
     {
-
-        Debug.Log("entrei NO bULLETS");
         bulletsBeforeChallenge = currentBulletManager.AvailableBulletsCount();
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
 
@@ -222,5 +227,24 @@ public class PlayerShoot : MonoBehaviour
             }
         }
         //AfterDeathOptions.instance.OnTryAgain -= EnableWeapon;
+    }
+
+    private void DoStuff(Scene arg0, LoadSceneMode arg1)
+    {
+        isHoldingThrowable = weaponBeingHeld ? true : false;
+        GetAttributeReferences();
+        if (isHoldingThrowable)
+        {
+            spriteRenderer.sprite = weaponBeingHeld.GetSprite();                            // TODO change this to an observer when more weapons are implemented    
+            tipOfTheGun.transform.localPosition = weaponBeingHeld.GetGunTip().transform.localPosition;
+            shootingPS = Instantiate(weaponBeingHeld.GetFiringParticleSystem());
+        }
+        gameObject.GetComponentInParent<ThrowItem>().OnPlayerThrow += DroppedThrowable;
+        PauseMenuManager.instance.OnGameIsPaused += GameIsPaused;
+        SceneManager.sceneUnloaded += DereferencePause;
+        AfterDeathOptions.instance.OnTryAgain += EnableWeapon;
+        AfterDeathOptions.instance.OnSkip += EnableWeapon;
+        Debug.Log(DungeonManager.instance.playersRoom + " PLAYERSROOM");
+        DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
     }
 }
