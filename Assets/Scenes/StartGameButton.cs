@@ -13,7 +13,7 @@ public class StartGameButton : MonoBehaviour
 
     public void Credits()
     {
-        SceneManager.LoadScene(creditsIndex);
+        //SceneManager.LoadScene(creditsIndex);
     }
 
     public void ExitGame()
