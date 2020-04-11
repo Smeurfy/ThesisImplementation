@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RegularBullet : TypeOfBullet
+public class RegularBulletTest : TypeOfBullet
 {
     private void Start(){
         // AfterDeathOptions.instance.OnTryAgain += DestroyBullet;

@@ -22,6 +22,8 @@ public class BulletDrop : MonoBehaviour
         audioPlayer = GetComponent<AudioSource>();
         amountOfBulletsToAdd = (byte) UnityEngine.Random.Range(3, 10);
         text.text = amountOfBulletsToAdd.ToString();
+        AfterDeathOptions.instance.OnSkip += DestroyBullets;
+        AfterDeathOptions.instance.OnTryAgain += DestroyBullets;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -75,5 +77,11 @@ public class BulletDrop : MonoBehaviour
     {
         amountOfBulletsToAdd = amountToDrop;
         text.text = amountOfBulletsToAdd.ToString();
+    }
+
+    private void DestroyBullets(){
+        if(this){
+            Destroy(gameObject);
+        }
     }
 }

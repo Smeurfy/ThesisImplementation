@@ -9,13 +9,13 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] public int bulletSpeed = 3;
     [Header("Wave")]
     [SerializeField] public int numberOfWaves = 1;
-    [SerializeField] private byte secondsBetweenWaves = 2;
+    [SerializeField] public byte secondsBetweenWaves = 2;
     [Header("Shot Type")]
     [SerializeField] private bool shootAllAtTheSameTime = true;
     [SerializeField] private bool clockwise = false;
-    [SerializeField] [Range(.05f, 1f)] private float secondsBetweenShots = .1f;
+    [SerializeField] [Range(.05f, 1f)] public float secondsBetweenShots = .1f;
     [Header("Angle")]
-    [SerializeField] [Range(0f, 360f)] private float angleToShootInDegrees = 360;
+    [SerializeField] [Range(0f, 360f)] public float angleToShootInDegrees = 360;
     [Header("Pattern")]
     [SerializeField] private bool goesBack = false;
 
@@ -28,7 +28,7 @@ public class BulletSpawner : MonoBehaviour
 
     private void Start()
     {
-        bulletParent = DungeonManager.instance.GetBulletHolder();
+        //bulletParent = DungeonManager.instance.GetBulletHolder();
         Vector2 direction = Vector2.zero;
         Vector2 directionToPlayer = Vector2.zero;
         Vector2 intervalBetweenShots = Vector2.zero;

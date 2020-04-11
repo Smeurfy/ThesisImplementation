@@ -17,6 +17,7 @@ public class EnemyLibrary : MonoBehaviour
 
     #region getters
     public List<TypeOfEnemy> GetAllPossibleEnemies() { return possibleEnemies; }
+    public List<GameObject> GetAllPossibleEnemiesPrefabs() { return enemyTypePrefabs; }
     #endregion
 
     private void Awake()

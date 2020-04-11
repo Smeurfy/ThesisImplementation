@@ -44,26 +44,86 @@ public class PossibleChallengeData
             {
                 possibleEnemies[i] = EnemyLibrary.instance.GetRandomEnemy();
             }
-            CheckDifferenceBetweenTiers();
-            if(DungeonManager.instance.DungeonBeaten()){
+            CheckChallenge();
+            if (DungeonManager.instance.DungeonBeaten())
+            {
                 possibleChallenge = false;
             }
         }
 
     }
 
-    private void CheckDifferenceBetweenTiers()
+    private void CheckChallenge()
     {
         var tierOfEnemies = DungeonManager.instance.tierOfEnemies;
 
-        if (possibleEnemies[0] != possibleEnemies[1] && Mathf.Abs(tierOfEnemies[possibleEnemies[0]] - tierOfEnemies[possibleEnemies[1]]) <= 2
-                                                    && !checkIfChallengeSkipped())
+        if (DifferentEnemies() && !EqualChallengeAsPrevious() && CheckDifferenceBetweenTiers() && DifferenceBtwMaxMinTier())
         {
             possibleChallenge = false;
         }
     }
 
-    private bool checkIfChallengeSkipped()
+    private bool DifferenceBtwMaxMinTier()
+    {
+        var tierOfEnemies = DungeonManager.instance.tierOfEnemies;
+        int max = 0;
+        int min = 5;
+        foreach (var item in tierOfEnemies)
+        {
+            if (item.Value < min)
+            {
+                min = item.Value;
+            }
+            if (item.Value > max)
+            {
+                max = item.Value;
+            }
+        }
+        Debug.Log(min + " é o minimo");
+        Debug.Log(max + " é o maximo");
+        if (max - min > 1)
+        {
+            int sum = 0;
+            foreach (var item in tierOfEnemies)
+            {
+                if (item.Value == min)
+                {
+                    sum++;
+                }
+            }
+            if (sum >= 2)
+            {
+                if (tierOfEnemies[possibleEnemies[0]] == min && tierOfEnemies[possibleEnemies[1]] == min)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (tierOfEnemies[possibleEnemies[0]] == min || tierOfEnemies[possibleEnemies[1]] == min)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        return true;
+
+    }
+
+    private bool DifferentEnemies()
+    {
+        return possibleEnemies[0] != possibleEnemies[1];
+    }
+
+    private bool CheckDifferenceBetweenTiers()
+    {
+        var tierOfEnemies = DungeonManager.instance.tierOfEnemies;
+        return Mathf.Abs(tierOfEnemies[possibleEnemies[0]] - tierOfEnemies[possibleEnemies[1]]) <= 2;
+    }
+
+    private bool CheckIfChallengeSkipped()
     {
         var skipedChallenges = DungeonManager.instance.skipedChallenges;
         foreach (var item in skipedChallenges)
@@ -74,6 +134,25 @@ public class PossibleChallengeData
             }
         }
         return false;
+    }
+
+    private bool EqualChallengeAsPrevious()
+    {
+        if (DungeonManager.instance.playersRoom != -1 && DungeonManager.instance.playersRoom != 0)
+        {
+            var previousRoomPlayer = DungeonManager.instance.playersRoom - 1;
+            var previousRoomChallenge = DungeonManager.instance.GetRoomManagerByRoomID(previousRoomPlayer).challengeOfThisRoom.GetTypeOfEnemies();
+            if (previousRoomChallenge[0] == possibleEnemies[0] || previousRoomChallenge[0] == possibleEnemies[1] ||
+                previousRoomChallenge[1] == possibleEnemies[0] || previousRoomChallenge[1] == possibleEnemies[1])
+            {
+                Debug.Log("Same Challenge");
+                return true;
+            }
+            Debug.Log("Diff Challenge");
+            return false;
+        }
+        return false;
+
     }
 
 }
