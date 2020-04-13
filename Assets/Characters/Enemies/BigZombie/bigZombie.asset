@@ -20,6 +20,7 @@ MonoBehaviour:
   stoppingDistanceToPatrolPoint: -1
   healthPoints: 20
   dps: -1
+  secondsBetweenShots: 2
   penaltyMultiplierForGettingShotByEnemy: 7
   bonusMultiplierForHittingEnemyOnDeath: 7
   died:

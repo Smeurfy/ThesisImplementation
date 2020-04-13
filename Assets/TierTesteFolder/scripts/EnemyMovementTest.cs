@@ -4,7 +4,7 @@ namespace Thesis.Enemy
 {
     public class EnemyMovementTest : MonoBehaviour
     {
-        [SerializeField] private float stoppingDistanceToPlayer;
+        [SerializeField] public float stoppingDistanceToPlayer;
         [SerializeField] public float movementSpeed;
         [SerializeField] private PatrolPath patrolPath;
         [SerializeField] private float stoppingDistanceToPatrolPoint;

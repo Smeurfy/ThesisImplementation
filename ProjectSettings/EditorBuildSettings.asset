@@ -5,16 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/main menu.unity
     guid: 9e63b9e9c4f92bf4eb3b395bbbec3d4e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/implemented model.unity
     guid: 81df84ffb2dba9346b9b062f45207075
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/victory screen.unity
     guid: 5a58f8a21ffe5ca4ba7ab2918a061789
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/credits.unity
     guid: 319c182f8d2371e47b8c295e671a0a91
+  - enabled: 1
+    path: Assets/Scenes/TierTestScene.unity
+    guid: edba303eeadef2b4ab7e763685362dd0
   m_configObjects: {}

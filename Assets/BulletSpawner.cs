@@ -9,7 +9,7 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] public int bulletSpeed = 3;
     [Header("Wave")]
     [SerializeField] public int numberOfWaves = 1;
-    [SerializeField] public byte secondsBetweenWaves = 2;
+    [SerializeField] public int secondsBetweenWaves = 2;
     [Header("Shot Type")]
     [SerializeField] private bool shootAllAtTheSameTime = true;
     [SerializeField] private bool clockwise = false;
@@ -47,7 +47,7 @@ public class BulletSpawner : MonoBehaviour
     {
         for(byte waveNumber = 0; waveNumber < numberOfWaves; waveNumber++)
         {
-             StartCoroutine(ShootAsWave(orientation, playerPosition));
+            StartCoroutine(ShootAsWave(orientation, playerPosition));
             yield return new WaitForSecondsRealtime(secondsBetweenWaves);
         }
     }

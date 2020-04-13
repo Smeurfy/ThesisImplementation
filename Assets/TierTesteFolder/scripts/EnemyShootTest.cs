@@ -7,7 +7,7 @@ namespace Thesis.Enemy
     {
         [SerializeField] Transform gunTip;
 
-        private float timeToWaitBeforeShootingAgain;
+        public float timeToWaitBeforeShootingAgain;
         private bool canShoot;
         private bool isLookingToTheRight = true;
         private AudioSource audioSource;
@@ -15,8 +15,7 @@ namespace Thesis.Enemy
         private EnemyControllerTest controller;
         private BulletSpawner shooter;
 
-        void Start()
-        {
+        void Awake(){
             var enemyData = GetComponentInParent<EnemyData>();
             audioSource = GetComponent<AudioSource>();
             controller = GetComponentInParent<EnemyControllerTest>();
@@ -29,6 +28,11 @@ namespace Thesis.Enemy
                 StartCoroutine(CanShootAgain());
             }
             timeToWaitBeforeShootingAgain = enemyData.GetSecondsBetweenShots();
+        }
+
+        void Start()
+        {
+            
         }
         
         internal void AttemptToShoot()

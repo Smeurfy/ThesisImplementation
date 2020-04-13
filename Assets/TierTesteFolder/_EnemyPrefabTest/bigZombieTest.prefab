@@ -768,7 +768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca90c63d0aef04b4983ffa4577cf1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponBeingHeld: {fileID: 11400000, guid: c9742d5a7b5d7614998f432d706672e9, type: 2}
   gunTip: {fileID: 4760488658500386}
 --- !u!198 &198016765258443774
 ParticleSystem:
