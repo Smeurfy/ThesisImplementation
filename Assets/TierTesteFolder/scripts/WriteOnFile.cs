@@ -16,7 +16,7 @@ public class WriteOnFile : MonoBehaviour
     {
         DateTime dateTime = DateTime.Now;
         var dic = canvas.GetComponent<PopulateWithMonsters>().monstersInfo;
-        string path = Application.dataPath + "/SAVEDFILES/" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Millisecond + "_" + dateTime.Day + dateTime.Month + dateTime.Year + "_" + ".json";
+        string path = Application.dataPath + "/SAVEDFILES/" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Millisecond + "_" + dateTime.Day + dateTime.Month + dateTime.Year + ".json";
         FileStream stream = new FileStream(path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
         {
