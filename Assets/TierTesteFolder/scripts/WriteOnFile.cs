@@ -9,13 +9,14 @@ using System.Text;
 
 public class WriteOnFile : MonoBehaviour
 {
-	public event Action OnFileSaved =  delegate{};
+    public event Action OnFileSaved = delegate { };
     public Canvas canvas;
     public Text popUp;
     public void SaveDataToFile()
     {
+        DateTime dateTime = DateTime.Now;
         var dic = canvas.GetComponent<PopulateWithMonsters>().monstersInfo;
-        string path = Application.dataPath + "/SAVEDFILES/denis.json";
+        string path = Application.dataPath + "/SAVEDFILES/" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Millisecond + "_" + dateTime.Day + dateTime.Month + dateTime.Year + "_" + ".json";
         FileStream stream = new FileStream(path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
         {
@@ -29,7 +30,7 @@ public class WriteOnFile : MonoBehaviour
         }
         popUp.gameObject.SetActive(true);
         StartCoroutine(DisablePopUp());
-		OnFileSaved();
+        OnFileSaved();
     }
 
     private IEnumerator DisablePopUp()
