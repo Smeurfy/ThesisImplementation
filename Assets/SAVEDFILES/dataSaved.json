@@ -1,0 +1,2 @@
+﻿{"monsterName":"skeletTest","tier":"default","numberBullets":9.0,"bulletSpeed":3.0,"numberOfWaves":1.0,"secBtwWaves":1.0,"secBtwShots":0.05000000074505806,"angleToShoot":120.0,"attackDistance":15.0,"stoppingDistance":6.0,"movementSpeed":1.5,"attackSpeed":4.0}
+{"monsterName":"swampyTest","tier":"default","numberBullets":20.0,"bulletSpeed":4.0,"numberOfWaves":1.0,"secBtwWaves":1.0,"secBtwShots":0.44999998807907107,"angleToShoot":100.0,"attackDistance":15.0,"stoppingDistance":3.0,"movementSpeed":1.0,"attackSpeed":2.0}

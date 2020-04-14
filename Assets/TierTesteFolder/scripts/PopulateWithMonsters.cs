@@ -11,12 +11,15 @@ public class PopulateWithMonsters : MonoBehaviour
     List<GameObject> enemies = new List<GameObject>();
     public int canvasWidth, canvasHeight;
     int numberOfEnemies;
-    Button btnSelected;
+    public Button btnSelected;
     public GameObject testRoom;
     public GameObject monsterCharac;
     public bool canChangeValue = false;
     public GameObject attackLine;
     public GameObject stopLine;
+    public Text tierName;
+
+    MonstersInfo mInfo;
 
     Vector3 startingPosition;
     // Use this for initialization
@@ -32,12 +35,13 @@ public class PopulateWithMonsters : MonoBehaviour
         Populate();
     }
 
-    private void Populate()
+    public void Populate()
     {
         var margin = canvasWidth / numberOfEnemies;
         for (int i = 0; i < numberOfEnemies; i++)
         {
             var obj = Instantiate(image, startingPosition, Quaternion.identity, gameObject.transform);
+            obj.name = enemies[i].name;
             obj.GetComponent<Image>().sprite = enemies[i].GetComponent<SpriteRenderer>().sprite;
             obj.GetComponent<Image>().preserveAspect = true;
 
@@ -68,7 +72,7 @@ public class PopulateWithMonsters : MonoBehaviour
             colors.normalColor = btn.colors.highlightedColor;
             btn.colors = colors;
 
-            //If othh btn is selected them unselect the selected btn
+            //If other btn is selected them unselect the selected btn
             if (btnSelected != btn)
             {
                 DestroyMonster();
@@ -78,11 +82,13 @@ public class PopulateWithMonsters : MonoBehaviour
                 btnSelected.colors = colors1;
                 //if a tier is selected for a monster it becomes unselected
                 GetComponent<TierMonsterBtn>().UnselectAllBtns(btnSelected.transform.parent);
+                GetComponent<TierMonsterBtn>().EnableTierButtonsForSelectedMonster(btnSelected.transform.parent, false);
                 btnSelected = btn;
 
             }
             var enemy = CreateMonster(btn.transform.parent);
-            GetMonsterCharac(enemy);
+            GetMonsterCharac(enemy, "default");
+            GetComponent<TierMonsterBtn>().EnableTierButtonsForSelectedMonster(btn.transform.parent, true);
         }
         else
         {
@@ -97,6 +103,7 @@ public class PopulateWithMonsters : MonoBehaviour
                 btnSelected = null;
                 ResetValuesToZero();
                 GetComponent<TierMonsterBtn>().UnselectAllBtns(btn.transform.parent);
+                GetComponent<TierMonsterBtn>().EnableTierButtonsForSelectedMonster(btn.transform.parent, false);
             }
 
         }
@@ -119,82 +126,101 @@ public class PopulateWithMonsters : MonoBehaviour
         return null;
     }
 
-    private void DestroyMonster()
+    public void DestroyMonster()
     {
         Destroy(testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().GetComponentInChildren<SpriteRenderer>().gameObject);
         canChangeValue = false;
     }
 
-    private void GetMonsterCharac(GameObject enemy)
+    public void GetMonsterCharac(GameObject enemy, string mName)
     {
         var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
         var placeHolders = monsterCharac.GetComponentsInChildren<RectTransform>();
+        if (monstersInfo[enemy.name].ContainsKey(mName))
+        {
+            mInfo = monstersInfo[enemy.name][mName];
+            enemyCharac.numberOfBullets = (int)mInfo.numberBullets;
+            enemyCharac.bulletSpeed = (int)mInfo.bulletSpeed;
+            enemyCharac.numberOfWaves = (int)mInfo.numberOfWaves;
+            enemyCharac.secondsBetweenWaves = (int)mInfo.secBtwWaves;
+            enemyCharac.secondsBetweenShots = mInfo.secBtwShots;
+            enemyCharac.angleToShootInDegrees = mInfo.angleToShoot;
+            enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance = mInfo.attackDistance;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer = mInfo.stoppingDistance;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed = mInfo.movementSpeed;
+            enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
+        }
+        else
+        {
+            mInfo = AddEnemyToDic(enemy, mName);
+        }
+        tierName.text = ": " + mInfo.monsterName + " " + mInfo.tier;
         foreach (var item in placeHolders)
         {
             if (item.name == "NBullets")
             {
-                PopulatePlaceholder(item, 0, 30, enemyCharac.numberOfBullets, true);
+                PopulatePlaceholder(item, 0, 30, mInfo.numberBullets, true);
             }
             if (item.name == "BulletSpeed")
             {
-                PopulatePlaceholder(item, 0, 20, enemyCharac.bulletSpeed, false);
+                PopulatePlaceholder(item, 0, 20, mInfo.bulletSpeed, false);
             }
             if (item.name == "NumberOfWaves")
             {
-                PopulatePlaceholder(item, 0, 15, enemyCharac.numberOfWaves, true);
+                PopulatePlaceholder(item, 0, 15, mInfo.numberOfWaves, true);
             }
             if (item.name == "SecBtwWaves")
             {
-                PopulatePlaceholder(item, 0, 20, enemyCharac.secondsBetweenWaves, true);
+                PopulatePlaceholder(item, 0, 20, mInfo.secBtwWaves, true);
             }
             if (item.name == "SecBtwShoots")
             {
-                PopulatePlaceholder(item, 0, 1, enemyCharac.secondsBetweenShots, false);
+                PopulatePlaceholder(item, 0, 1, mInfo.secBtwShots, false);
             }
             if (item.name == "AngleToShoot")
             {
-                PopulatePlaceholder(item, 0, 360, enemyCharac.angleToShootInDegrees, true);
+                PopulatePlaceholder(item, 0, 360, mInfo.angleToShoot, true);
             }
             if (item.name == "AttackDistance")
             {
-                PopulatePlaceholder(item, 0, 20, enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance, false);
+                PopulatePlaceholder(item, 0, 20, mInfo.attackDistance, false);
                 enemy.GetComponentInChildren<DrawAttackLine>().radius = enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance;
             }
             if (item.name == "StoppingDistance")
             {
-                PopulatePlaceholder(item, 0, 15, enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer, false);
+                PopulatePlaceholder(item, 0, 15, mInfo.stoppingDistance, false);
                 enemy.GetComponentInChildren<DrawStopLine>().radius = enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer;
             }
             if (item.name == "MovSpeed")
             {
-                PopulatePlaceholder(item, 0, 15, enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed, false);
+                PopulatePlaceholder(item, 0, 15, mInfo.movementSpeed, false);
             }
             if (item.name == "AttackSpeed")
             {
-                PopulatePlaceholder(item, 0, 15, enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain, false);
+                PopulatePlaceholder(item, 0, 15, mInfo.attackSpeed, false);
             }
         }
-        AddEnemyToDic(enemy);
         canChangeValue = true;
     }
 
-    private void AddEnemyToDic(GameObject enemy)
+    private MonstersInfo AddEnemyToDic(GameObject enemy, string mName)
     {
         var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
-        MonstersInfo mInfo = new MonstersInfo(enemy.name, "default", enemyCharac.numberOfBullets, enemyCharac.bulletSpeed, enemyCharac.numberOfWaves, enemyCharac.secondsBetweenWaves,
-                                                    enemyCharac.secondsBetweenShots, enemyCharac.angleToShootInDegrees, enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance,
-                                                    enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer, enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed,
-                                                    enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain);
-        if (!monstersInfo[enemy.name].ContainsKey("default"))
+        MonstersInfo mInfo = new MonstersInfo(enemy.name, mName, enemyCharac.numberOfBullets, enemyCharac.bulletSpeed, enemyCharac.numberOfWaves, enemyCharac.secondsBetweenWaves,
+                                              enemyCharac.secondsBetweenShots, enemyCharac.angleToShootInDegrees, enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance,
+                                              enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer, enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed,
+                                              enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain);
+        if (!monstersInfo[enemy.name].ContainsKey(mName))
         {
-            monstersInfo[enemy.name].Add("default", mInfo);
+            monstersInfo[enemy.name].Add(mName, mInfo);
         }
         else
         {
             //update monster info
-            monstersInfo[enemy.name].Remove("default");
-            monstersInfo[enemy.name].Add("default", mInfo);
+            monstersInfo[enemy.name].Remove(mName);
+            monstersInfo[enemy.name].Add(mName, mInfo);
         }
+        return mInfo;
     }
 
     private void PopulatePlaceholder(RectTransform item, int min, int max, float value, bool wholeNumbers)
@@ -256,7 +282,7 @@ public class PopulateWithMonsters : MonoBehaviour
             {
                 enemySelected.transform.parent.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = sliderValue;
             }
-            AddEnemyToDic(enemySelected.transform.parent.gameObject);
+            AddEnemyToDic(enemySelected.transform.parent.gameObject, mInfo.tier);
         }
     }
 
@@ -283,14 +309,52 @@ public class PopulateWithMonsters : MonoBehaviour
             }
             if (item.name == "SecBtwShoots")
             {
-                //To do incremento de 0.05
                 PopulatePlaceholder(item, 0, 1, 0, false);
             }
             if (item.name == "AngleToShoot")
             {
                 PopulatePlaceholder(item, 0, 360, 0, true);
             }
+            if (item.name == "AttackDistance")
+            {
+                PopulatePlaceholder(item, 0, 20, 0, false);
+            }
+            if (item.name == "StoppingDistance")
+            {
+                PopulatePlaceholder(item, 0, 15, 0, false);
+            }
+            if (item.name == "MovSpeed")
+            {
+                PopulatePlaceholder(item, 0, 15, 0, false);
+            }
+            if (item.name == "AttackSpeed")
+            {
+                PopulatePlaceholder(item, 0, 15, 0, false);
+            }
         }
+    }
 
+    public void UnselectBtn()
+    {
+        var topRow = GetComponentsInChildren<Image>();
+        foreach (var item in topRow)
+        {
+            foreach (var enemy in enemies)
+            {
+                if (item.transform.parent.name == enemy.name)
+                {
+                    var btn = item.gameObject.GetComponentInChildren<Button>();
+                    btn.GetComponentInChildren<Text>().text = "Select";
+                    ColorBlock colors = btn.colors;
+                    colors.normalColor = new Color(1f, 1f, 1f);
+                    btn.colors = colors;
+                    btnSelected = null;
+                    ResetValuesToZero();
+                    GetComponent<TierMonsterBtn>().UnselectAllBtns(btn.transform.parent);
+                    GetComponent<TierMonsterBtn>().EnableTierButtonsForSelectedMonster(btn.transform.parent, false);
+                }
+            }
+        }
+        tierName.text = "";
     }
 }
