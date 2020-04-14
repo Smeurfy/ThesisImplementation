@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BulletSpawner : MonoBehaviour 
+public class BulletSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
     [Header("Bullet")]
@@ -45,7 +45,7 @@ public class BulletSpawner : MonoBehaviour
 
     public IEnumerator ShootBullets(Vector2 orientation, Vector2 playerPosition)
     {
-        for(byte waveNumber = 0; waveNumber < numberOfWaves; waveNumber++)
+        for (byte waveNumber = 0; waveNumber < numberOfWaves; waveNumber++)
         {
             StartCoroutine(ShootAsWave(orientation, playerPosition));
             yield return new WaitForSecondsRealtime(secondsBetweenWaves);
@@ -55,14 +55,14 @@ public class BulletSpawner : MonoBehaviour
     private IEnumerator ShootAsWave(Vector2 orientation, Vector2 playerPosition)
     {
         float x, y;
-        directionToPlayer = (playerPosition - (Vector2) transform.position).normalized;
-        if(!goesBack)
+        directionToPlayer = (playerPosition - (Vector2)transform.position).normalized;
+        if (!goesBack)
         {
             halfAngleInRadius = angleToShootInRadius / 2;
             /*if(clockwise)
             {*/
-                x = Mathf.Cos(-halfAngleInRadius) * directionToPlayer.x - Mathf.Sin(-halfAngleInRadius) * directionToPlayer.y;
-                y = Mathf.Sin(-halfAngleInRadius) * directionToPlayer.x + Mathf.Cos(-halfAngleInRadius) * directionToPlayer.y;
+            x = Mathf.Cos(-halfAngleInRadius) * directionToPlayer.x - Mathf.Sin(-halfAngleInRadius) * directionToPlayer.y;
+            y = Mathf.Sin(-halfAngleInRadius) * directionToPlayer.x + Mathf.Cos(-halfAngleInRadius) * directionToPlayer.y;
             /*}
             else
             {
@@ -74,7 +74,7 @@ public class BulletSpawner : MonoBehaviour
 
         for (byte i = 0; i < numberOfBullets; i++)
         {
-            if (!shootAllAtTheSameTime )
+            if (!shootAllAtTheSameTime)
             {
                 yield return new WaitForSecondsRealtime(secondsBetweenShots);
             }
@@ -92,20 +92,20 @@ public class BulletSpawner : MonoBehaviour
 
     private float NextAngleCalculation(byte index)
     {
-        if(goesBack)
+        if (goesBack)
         {
-            return  Mathf.Abs( Mathf.Sin(sliceOfSin * index) )* angleRatio;
+            return Mathf.Abs(Mathf.Sin(sliceOfSin * index)) * angleRatio;
         }
         else
-        { 
+        {
             return index * angleBetweenConsecutiveBullets;
         }
     }
-    
+
     private Vector2 CreateBullet(Vector2 direction)
     {
         TypeOfBullet bullet;
-        if(!(bulletPrefab.layer == (int) DefinedLayers.Bombs))
+        if (!(bulletPrefab.layer == (int)DefinedLayers.Bombs))
         {
             bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity, bulletParent).GetComponent<RegularBullet>();
             bullet.gameObject.layer = (int)DefinedLayers.EnemyBullets;
@@ -117,5 +117,15 @@ public class BulletSpawner : MonoBehaviour
         bullet.SetSpeed(bulletSpeed);
         bullet.SetBulletVelocity(direction.normalized);
         return direction;
+    }
+    public void UpdateInitialValues()
+    {
+        Vector2 direction = Vector2.zero;
+        Vector2 directionToPlayer = Vector2.zero;
+        Vector2 intervalBetweenShots = Vector2.zero;
+        angleBetweenConsecutiveBullets = (Mathf.Deg2Rad * angleToShootInDegrees) / numberOfBullets;
+        sliceOfSin = (2 * Mathf.PI) / numberOfBullets;
+        angleRatio = angleToShootInDegrees / FULL_CIRCLE_DEGREES;
+        angleToShootInRadius = angleToShootInDegrees * Mathf.Deg2Rad;
     }
 }

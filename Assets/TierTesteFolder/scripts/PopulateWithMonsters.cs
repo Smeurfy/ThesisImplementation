@@ -128,7 +128,8 @@ public class PopulateWithMonsters : MonoBehaviour
 
     public void DestroyMonster()
     {
-        Destroy(testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().GetComponentInChildren<SpriteRenderer>().gameObject);
+        if(testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().transform.childCount > 0)
+            Destroy(testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().GetComponentInChildren<SpriteRenderer>().gameObject);
         canChangeValue = false;
     }
 
@@ -243,6 +244,7 @@ public class PopulateWithMonsters : MonoBehaviour
             if (characChanged.name == "NBullets")
             {
                 enemySelected.numberOfBullets = (int)sliderValue;
+                enemySelected.UpdateInitialValues();
             }
             if (characChanged.name == "BulletSpeed")
             {
@@ -263,6 +265,7 @@ public class PopulateWithMonsters : MonoBehaviour
             if (characChanged.name == "AngleToShoot")
             {
                 enemySelected.angleToShootInDegrees = sliderValue;
+                enemySelected.UpdateInitialValues();
             }
             if (characChanged.name == "AttackDistance")
             {

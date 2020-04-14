@@ -9,6 +9,7 @@ public class LoadFromFile : MonoBehaviour
 {
     public Canvas canvas;
     public Dropdown dropdown;
+	public Text popUp;
     //The list of messages for the Dropdown
     List<Dropdown.OptionData> m_Messages = new List<Dropdown.OptionData>();
     Dropdown.OptionData m_NewData;
@@ -41,6 +42,8 @@ public class LoadFromFile : MonoBehaviour
         canvas.GetComponent<PopulateWithMonsters>().DestroyMonster();
         canvas.GetComponent<PopulateWithMonsters>().UnselectBtn();
         canvas.GetComponent<PopulateWithMonsters>().Populate();
+		popUp.gameObject.SetActive(true);
+        StartCoroutine(DisablePopUp());
     }
 
     private void InitDropDown()
@@ -66,5 +69,11 @@ public class LoadFromFile : MonoBehaviour
     public void SelectFile()
     {
         selectedFile = dropdown.value;
+    }
+
+	 private IEnumerator DisablePopUp()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        popUp.gameObject.SetActive(false);
     }
 }

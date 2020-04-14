@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
+using UnityEngine.UI;
 using System.Text;
 
 public class WriteOnFile : MonoBehaviour
 {
     public Canvas canvas;
+    public Text popUp;
     public void SaveDataToFile()
     {
         var dic = canvas.GetComponent<PopulateWithMonsters>().monstersInfo;
-        string path = Application.dataPath + "/SAVEDFILES/dataSaved2.json";
+        string path = Application.dataPath + "/SAVEDFILES/denis.json";
         FileStream stream = new FileStream(path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
         {
@@ -24,6 +26,14 @@ public class WriteOnFile : MonoBehaviour
                 }
             }
         }
+        popUp.gameObject.SetActive(true);
+        StartCoroutine(DisablePopUp());
+    }
+
+    private IEnumerator DisablePopUp()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        popUp.gameObject.SetActive(false);
     }
 }
 

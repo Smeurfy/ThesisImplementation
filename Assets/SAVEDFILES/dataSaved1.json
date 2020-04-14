@@ -1,3 +1,0 @@
-﻿{"monsterName":"bigZombieTest","tier":"default","numberBullets":6.0,"bulletSpeed":4.0,"numberOfWaves":1.0,"secBtwWaves":1.0,"secBtwShots":0.10000000149011612,"angleToShoot":90.0,"attackDistance":15.0,"stoppingDistance":6.0,"movementSpeed":2.0,"attackSpeed":2.0}
-{"monsterName":"chortTest","tier":"default","numberBullets":12.0,"bulletSpeed":3.0,"numberOfWaves":1.0,"secBtwWaves":2.0,"secBtwShots":0.10000000149011612,"angleToShoot":360.0,"attackDistance":15.0,"stoppingDistance":3.0,"movementSpeed":1.5,"attackSpeed":4.0}
-{"monsterName":"impTest","tier":"default","numberBullets":7.0,"bulletSpeed":4.0,"numberOfWaves":1.0,"secBtwWaves":1.0,"secBtwShots":0.05000000074505806,"angleToShoot":35.0,"attackDistance":15.0,"stoppingDistance":7.0,"movementSpeed":1.5,"attackSpeed":4.0}
