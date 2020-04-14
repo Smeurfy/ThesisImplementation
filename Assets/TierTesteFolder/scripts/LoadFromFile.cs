@@ -4,20 +4,22 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using System.Text;
+using System;
 
 public class LoadFromFile : MonoBehaviour
 {
     public Canvas canvas;
     public Dropdown dropdown;
-	public Text popUp;
+    public Text popUp;
     //The list of messages for the Dropdown
     List<Dropdown.OptionData> m_Messages = new List<Dropdown.OptionData>();
     Dropdown.OptionData m_NewData;
     int selectedFile;
+	public GameObject saveBtn;
 
     void Start()
     {
-
+		saveBtn.GetComponent<WriteOnFile>().OnFileSaved += InitDropDown;
         InitDropDown();
     }
 
@@ -42,7 +44,7 @@ public class LoadFromFile : MonoBehaviour
         canvas.GetComponent<PopulateWithMonsters>().DestroyMonster();
         canvas.GetComponent<PopulateWithMonsters>().UnselectBtn();
         canvas.GetComponent<PopulateWithMonsters>().Populate();
-		popUp.gameObject.SetActive(true);
+        popUp.gameObject.SetActive(true);
         StartCoroutine(DisablePopUp());
     }
 
@@ -50,20 +52,23 @@ public class LoadFromFile : MonoBehaviour
     {
         dropdown.ClearOptions();
         string[] a = Directory.GetFiles(Application.dataPath + "/SAVEDFILES/", "*.json");
-        foreach (var item in a)
+        if (a.Length > 0)
         {
-            //Create a new option for the Dropdown menu
-            m_NewData = new Dropdown.OptionData();
-            m_NewData.text = Path.GetFileName(item);
-            m_Messages.Add(m_NewData);
+            foreach (var item in a)
+            {
+                //Create a new option for the Dropdown menu
+                m_NewData = new Dropdown.OptionData();
+                m_NewData.text = Path.GetFileName(item);
+                m_Messages.Add(m_NewData);
+            }
+            foreach (var item in m_Messages)
+            {
+                //Add each entry to the Dropdown
+                dropdown.options.Add(item);
+            }
+            dropdown.captionText.text = dropdown.options[0].text;
+            selectedFile = dropdown.value;
         }
-        foreach (var item in m_Messages)
-        {
-            //Add each entry to the Dropdown
-            dropdown.options.Add(item);
-        }
-        dropdown.captionText.text = dropdown.options[0].text;
-        selectedFile = dropdown.value;
     }
 
     public void SelectFile()
@@ -71,7 +76,7 @@ public class LoadFromFile : MonoBehaviour
         selectedFile = dropdown.value;
     }
 
-	 private IEnumerator DisablePopUp()
+    private IEnumerator DisablePopUp()
     {
         yield return new WaitForSecondsRealtime(2);
         popUp.gameObject.SetActive(false);

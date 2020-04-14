@@ -9,6 +9,7 @@ using System.Text;
 
 public class WriteOnFile : MonoBehaviour
 {
+	public event Action OnFileSaved =  delegate{};
     public Canvas canvas;
     public Text popUp;
     public void SaveDataToFile()
@@ -28,6 +29,7 @@ public class WriteOnFile : MonoBehaviour
         }
         popUp.gameObject.SetActive(true);
         StartCoroutine(DisablePopUp());
+		OnFileSaved();
     }
 
     private IEnumerator DisablePopUp()
