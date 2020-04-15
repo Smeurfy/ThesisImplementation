@@ -26,8 +26,13 @@ public class LoadFromFile : MonoBehaviour
     public void LoadData()
     {
         var dic = canvas.GetComponent<PopulateWithMonsters>().monstersInfo;
-        string path = Application.dataPath + "/SAVEDFILES/" + dropdown.options[selectedFile].text;
+        string path = Application.dataPath + "/Resources/" + dropdown.options[selectedFile].text;
+		Debug.Log(path);
         string[] fileContent = File.ReadAllLines(path);
+		foreach (var item in dic)
+		{
+			item.Value.Clear();
+		}
         foreach (var item in dic)
         {
             foreach (var str in fileContent)
@@ -35,6 +40,7 @@ public class LoadFromFile : MonoBehaviour
                 MonstersInfo obj = JsonUtility.FromJson<MonstersInfo>(str);
                 if (obj.monsterName == item.Key)
                 {
+				
                     item.Value.Add(obj.tier, obj);
                 }
             }
@@ -50,7 +56,8 @@ public class LoadFromFile : MonoBehaviour
     private void InitDropDown()
     {
         dropdown.ClearOptions();
-        string[] a = Directory.GetFiles(Application.dataPath + "/SAVEDFILES/", "*.json");
+		m_Messages.Clear();
+        string[] a = Directory.GetFiles(Application.dataPath + "/Resources/", "*.json");
         if (a.Length > 0)
         {
             foreach (var item in a)
