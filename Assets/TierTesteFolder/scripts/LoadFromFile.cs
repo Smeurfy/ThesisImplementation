@@ -40,7 +40,6 @@ public class LoadFromFile : MonoBehaviour
                 MonstersInfo obj = JsonUtility.FromJson<MonstersInfo>(str);
                 if (obj.monsterName == item.Key)
                 {
-				
                     item.Value.Add(obj.tier, obj);
                 }
             }
