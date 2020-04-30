@@ -13,6 +13,7 @@ public class UiController : MonoBehaviour
     List<GameObject> enemies = new List<GameObject>();
 
     public Text popUp;
+	public Button saveBtn;
 
     public Button btnSelected, next, previous;
     public GameObject testRoom;
@@ -35,8 +36,8 @@ public class UiController : MonoBehaviour
     private void InitializeList()
     {
         tiers.Add("default");
-        tiers.Add("tier1");
-        tiers.Add("tier2");
+        tiers.Add("Tier1");
+        tiers.Add("Tier2");
     }
 
     private void InitializeDic()
@@ -68,6 +69,7 @@ public class UiController : MonoBehaviour
                     item.GetComponent<PlaceholderTier>().tierName = tierName;
                     save.tierName = tierName;
                     save.id = item.GetComponent<PlaceholderTier>().id;
+					save.monsterName = item.name;
                     auxList.Remove(tierName);
                     //adds the monster to dic to save order
                     order[item.name].Add(item.GetComponent<PlaceholderTier>().id, save);
@@ -76,7 +78,10 @@ public class UiController : MonoBehaviour
                 {
                     item.GetComponent<PlaceholderTier>().tierName = order[item.name][item.GetComponent<PlaceholderTier>().id].tierName;
                     if (order[item.name][item.GetComponent<PlaceholderTier>().id].orderNumber != 0)
+                    {
                         item.GetComponentInChildren<InputField>().text = order[item.name][item.GetComponent<PlaceholderTier>().id].orderNumber.ToString();
+                        item.GetComponent<PlaceholderTier>().orderNumber = order[item.name][item.GetComponent<PlaceholderTier>().id].orderNumber;
+                    }
                 }
             }
         }
@@ -100,7 +105,7 @@ public class UiController : MonoBehaviour
             //If other btn is selected them unselect the selected btn
             if (btnSelected != btn)
             {
-				ClearBullets();
+                ClearBullets();
                 DestroyMonster();
                 btnSelected.GetComponentInChildren<Text>().text = "Select";
                 ColorBlock colors1 = btnSelected.colors;
@@ -110,13 +115,14 @@ public class UiController : MonoBehaviour
 
             }
             var enemy = CreateMonster(btn.transform.parent);
+            GetMonsterCharac(enemy);
         }
         else
         {
             //Unselect the same monster
             if (btnSelected == btn)
             {
-				ClearBullets();
+                ClearBullets();
                 DestroyMonster();
                 btnSelected.GetComponentInChildren<Text>().text = "Select";
                 ColorBlock colors = btnSelected.colors;
@@ -126,6 +132,22 @@ public class UiController : MonoBehaviour
             }
 
         }
+    }
+
+    void GetMonsterCharac(GameObject enemy)
+    {
+        var mInfo = monstersInfo[enemy.name][btnSelected.transform.parent.GetComponent<PlaceholderTier>().tierName];
+        var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
+        enemyCharac.numberOfBullets = (int)mInfo.numberBullets;
+        enemyCharac.bulletSpeed = (int)mInfo.bulletSpeed;
+        enemyCharac.numberOfWaves = (int)mInfo.numberOfWaves;
+        enemyCharac.secondsBetweenWaves = (int)mInfo.secBtwWaves;
+        enemyCharac.secondsBetweenShots = mInfo.secBtwShots;
+        enemyCharac.angleToShootInDegrees = mInfo.angleToShoot;
+        enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance = mInfo.attackDistance;
+        enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer = mInfo.stoppingDistance;
+        enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed = mInfo.movementSpeed;
+        enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
     }
 
     void UnselectMonster()
@@ -165,7 +187,7 @@ public class UiController : MonoBehaviour
     {
         if (btn.name == "Next")
         {
-			next.gameObject.SetActive(false);
+            next.gameObject.SetActive(false);
             monsterIndex++;
             UnselectMonster();
             ClearInputField();
@@ -246,6 +268,24 @@ public class UiController : MonoBehaviour
                 StartCoroutine(EnablePopUp(input));
             }
         }
+        CheckIfReadyToSave();
+    }
+
+    void CheckIfReadyToSave()
+    {
+		int count = 0;
+		foreach (var item in order)
+		{
+			foreach (var enemy in item.Value)
+			{
+				if(enemy.Value.orderNumber != 0){
+					count++;
+				}
+			}
+		}
+		if(count == (enemies.Count * 3)){
+			saveBtn.gameObject.SetActive(true);
+		}
     }
 
     void EnableArrowForNextMonster()
@@ -256,26 +296,27 @@ public class UiController : MonoBehaviour
         {
             if (aux.Contains(item.text))
             {
-				var obj = Instantiate(popUp, enemPlaceholder[1].transform.position - new Vector3(0, 65, 0), Quaternion.identity, gameObject.transform);
-				obj.fontSize = 40;
-				obj.text = "Please order the monsters from 1 to 3.";
-				obj.verticalOverflow = VerticalWrapMode.Overflow;
-				obj.horizontalOverflow = HorizontalWrapMode.Overflow;
-				obj.gameObject.SetActive(true);
-				StartCoroutine(DisablePopUp(obj));
+                var obj = Instantiate(popUp, enemPlaceholder[1].transform.position - new Vector3(0, 65, 0), Quaternion.identity, gameObject.transform);
+                obj.fontSize = 40;
+                obj.text = "Please order the monsters from 1 to 3.";
+                obj.verticalOverflow = VerticalWrapMode.Overflow;
+                obj.horizontalOverflow = HorizontalWrapMode.Overflow;
+                obj.gameObject.SetActive(true);
+                StartCoroutine(DisablePopUp(obj));
                 break;
             }
             aux.Add(item.text);
         }
-        if (aux.Count == 3)
+        if (aux.Count == 3 && monsterIndex < (enemies.Count - 1))
         {
-			next.gameObject.SetActive(true);
+            next.gameObject.SetActive(true);
         }
     }
-	IEnumerator DisablePopUp(Text t){
-		yield return new WaitForSecondsRealtime(2);
+    IEnumerator DisablePopUp(Text t)
+    {
+        yield return new WaitForSecondsRealtime(2);
         Destroy(t.gameObject);
-	}
+    }
 
     IEnumerator EnablePopUp(InputField input)
     {
@@ -296,11 +337,12 @@ public class UiController : MonoBehaviour
         }
     }
 
-	void ClearBullets(){
-		var bullets = GameObject.FindObjectsOfType<RegularBullet>();
-		foreach (var item in bullets)
-		{
-			Destroy(item.gameObject);
-		}
-	}
+    void ClearBullets()
+    {
+        var bullets = GameObject.FindObjectsOfType<RegularBullet>();
+        foreach (var item in bullets)
+        {
+            Destroy(item.gameObject);
+        }
+    }
 }

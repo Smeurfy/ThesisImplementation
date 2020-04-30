@@ -33,7 +33,28 @@ public class WriteOnFile : MonoBehaviour
         OnFileSaved();
     }
 
-    private IEnumerator DisablePopUp()
+    public void SaveMonsterOrderToFile()
+    {
+        DateTime dateTime = DateTime.Now;
+        var dic = canvas.GetComponent<UiController>().order;
+        string path = Application.dataPath + "/Resources/" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Second + "_" + dateTime.Day + dateTime.Month + dateTime.Year + ".json";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+        {
+            foreach (var item in dic)
+            {
+                writer.WriteLine(item.Key);
+                foreach (var item1 in item.Value)
+                {
+                    writer.WriteLine(JsonUtility.ToJson(item1.Value));
+                }
+            }
+        }
+        popUp.gameObject.SetActive(true);
+        StartCoroutine(DisablePopUp());
+    }
+
+        private IEnumerator DisablePopUp()
     {
         yield return new WaitForSecondsRealtime(2);
         popUp.gameObject.SetActive(false);
