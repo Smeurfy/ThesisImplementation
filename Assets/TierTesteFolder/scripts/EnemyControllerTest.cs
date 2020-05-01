@@ -20,14 +20,14 @@ namespace Thesis.Enemy
         protected EnemyStateTest currentState = EnemyStateTest.idle;
 
         #region getters
-        internal PlayerHealthSystem GetPlayerHealthSystem() { return player.GetComponent<PlayerHealthSystem>(); }
+        internal PlayerHealthSystemTest GetPlayerHealthSystem() { return player.GetComponent<PlayerHealthSystemTest>(); }
         #endregion
 
         protected virtual void Start()
         {
             enemyMovement = GetComponent<EnemyMovementTest>();
             enemyShoot = GetComponentInChildren<EnemyShootTest>();
-            player = FindObjectOfType<PlayerHealthSystem>().transform;
+            player = FindObjectOfType<PlayerHealthSystemTest>().transform;
         }
 
         void Update()

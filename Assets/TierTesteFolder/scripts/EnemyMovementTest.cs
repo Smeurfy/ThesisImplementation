@@ -29,7 +29,8 @@ namespace Thesis.Enemy
 
         private void Update()
         {
-            UpdateEnemyOrientation(FindObjectOfType<PlayerHealthSystem>().transform.position - transform.position);
+            if(FindObjectOfType<PlayerHealthSystemTest>())
+                UpdateEnemyOrientation(FindObjectOfType<PlayerHealthSystemTest>().transform.position - transform.position);
         }
 
         private void PatrolPathSetup()

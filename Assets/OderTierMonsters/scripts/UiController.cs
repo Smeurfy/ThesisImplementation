@@ -10,6 +10,7 @@ public class UiController : MonoBehaviour
     public Dictionary<string, Dictionary<string, MonstersInfo>> monstersInfo;
     public Dictionary<string, Dictionary<int, PlaceholderTier>> order;
     public GameObject enemiesPlaceholders;
+    public GameObject weapon;
     List<GameObject> enemies = new List<GameObject>();
 
     public Text popUp;
@@ -115,6 +116,8 @@ public class UiController : MonoBehaviour
 
             }
             var enemy = CreateMonster(btn.transform.parent);
+            ResetPlayerWeapon();
+            
             GetMonsterCharac(enemy);
         }
         else
@@ -132,6 +135,15 @@ public class UiController : MonoBehaviour
             }
 
         }
+    }
+
+    void ResetPlayerWeapon(){
+        GameObject.FindObjectOfType<PlayerShootTest>().DroppedThrowable();
+        PlayerHealthSystemTest.instance.EnablePlayer();
+        if(GameObject.Find("xmas tree 30 bullets test"))
+            Destroy(GameObject.Find("xmas tree 30 bullets test"));
+        var w = Instantiate(weapon, weapon.transform.position, Quaternion.identity);
+        w.name = weapon.name;
     }
 
     void GetMonsterCharac(GameObject enemy)
@@ -170,6 +182,7 @@ public class UiController : MonoBehaviour
             if (item.GetComponent<SpriteRenderer>().sprite.name == enemyName)
             {
                 var obj = Instantiate(item, testRoom.transform.position + new Vector3(3, 0, 0), Quaternion.identity, testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder());
+                obj.GetComponent<Thesis.Enemy.EnemyHealthSystemTest>().OnEnemyDie += UnselectMonster;
                 obj.name = item.name;
                 return obj;
             }
