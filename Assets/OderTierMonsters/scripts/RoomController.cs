@@ -32,7 +32,7 @@ public class RoomController : MonoBehaviour
 		yield return new WaitForSecondsRealtime(2);
 		var obj = Instantiate(enemy, GameObject.Find("roomTest").transform.position + new Vector3(3, 0, 0), Quaternion.identity, GameObject.Find("roomTest").GetComponentInChildren<RoomManager>().GetEnemyHolder());
 
-		Instantiate(weapon, weapon.transform.position, Quaternion.identity);
+		Instantiate(weapon, GameObject.Find("playerTest").transform.position, Quaternion.identity);
 
 		obj.SetActive(true);
 		obj.name = enemy.name;

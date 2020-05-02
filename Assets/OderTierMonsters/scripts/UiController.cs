@@ -14,7 +14,7 @@ public class UiController : MonoBehaviour
     List<GameObject> enemies = new List<GameObject>();
 
     public Text popUp;
-	public Button saveBtn;
+    public Button saveBtn;
 
     public Button btnSelected, next, previous;
     public GameObject testRoom;
@@ -70,7 +70,7 @@ public class UiController : MonoBehaviour
                     item.GetComponent<PlaceholderTier>().tierName = tierName;
                     save.tierName = tierName;
                     save.id = item.GetComponent<PlaceholderTier>().id;
-					save.monsterName = item.name;
+                    save.monsterName = item.name;
                     auxList.Remove(tierName);
                     //adds the monster to dic to save order
                     order[item.name].Add(item.GetComponent<PlaceholderTier>().id, save);
@@ -117,7 +117,7 @@ public class UiController : MonoBehaviour
             }
             var enemy = CreateMonster(btn.transform.parent);
             ResetPlayerWeapon();
-            
+
             GetMonsterCharac(enemy);
         }
         else
@@ -137,12 +137,15 @@ public class UiController : MonoBehaviour
         }
     }
 
-    void ResetPlayerWeapon(){
+    void ResetPlayerWeapon()
+    {
         GameObject.FindObjectOfType<PlayerShootTest>().DroppedThrowable();
         PlayerHealthSystemTest.instance.EnablePlayer();
-        if(GameObject.Find("xmas tree 30 bullets test"))
+        if (GameObject.Find("xmas tree 30 bullets test"))
             Destroy(GameObject.Find("xmas tree 30 bullets test"));
-        var w = Instantiate(weapon, weapon.transform.position, Quaternion.identity);
+        if (GameObject.Find("thrown candyCane test(Clone)"))
+            Destroy(GameObject.Find("thrown candyCane test(Clone)"));
+        var w = Instantiate(weapon, GameObject.Find("playerTest").transform.position, Quaternion.identity);
         w.name = weapon.name;
     }
 
@@ -286,19 +289,21 @@ public class UiController : MonoBehaviour
 
     void CheckIfReadyToSave()
     {
-		int count = 0;
-		foreach (var item in order)
-		{
-			foreach (var enemy in item.Value)
-			{
-				if(enemy.Value.orderNumber != 0){
-					count++;
-				}
-			}
-		}
-		if(count == (enemies.Count * 3)){
-			saveBtn.gameObject.SetActive(true);
-		}
+        int count = 0;
+        foreach (var item in order)
+        {
+            foreach (var enemy in item.Value)
+            {
+                if (enemy.Value.orderNumber != 0)
+                {
+                    count++;
+                }
+            }
+        }
+        if (count == (enemies.Count * 3))
+        {
+            saveBtn.gameObject.SetActive(true);
+        }
     }
 
     void EnableArrowForNextMonster()

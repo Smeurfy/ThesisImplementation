@@ -117,8 +117,8 @@ GameObject:
   - component: {fileID: 82493797233241956}
   - component: {fileID: 114430724688581824}
   - component: {fileID: 114851621019037454}
-  - component: {fileID: 114683641227632200}
   - component: {fileID: 199798799855574144}
+  - component: {fileID: 114488384775237968}
   - component: {fileID: 114649007593390596}
   m_Layer: 10
   m_Name: impTest
@@ -583,6 +583,24 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114488384775237968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1646682397189632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e842b9744a3f954c822db09226ea10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
+  secondsToShowDamageBar: 1
+  HUD: {fileID: 1192063236750852}
+  remaningHealth: {fileID: 114303410611467896}
+  damageVisualization: {fileID: 114999727836396346}
+  bombPrefab: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!114 &114501201512143140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -671,24 +689,6 @@ MonoBehaviour:
   m_FillAmount: 0.51
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114683641227632200
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1646682397189632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpBeforeChallenge: 0
-  secondsToShowDamageBar: 1
-  HUD: {fileID: 1192063236750852}
-  remaningHealth: {fileID: 114303410611467896}
-  damageVisualization: {fileID: 114999727836396346}
-  bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
-  enemyData: {fileID: 0}
 --- !u!114 &114764365648957096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -742,8 +742,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca90c63d0aef04b4983ffa4577cf1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponBeingHeld: {fileID: 11400000, guid: 9c1ff407ae6d68d4dab39018fa840f72, type: 2}
   gunTip: {fileID: 4089846829532706}
+  timeToWaitBeforeShootingAgain: 0
 --- !u!114 &114921926673993602
 MonoBehaviour:
   m_ObjectHideFlags: 1

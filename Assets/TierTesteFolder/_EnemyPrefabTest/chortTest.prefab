@@ -109,8 +109,8 @@ GameObject:
   - component: {fileID: 82641506729128348}
   - component: {fileID: 114782720819283076}
   - component: {fileID: 114626452411539838}
-  - component: {fileID: 114847645783330404}
   - component: {fileID: 199840944104471808}
+  - component: {fileID: 114482182010301122}
   - component: {fileID: 114039178701282614}
   m_Layer: 10
   m_Name: chortTest
@@ -569,8 +569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca90c63d0aef04b4983ffa4577cf1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponBeingHeld: {fileID: 11400000, guid: 164d33234d6be06459350c2f97ca73d9, type: 2}
   gunTip: {fileID: 4884289588069470}
+  timeToWaitBeforeShootingAgain: 0
 --- !u!114 &114166022772173844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -647,6 +647,24 @@ MonoBehaviour:
   secondsBetweenShots: 0.1
   angleToShootInDegrees: 360
   goesBack: 0
+--- !u!114 &114482182010301122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1587769887240742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e842b9744a3f954c822db09226ea10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
+  secondsToShowDamageBar: 1
+  HUD: {fileID: 1435359688411842}
+  remaningHealth: {fileID: 114668018924228912}
+  damageVisualization: {fileID: 114373335508907738}
+  bombPrefab: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!114 &114548498401004556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -752,24 +770,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114847645783330404
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1587769887240742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpBeforeChallenge: 0
-  secondsToShowDamageBar: 1
-  HUD: {fileID: 1435359688411842}
-  remaningHealth: {fileID: 114668018924228912}
-  damageVisualization: {fileID: 114373335508907738}
-  bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
-  enemyData: {fileID: 0}
 --- !u!198 &198752493117075884
 ParticleSystem:
   m_ObjectHideFlags: 1

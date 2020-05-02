@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 82539905383872414}
   - component: {fileID: 114023277350230894}
   - component: {fileID: 114650841916646520}
-  - component: {fileID: 114729618630045670}
+  - component: {fileID: 114029033295057796}
   - component: {fileID: 199384028630217802}
   - component: {fileID: 114753653023542932}
   m_Layer: 10
@@ -545,6 +545,24 @@ MonoBehaviour:
   attackDistance: 15
   durationOfPush: 0.1
   isStationaryEnemy: 0
+--- !u!114 &114029033295057796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866697719911394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e842b9744a3f954c822db09226ea10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
+  secondsToShowDamageBar: 1
+  HUD: {fileID: 1979452095288090}
+  remaningHealth: {fileID: 114039574724347446}
+  damageVisualization: {fileID: 114214909006656668}
+  bombPrefab: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!114 &114039574724347446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -681,6 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunTip: {fileID: 4016900695332092}
+  timeToWaitBeforeShootingAgain: 0
 --- !u!114 &114650841916646520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -696,24 +715,6 @@ MonoBehaviour:
   movementSpeed: 1.5
   patrolPath: {fileID: 0}
   stoppingDistanceToPatrolPoint: 0.2
---- !u!114 &114729618630045670
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866697719911394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpBeforeChallenge: 0
-  secondsToShowDamageBar: 1
-  HUD: {fileID: 1979452095288090}
-  remaningHealth: {fileID: 114039574724347446}
-  damageVisualization: {fileID: 114214909006656668}
-  bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
-  enemyData: {fileID: 0}
 --- !u!114 &114753653023542932
 MonoBehaviour:
   m_ObjectHideFlags: 1

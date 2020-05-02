@@ -61,8 +61,8 @@ GameObject:
   - component: {fileID: 82522894417658092}
   - component: {fileID: 114968902872928904}
   - component: {fileID: 114854987908474526}
-  - component: {fileID: 114017062192957460}
   - component: {fileID: 199707317423903352}
+  - component: {fileID: 114059035204692240}
   - component: {fileID: 114827441718678522}
   m_Layer: 10
   m_Name: swampyTest
@@ -503,7 +503,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114017062192957460
+--- !u!114 &114059035204692240
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166698332275182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e842b9744a3f954c822db09226ea10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hpBeforeChallenge: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
   HUD: {fileID: 1778257624256052}
   remaningHealth: {fileID: 114256467782423596}
   damageVisualization: {fileID: 114747074936928182}
-  bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
+  bombPrefab: {fileID: 0}
   enemyData: {fileID: 0}
 --- !u!114 &114169284584591812
 MonoBehaviour:
@@ -700,6 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunTip: {fileID: 4225730200870302}
+  timeToWaitBeforeShootingAgain: 0
 --- !u!114 &114747074936928182
 MonoBehaviour:
   m_ObjectHideFlags: 1

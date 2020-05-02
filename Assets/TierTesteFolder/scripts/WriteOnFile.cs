@@ -6,9 +6,12 @@ using System;
 using System.IO;
 using UnityEngine.UI;
 using System.Text;
+using System.ComponentModel;
 
 public class WriteOnFile : MonoBehaviour
 {
+    bool triggerResultEmail = false;
+    bool resultEmailSucess;
     public event Action OnFileSaved = delegate { };
     public Canvas canvas;
     public Text popUp;
@@ -50,11 +53,30 @@ public class WriteOnFile : MonoBehaviour
                 }
             }
         }
+        SimpleEmailSender.Send("alo", path, SendCompletedCallback);
         popUp.gameObject.SetActive(true);
         StartCoroutine(DisablePopUp());
     }
 
-        private IEnumerator DisablePopUp()
+    private void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
+    {
+        if (e.Cancelled || e.Error != null)
+        {
+            print("Email not sent: " + e.Error.ToString());
+
+            resultEmailSucess = false;
+            triggerResultEmail = true;
+        }
+        else
+        {
+            print("Email successfully sent.");
+
+            resultEmailSucess = true;
+            triggerResultEmail = true;
+        }
+    }
+
+    private IEnumerator DisablePopUp()
     {
         yield return new WaitForSecondsRealtime(2);
         popUp.gameObject.SetActive(false);

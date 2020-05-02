@@ -148,8 +148,8 @@ GameObject:
   - component: {fileID: 82131944521639956}
   - component: {fileID: 114293161277674636}
   - component: {fileID: 114370169554942246}
-  - component: {fileID: 114610930537627464}
   - component: {fileID: 199147091533602426}
+  - component: {fileID: 114303588154996258}
   - component: {fileID: 114049450718077502}
   m_Layer: 10
   m_Name: maskedOrcTest
@@ -621,6 +621,24 @@ MonoBehaviour:
   attackDistance: 15
   durationOfPush: 0.1
   isStationaryEnemy: 0
+--- !u!114 &114303588154996258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467082412705514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e842b9744a3f954c822db09226ea10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
+  secondsToShowDamageBar: 1
+  HUD: {fileID: 1321548198918584}
+  remaningHealth: {fileID: 114236929102076262}
+  damageVisualization: {fileID: 114834515502976956}
+  bombPrefab: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!114 &114370169554942246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -636,24 +654,6 @@ MonoBehaviour:
   movementSpeed: 1.5
   patrolPath: {fileID: 0}
   stoppingDistanceToPatrolPoint: 0.2
---- !u!114 &114610930537627464
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467082412705514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpBeforeChallenge: 0
-  secondsToShowDamageBar: 1
-  HUD: {fileID: 1321548198918584}
-  remaningHealth: {fileID: 114236929102076262}
-  damageVisualization: {fileID: 114834515502976956}
-  bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
-  enemyData: {fileID: 0}
 --- !u!114 &114686133110342060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -768,8 +768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca90c63d0aef04b4983ffa4577cf1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponBeingHeld: {fileID: 11400000, guid: 9c1ff407ae6d68d4dab39018fa840f72, type: 2}
   gunTip: {fileID: 4347551022376124}
+  timeToWaitBeforeShootingAgain: 0
 --- !u!198 &198359728534759754
 ParticleSystem:
   m_ObjectHideFlags: 1
