@@ -324,6 +324,10 @@ public class UiController : MonoBehaviour
             }
             aux.Add(item.text);
         }
+        if (aux.Count == 3)
+        {
+            GameObject.Find("ProgressBar").GetComponent<ProgressBar>().IncreaseProgress(3 / ((float)enemies.Count * 3));
+        }
         if (aux.Count == 3 && monsterIndex < (enemies.Count - 1))
         {
             next.gameObject.SetActive(true);
