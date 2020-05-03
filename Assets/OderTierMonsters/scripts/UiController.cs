@@ -239,7 +239,6 @@ public class UiController : MonoBehaviour
     void LoadFile()
     {
         string path = Application.dataPath + "/Resources/denis.json";
-        Debug.Log(path);
         string[] fileContent = File.ReadAllLines(path);
         foreach (var item in monstersInfo)
         {

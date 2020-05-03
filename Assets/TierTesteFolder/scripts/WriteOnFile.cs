@@ -53,7 +53,7 @@ public class WriteOnFile : MonoBehaviour
                 }
             }
         }
-        SimpleEmailSender.Send("alo", path, SendCompletedCallback);
+        SimpleEmailSender.Send(path, SendCompletedCallback);
         popUp.gameObject.SetActive(true);
         StartCoroutine(DisablePopUp());
     }

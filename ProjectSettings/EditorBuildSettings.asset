@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/main menu.unity
     guid: 9e63b9e9c4f92bf4eb3b395bbbec3d4e
   - enabled: 0
@@ -17,7 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/credits.unity
     guid: 319c182f8d2371e47b8c295e671a0a91
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TierTestScene.unity
     guid: edba303eeadef2b4ab7e763685362dd0
+  - enabled: 1
+    path: Assets/Scenes/OrderTierMonsters.unity
+    guid: dbcad5b57b7fcff458efb5a5bf4d39cf
   m_configObjects: {}

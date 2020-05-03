@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class SimpleEmailSender
 {
+    private static string userEmail;
     public static EmailSettings emailSettings = new EmailSettings { STMPClient = "smtp.gmail.com", SMTPPort = 587, UserName = "dennydenii@gmail.com", UserPass = "cmxkvmntsfqpguxc" };
     public struct EmailSettings
     {
@@ -18,7 +19,7 @@ public class SimpleEmailSender
         public string UserPass;
     }
 
-    public static void Send(string body, string attachFile, Action<object, AsyncCompletedEventArgs> callback)
+    public static void Send(string attachFile, Action<object, AsyncCompletedEventArgs> callback)
     {
         try
         {
@@ -31,7 +32,7 @@ public class SimpleEmailSender
 
             MailMessage msg = new MailMessage(emailSettings.UserName, "dennydenii@gmail.com");
             msg.Subject = "Dados do jogo";
-            msg.Body = body;
+            msg.Body = userEmail;
             if (attachFile != null && !attachFile.Equals(""))
                 if (File.Exists(attachFile))
                     msg.Attachments.Add(new Attachment(attachFile));
@@ -46,6 +47,10 @@ public class SimpleEmailSender
             Debug.LogWarning("SimpleEmail: " + ex);
             callback("", new AsyncCompletedEventArgs(ex, true, ""));
         }
+    }
+
+    public static void SetEmail(string email){
+        userEmail = email;
     }
 }
 
