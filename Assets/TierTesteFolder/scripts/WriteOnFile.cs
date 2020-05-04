@@ -46,7 +46,7 @@ public class WriteOnFile : MonoBehaviour
         {
             foreach (var item in dic)
             {
-                writer.WriteLine(item.Key);
+                // writer.WriteLine(item.Key);
                 foreach (var item1 in item.Value)
                 {
                     writer.WriteLine(JsonUtility.ToJson(item1.Value));

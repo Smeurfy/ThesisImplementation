@@ -152,17 +152,29 @@ public class UiController : MonoBehaviour
     void GetMonsterCharac(GameObject enemy)
     {
         var mInfo = monstersInfo[enemy.name][btnSelected.transform.parent.GetComponent<PlaceholderTier>().tierName];
-        var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
-        enemyCharac.numberOfBullets = (int)mInfo.numberBullets;
-        enemyCharac.bulletSpeed = (int)mInfo.bulletSpeed;
-        enemyCharac.numberOfWaves = (int)mInfo.numberOfWaves;
-        enemyCharac.secondsBetweenWaves = (int)mInfo.secBtwWaves;
-        enemyCharac.secondsBetweenShots = mInfo.secBtwShots;
-        enemyCharac.angleToShootInDegrees = mInfo.angleToShoot;
-        enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance = mInfo.attackDistance;
-        enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer = mInfo.stoppingDistance;
-        enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed = mInfo.movementSpeed;
-        enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
+        if (enemy.name == "iceZombieTest")
+        {
+            enemy.GetComponent<IceZombieControllerTest>().timeBetweenAttacksInSecs = mInfo.timeBetweenAttacks;
+            enemy.GetComponent<IceZombiePhysicalAttack>().DurationOfAttackInSecs = mInfo.durationOfAttacks;
+            enemy.GetComponent<IceZombiePhysicalAttack>().attackFlightSpeed = mInfo.attackSpeed;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer = mInfo.stoppingDistance;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed = mInfo.movementSpeed;
+        }
+        else
+        {
+            
+            var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
+            enemyCharac.numberOfBullets = (int)mInfo.numberBullets;
+            enemyCharac.bulletSpeed = (int)mInfo.bulletSpeed;
+            enemyCharac.numberOfWaves = (int)mInfo.numberOfWaves;
+            enemyCharac.secondsBetweenWaves = (int)mInfo.secBtwWaves;
+            enemyCharac.secondsBetweenShots = mInfo.secBtwShots;
+            enemyCharac.angleToShootInDegrees = mInfo.angleToShoot;
+            enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance = mInfo.attackDistance;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer = mInfo.stoppingDistance;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed = mInfo.movementSpeed;
+            enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
+        }
     }
 
     void UnselectMonster()

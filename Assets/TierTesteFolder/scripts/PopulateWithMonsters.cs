@@ -89,6 +89,7 @@ public class PopulateWithMonsters : MonoBehaviour
             var enemy = CreateMonster(btn.transform.parent);
             GetMonsterCharac(enemy, "default");
             GetComponent<TierMonsterBtn>().EnableTierButtonsForSelectedMonster(btn.transform.parent, true);
+            DisableSlidersBasedOnMonster(enemy);
         }
         else
         {
@@ -128,28 +129,38 @@ public class PopulateWithMonsters : MonoBehaviour
 
     public void DestroyMonster()
     {
-        if(testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().transform.childCount > 0)
+        if (testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().transform.childCount > 0)
             Destroy(testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().GetComponentInChildren<SpriteRenderer>().gameObject);
         canChangeValue = false;
     }
 
     public void GetMonsterCharac(GameObject enemy, string mName)
     {
-        var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
         var placeHolders = monsterCharac.GetComponentsInChildren<RectTransform>();
         if (monstersInfo[enemy.name].ContainsKey(mName))
         {
             mInfo = monstersInfo[enemy.name][mName];
-            enemyCharac.numberOfBullets = (int)mInfo.numberBullets;
-            enemyCharac.bulletSpeed = (int)mInfo.bulletSpeed;
-            enemyCharac.numberOfWaves = (int)mInfo.numberOfWaves;
-            enemyCharac.secondsBetweenWaves = (int)mInfo.secBtwWaves;
-            enemyCharac.secondsBetweenShots = mInfo.secBtwShots;
-            enemyCharac.angleToShootInDegrees = mInfo.angleToShoot;
-            enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance = mInfo.attackDistance;
             enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer = mInfo.stoppingDistance;
             enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed = mInfo.movementSpeed;
-            enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
+            if (enemy.name == "iceZombieTest")
+            {
+
+                enemy.GetComponent<IceZombieControllerTest>().timeBetweenAttacksInSecs = mInfo.timeBetweenAttacks;
+                enemy.GetComponent<IceZombiePhysicalAttack>().DurationOfAttackInSecs = mInfo.durationOfAttacks;
+                enemy.GetComponent<IceZombiePhysicalAttack>().attackFlightSpeed = mInfo.attackSpeed;
+            }
+            else
+            {
+                var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
+                enemyCharac.numberOfBullets = (int)mInfo.numberBullets;
+                enemyCharac.bulletSpeed = (int)mInfo.bulletSpeed;
+                enemyCharac.numberOfWaves = (int)mInfo.numberOfWaves;
+                enemyCharac.secondsBetweenWaves = (int)mInfo.secBtwWaves;
+                enemyCharac.secondsBetweenShots = mInfo.secBtwShots;
+                enemyCharac.angleToShootInDegrees = mInfo.angleToShoot;
+                enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance = mInfo.attackDistance;
+                enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
+            }
         }
         else
         {
@@ -187,6 +198,10 @@ public class PopulateWithMonsters : MonoBehaviour
                 PopulatePlaceholder(item, 0, 20, mInfo.attackDistance, false);
                 enemy.GetComponentInChildren<DrawAttackLine>().radius = enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance;
             }
+            if (item.name == "AttackSpeed")
+            {
+                PopulatePlaceholder(item, 0, 15, mInfo.attackSpeed, false);
+            }
             if (item.name == "StoppingDistance")
             {
                 PopulatePlaceholder(item, 0, 15, mInfo.stoppingDistance, false);
@@ -196,9 +211,13 @@ public class PopulateWithMonsters : MonoBehaviour
             {
                 PopulatePlaceholder(item, 0, 15, mInfo.movementSpeed, false);
             }
-            if (item.name == "AttackSpeed")
+            if (item.name == "TBetweenAttacks")
             {
-                PopulatePlaceholder(item, 0, 15, mInfo.attackSpeed, false);
+                PopulatePlaceholder(item, 0, 15, mInfo.timeBetweenAttacks, false);
+            }
+            if (item.name == "DurationAttack")
+            {
+                PopulatePlaceholder(item, 0, 15, mInfo.durationOfAttacks, false);
             }
         }
         canChangeValue = true;
@@ -206,22 +225,32 @@ public class PopulateWithMonsters : MonoBehaviour
 
     private MonstersInfo AddEnemyToDic(GameObject enemy, string mName)
     {
-        var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
-        MonstersInfo mInfo = new MonstersInfo(enemy.name, mName, enemyCharac.numberOfBullets, enemyCharac.bulletSpeed, enemyCharac.numberOfWaves, enemyCharac.secondsBetweenWaves,
-                                              enemyCharac.secondsBetweenShots, enemyCharac.angleToShootInDegrees, enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance,
-                                              enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer, enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed,
-                                              enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain);
+        MonstersInfo monsterInfo = new MonstersInfo();
+        if (enemy.name == "iceZombieTest")
+        {
+            monsterInfo = new MonstersInfo(enemy.name, mName, enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer,
+                                                enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed, enemy.GetComponent<IceZombieControllerTest>().timeBetweenAttacksInSecs,
+                                                enemy.GetComponent<IceZombiePhysicalAttack>().DurationOfAttackInSecs, enemy.GetComponent<IceZombiePhysicalAttack>().attackFlightSpeed);
+        }
+        else
+        {
+            var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
+            monsterInfo = new MonstersInfo(enemy.name, mName, enemyCharac.numberOfBullets, enemyCharac.bulletSpeed, enemyCharac.numberOfWaves, enemyCharac.secondsBetweenWaves,
+                                                  enemyCharac.secondsBetweenShots, enemyCharac.angleToShootInDegrees, enemy.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance,
+                                                  enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer, enemy.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed,
+                                                  enemy.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain);
+        }
         if (!monstersInfo[enemy.name].ContainsKey(mName))
         {
-            monstersInfo[enemy.name].Add(mName, mInfo);
+            monstersInfo[enemy.name].Add(mName, monsterInfo);
         }
         else
         {
             //update monster info
             monstersInfo[enemy.name].Remove(mName);
-            monstersInfo[enemy.name].Add(mName, mInfo);
+            monstersInfo[enemy.name].Add(mName, monsterInfo);
         }
-        return mInfo;
+        return monsterInfo;
     }
 
     private void PopulatePlaceholder(RectTransform item, int min, int max, float value, bool wholeNumbers)
@@ -239,53 +268,81 @@ public class PopulateWithMonsters : MonoBehaviour
         {
             var sliderValue = slider.GetComponentInChildren<Slider>().value;
             slider.transform.parent.transform.Find("Values").GetComponent<Text>().text = "Value: " + sliderValue;
-            var enemySelected = testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().GetComponentInChildren<BulletSpawner>();
+            var enemySelected = testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().GetComponentInChildren<Thesis.Enemy.EnemyHealthSystemTest>().transform.gameObject;
             var characChanged = slider.transform.parent;
-            if (characChanged.name == "NBullets")
-            {
-                enemySelected.numberOfBullets = (int)sliderValue;
-                enemySelected.UpdateInitialValues();
-            }
-            if (characChanged.name == "BulletSpeed")
-            {
-                enemySelected.bulletSpeed = (int)sliderValue;
-            }
-            if (characChanged.name == "NumberOfWaves")
-            {
-                enemySelected.numberOfWaves = (int)sliderValue;
-            }
-            if (characChanged.name == "SecBtwWaves")
-            {
-                enemySelected.secondsBetweenWaves = (int)sliderValue;
-            }
-            if (characChanged.name == "SecBtwShoots")
-            {
-                enemySelected.secondsBetweenShots = sliderValue;
-            }
-            if (characChanged.name == "AngleToShoot")
-            {
-                enemySelected.angleToShootInDegrees = sliderValue;
-                enemySelected.UpdateInitialValues();
-            }
-            if (characChanged.name == "AttackDistance")
-            {
-                enemySelected.transform.parent.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance = sliderValue;
-                enemySelected.transform.parent.GetComponentInChildren<DrawAttackLine>().radius = sliderValue;
-            }
+
             if (characChanged.name == "StoppingDistance")
             {
-                enemySelected.transform.parent.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer = sliderValue;
-                enemySelected.transform.parent.GetComponentInChildren<DrawStopLine>().radius = sliderValue;
+                enemySelected.GetComponent<Thesis.Enemy.EnemyMovementTest>().stoppingDistanceToPlayer = sliderValue;
+                enemySelected.GetComponentInChildren<DrawStopLine>().radius = sliderValue;
             }
             if (characChanged.name == "MovSpeed")
             {
-                enemySelected.transform.parent.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed = sliderValue;
+                enemySelected.GetComponent<Thesis.Enemy.EnemyMovementTest>().movementSpeed = sliderValue;
             }
-            if (characChanged.name == "AttackSpeed")
+            if (enemySelected.name == "iceZombieTest")
             {
-                enemySelected.transform.parent.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = sliderValue;
+                if (characChanged.name == "AttackSpeed")
+                {
+                    enemySelected.GetComponent<IceZombiePhysicalAttack>().attackFlightSpeed = sliderValue;
+
+                }
+                if (characChanged.name == "TBetweenAttacks")
+                {
+                    enemySelected.GetComponent<IceZombieControllerTest>().timeBetweenAttacksInSecs = sliderValue;
+                }
+                if (characChanged.name == "DurationAttack")
+                {
+                    enemySelected.GetComponent<IceZombiePhysicalAttack>().DurationOfAttackInSecs = sliderValue;
+                }
+                AddEnemyToDic(enemySelected, mInfo.tier);
             }
-            AddEnemyToDic(enemySelected.transform.parent.gameObject, mInfo.tier);
+            else
+            {
+                var bulletSpawner = testRoom.GetComponentInChildren<RoomManager>().GetEnemyHolder().GetComponentInChildren<BulletSpawner>();
+                if (characChanged.name == "NBullets")
+                {
+                    bulletSpawner.numberOfBullets = (int)sliderValue;
+                    bulletSpawner.UpdateInitialValues();
+                }
+                if (characChanged.name == "BulletSpeed")
+                {
+                    bulletSpawner.bulletSpeed = (int)sliderValue;
+                }
+                if (characChanged.name == "NumberOfWaves")
+                {
+                    bulletSpawner.numberOfWaves = (int)sliderValue;
+                }
+                if (characChanged.name == "SecBtwWaves")
+                {
+                    bulletSpawner.secondsBetweenWaves = (int)sliderValue;
+                }
+                if (characChanged.name == "SecBtwShoots")
+                {
+                    bulletSpawner.secondsBetweenShots = sliderValue;
+                }
+                if (characChanged.name == "AngleToShoot")
+                {
+                    bulletSpawner.angleToShootInDegrees = sliderValue;
+                    bulletSpawner.UpdateInitialValues();
+                }
+                if (characChanged.name == "AttackDistance")
+                {
+                    bulletSpawner.transform.parent.GetComponent<Thesis.Enemy.EnemyControllerTest>().attackDistance = sliderValue;
+                    bulletSpawner.transform.parent.GetComponentInChildren<DrawAttackLine>().radius = sliderValue;
+                }
+                if (characChanged.name == "AttackSpeed")
+                {
+                    bulletSpawner.transform.parent.GetComponentInChildren<Thesis.Enemy.EnemyShootTest>().timeToWaitBeforeShootingAgain = sliderValue;
+                }
+                AddEnemyToDic(bulletSpawner.transform.parent.gameObject, mInfo.tier);
+            }
+
+
+
+
+
+
         }
     }
 
@@ -334,6 +391,14 @@ public class PopulateWithMonsters : MonoBehaviour
             {
                 PopulatePlaceholder(item, 0, 15, 0, false);
             }
+            if (item.name == "TBetweenAttacks")
+            {
+                PopulatePlaceholder(item, 0, 15, 0, false);
+            }
+            if (item.name == "DurationAttack")
+            {
+                PopulatePlaceholder(item, 0, 15, 0, false);
+            }
         }
     }
 
@@ -359,5 +424,43 @@ public class PopulateWithMonsters : MonoBehaviour
             }
         }
         tierName.text = "";
+    }
+
+    void DisableSlidersBasedOnMonster(GameObject enemy)
+    {
+        var placeHolders = monsterCharac.GetComponentsInChildren<RectTransform>();
+        foreach (var item in placeHolders)
+        {
+            if (enemy.name == "iceZombieTest")
+            {
+                if (item.name == "NBullets" || item.name == "BulletSpeed" || item.name == "NumberOfWaves" || item.name == "SecBtwWaves" ||
+                    item.name == "SecBtwShoots" || item.name == "AngleToShoot" || item.name == "AttackDistance")
+                {
+                    item.GetComponentInChildren<Slider>().interactable = false;
+                }
+                else
+                {
+                    if (item.name == "TBetweenAttacks" || item.name == "DurationAttack")
+                    {
+                        item.GetComponentInChildren<Slider>().interactable = true;
+                    }
+                }
+            }
+            else
+            {
+                if (item.name == "TBetweenAttacks" || item.name == "DurationAttack")
+                {
+                    item.GetComponentInChildren<Slider>().interactable = false;
+                }
+                else
+                {
+                    if (item.name == "NBullets" || item.name == "BulletSpeed" || item.name == "NumberOfWaves" || item.name == "SecBtwWaves" ||
+                    item.name == "SecBtwShoots" || item.name == "AngleToShoot" || item.name == "AttackDistance")
+                    {
+                        item.GetComponentInChildren<Slider>().interactable = true;
+                    }
+                }
+            }
+        }
     }
 }

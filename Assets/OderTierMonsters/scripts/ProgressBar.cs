@@ -20,7 +20,6 @@ public class ProgressBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Debug.Log(targetProgress);
 		if(slider.value < targetProgress){
 			slider.value += fillSpeed * Time.deltaTime;
 			if(!particleSys.isPlaying){

@@ -4,12 +4,12 @@ using Thesis.Enemy;
 
 public class IceZombiePhysicalAttack : EnemyPhysicalAttack 
 {
-    [SerializeField] float DurationOfAttackInSecs = 2f;
+    [SerializeField]public float DurationOfAttackInSecs = 2f;
     [SerializeField] public float attackFlightSpeed = 5f;
     [SerializeField] private Animator animator;
     
-    private IceZombieController iceZombieController;
-    private EnemyMovement movement;
+    private IceZombieControllerTest iceZombieController;
+    private EnemyMovementTest movement;
     private bool preparingToAttackNotSet = true;
 
     private const string animatorPreparingAttack = "preparingAttack";
@@ -17,8 +17,8 @@ public class IceZombiePhysicalAttack : EnemyPhysicalAttack
 
     private void Start()
     {
-        iceZombieController = GetComponent<IceZombieController>();
-        movement = GetComponent<EnemyMovement>();
+        iceZombieController = GetComponent<IceZombieControllerTest>();
+        movement = GetComponent<EnemyMovementTest>();
     }
 
     internal void PrepareToAttackPlayer()
