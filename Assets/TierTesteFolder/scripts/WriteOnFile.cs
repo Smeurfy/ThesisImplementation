@@ -7,6 +7,7 @@ using System.IO;
 using UnityEngine.UI;
 using System.Text;
 using System.ComponentModel;
+using UnityEngine.SceneManagement;
 
 public class WriteOnFile : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class WriteOnFile : MonoBehaviour
     {
         DateTime dateTime = DateTime.Now;
         var dic = canvas.GetComponent<PopulateWithMonsters>().monstersInfo;
-        string path = Application.dataPath + "/Resources/" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Second + "_" + dateTime.Day + dateTime.Month + dateTime.Year + ".json";
+        string path = Application.dataPath + "/Resources/" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Second + "_" + dateTime.Day + "_" + dateTime.Month + "_" + dateTime.Year + ".json";
         FileStream stream = new FileStream(path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
         {
@@ -40,7 +41,8 @@ public class WriteOnFile : MonoBehaviour
     {
         DateTime dateTime = DateTime.Now;
         var dic = canvas.GetComponent<UiController>().order;
-        string path = Application.dataPath + "/Resources/" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Second + "_" + dateTime.Day + dateTime.Month + dateTime.Year + ".json";
+        string path = Application.dataPath + "/Resources/" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Second + "_" + dateTime.Day + "_" + dateTime.Month + "_" + dateTime.Year + ".json";
+        Debug.Log(path);
         FileStream stream = new FileStream(path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
         {
@@ -80,9 +82,14 @@ public class WriteOnFile : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(2);
         popUp.gameObject.SetActive(false);
+        ThankYouScene();
     }
+
+    void ThankYouScene(){
+        Destroy(GameObject.Find("playerTest"));
+        SceneManager.LoadScene(3);
+    }
+
 }
-
-
 
 

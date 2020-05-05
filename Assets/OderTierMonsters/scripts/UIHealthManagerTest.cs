@@ -26,9 +26,9 @@ public class UIHealthManagerTest : MonoBehaviour
 
     private void DereferencePlayerHealth(Scene loadedScene)
     {
-        if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
-        {
-            player.OnPlayerHealthUpdate -= UpdateHealthText;
-        }
+        // if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
+        // {
+        //     player.OnPlayerHealthUpdate -= UpdateHealthText;
+        // }
     }
 }

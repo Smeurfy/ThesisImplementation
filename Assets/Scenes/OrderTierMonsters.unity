@@ -10221,7 +10221,7 @@ MonoBehaviour:
   mutatedEnemiesJail: {fileID: 0}
   desiredAmountOfMutatedEnemies: 0
   enemyTypePrefabs:
-  - {fileID: 1226229779354322, guid: f3f4e440fc9d0ca4ab8b7a0400f12fc7, type: 2}
+  - {fileID: 1699422883877228, guid: 41713f21951e6aa49b00e5959b660862, type: 2}
   - {fileID: 1587769887240742, guid: a63174deb58b5b143b6f902ee6872f8a, type: 2}
   - {fileID: 1646682397189632, guid: 7857a51799402d543a0d943ee4d119bb, type: 2}
   - {fileID: 1467082412705514, guid: 2c114bc5f0a58a849b71ec372dff2c3c, type: 2}
@@ -10230,7 +10230,7 @@ MonoBehaviour:
   - {fileID: 1866697719911394, guid: 6d333420f41aa684fb131d3c9ceb6f48, type: 2}
   - {fileID: 1072359602198568, guid: 68cbf2d19e6711345a3b7e3e58442956, type: 2}
   - {fileID: 1166698332275182, guid: 1e36265c91cf1394594e4126701b584d, type: 2}
-  - {fileID: 1699422883877228, guid: 41713f21951e6aa49b00e5959b660862, type: 2}
+  - {fileID: 1226229779354322, guid: f3f4e440fc9d0ca4ab8b7a0400f12fc7, type: 2}
 --- !u!114 &754538951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17568,7 +17568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1988053999
 MonoBehaviour:
   m_ObjectHideFlags: 0

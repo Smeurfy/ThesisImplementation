@@ -8527,6 +8527,11 @@ Prefab:
       propertyPath: flashingScreenOnDamage
       value: 
       objectReference: {fileID: 358873040}
+    - target: {fileID: 58177371711230514, guid: 2320949cbefc0df4ea5df92a4222f198,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2320949cbefc0df4ea5df92a4222f198, type: 2}
   m_IsPrefabAsset: 0

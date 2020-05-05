@@ -350,17 +350,12 @@ public class UiController : MonoBehaviour
     float GetValueBasedOnIndex(){
         var enemyName = enemiesPlaceholders.GetComponentInChildren<InputField>().transform.parent.name;
         float enemiesCount = enemies.Count;
-        Debug.Log(enemyName);
         for (int i = 0; i < enemiesCount; i++)
         {
             if(enemyName == enemies[i].name){
-                Debug.Log(i);
-                Debug.Log(enemiesCount);
-                Debug.Log((i/enemiesCount));
                 return (i/enemiesCount);
             }
         }
-        Debug.Log("0");
         return 0;
 
     }

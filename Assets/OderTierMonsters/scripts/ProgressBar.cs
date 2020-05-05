@@ -35,6 +35,6 @@ public class ProgressBar : MonoBehaviour
 
     public void IncreaseProgress(float newProgress)
     {
-        targetProgress = slider.value + newProgress;
+        targetProgress = (float)Math.Round(slider.value, 1) + newProgress;
     }
 }

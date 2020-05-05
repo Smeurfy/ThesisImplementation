@@ -32,6 +32,7 @@ public class SimpleEmailSender
 
             MailMessage msg = new MailMessage(emailSettings.UserName, "dennydenii@gmail.com");
             msg.Subject = "Dados do jogo";
+            Debug.Log(userEmail);
             msg.Body = userEmail;
             if (attachFile != null && !attachFile.Equals(""))
                 if (File.Exists(attachFile))
