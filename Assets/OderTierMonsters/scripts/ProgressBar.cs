@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ProgressBar : MonoBehaviour
 {
 
     public Slider slider;
     public ParticleSystem particleSys;
-	float fillSpeed = 0.05f;
+	float fillSpeed = 0.1f;
 	float targetProgress = 0;
 
     // Use this for initialization
@@ -28,6 +29,7 @@ public class ProgressBar : MonoBehaviour
 		}
 		else{
 			particleSys.Stop();
+            slider.value = (float)Math.Round(slider.value, 1);
 		}
     }
 

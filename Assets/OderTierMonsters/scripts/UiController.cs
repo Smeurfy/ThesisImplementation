@@ -331,12 +331,13 @@ public class UiController : MonoBehaviour
                 obj.verticalOverflow = VerticalWrapMode.Overflow;
                 obj.horizontalOverflow = HorizontalWrapMode.Overflow;
                 obj.gameObject.SetActive(true);
+                next.gameObject.SetActive(false);
                 StartCoroutine(DisablePopUp(obj));
                 break;
             }
             aux.Add(item.text);
         }
-        if (aux.Count == 3)
+        if (aux.Count == 3 && GameObject.Find("ProgressBar").GetComponentInChildren<Slider>().value <= GetValueBasedOnIndex())
         {
             GameObject.Find("ProgressBar").GetComponent<ProgressBar>().IncreaseProgress(3 / ((float)enemies.Count * 3));
         }
@@ -344,6 +345,24 @@ public class UiController : MonoBehaviour
         {
             next.gameObject.SetActive(true);
         }
+    }
+
+    float GetValueBasedOnIndex(){
+        var enemyName = enemiesPlaceholders.GetComponentInChildren<InputField>().transform.parent.name;
+        float enemiesCount = enemies.Count;
+        Debug.Log(enemyName);
+        for (int i = 0; i < enemiesCount; i++)
+        {
+            if(enemyName == enemies[i].name){
+                Debug.Log(i);
+                Debug.Log(enemiesCount);
+                Debug.Log((i/enemiesCount));
+                return (i/enemiesCount);
+            }
+        }
+        Debug.Log("0");
+        return 0;
+
     }
     IEnumerator DisablePopUp(Text t)
     {
