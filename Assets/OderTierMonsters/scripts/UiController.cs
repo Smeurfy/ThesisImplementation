@@ -9,17 +9,23 @@ public class UiController : MonoBehaviour
 {
     public Dictionary<string, Dictionary<string, MonstersInfo>> monstersInfo;
     public Dictionary<string, Dictionary<int, PlaceholderTier>> order;
+
+    public Dictionary<string, List<string>> logs;
     public GameObject enemiesPlaceholders;
     public GameObject weapon;
+    public GameObject player;
     List<GameObject> enemies = new List<GameObject>();
 
     public Text popUp;
-    public Button saveBtn;
+    public GameObject saveUI;
 
     public Button btnSelected, next, previous;
     public GameObject testRoom;
     int monsterIndex = 0;
     List<string> tiers = new List<string>();
+    bool toggleSelected = false;
+
+    DateTime dateTime = new DateTime();
 
     string monsterSelectedName;
     // Use this for initialization
@@ -28,6 +34,7 @@ public class UiController : MonoBehaviour
         enemies = EnemyLibrary.instance.GetAllPossibleEnemiesPrefabs();
         monstersInfo = new Dictionary<string, Dictionary<string, MonstersInfo>>();
         order = new Dictionary<string, Dictionary<int, PlaceholderTier>>();
+        logs = new Dictionary<string, List<string>>();
         InitializeList();
         InitializeDic();
         LoadFile();
@@ -47,6 +54,7 @@ public class UiController : MonoBehaviour
         {
             monstersInfo.Add(item.name, new Dictionary<string, MonstersInfo>());
             order.Add(item.name, new Dictionary<int, PlaceholderTier>());
+            logs.Add(item.name, new List<string>());
         }
     }
 
@@ -71,6 +79,7 @@ public class UiController : MonoBehaviour
                     save.tierName = tierName;
                     save.id = item.GetComponent<PlaceholderTier>().id;
                     save.monsterName = item.name;
+                    save.mostDifferent = false;
                     auxList.Remove(tierName);
                     //adds the monster to dic to save order
                     order[item.name].Add(item.GetComponent<PlaceholderTier>().id, save);
@@ -80,10 +89,25 @@ public class UiController : MonoBehaviour
                     item.GetComponent<PlaceholderTier>().tierName = order[item.name][item.GetComponent<PlaceholderTier>().id].tierName;
                     if (order[item.name][item.GetComponent<PlaceholderTier>().id].orderNumber != 0)
                     {
+
+                        Mute(item.GetComponentInChildren<InputField>().onValueChanged);
                         item.GetComponentInChildren<InputField>().text = order[item.name][item.GetComponent<PlaceholderTier>().id].orderNumber.ToString();
                         item.GetComponent<PlaceholderTier>().orderNumber = order[item.name][item.GetComponent<PlaceholderTier>().id].orderNumber;
+                        Unmute(item.GetComponentInChildren<InputField>().onValueChanged);
+
+                        if (order[item.name][item.GetComponent<PlaceholderTier>().id].mostDifferent)
+                        {
+                            Mute(item.GetComponentInChildren<Toggle>().onValueChanged);
+                            item.GetComponent<PlaceholderTier>().mostDifferent = order[item.name][item.GetComponent<PlaceholderTier>().id].mostDifferent;
+                            item.GetComponentInChildren<Toggle>().isOn = order[item.name][item.GetComponent<PlaceholderTier>().id].mostDifferent;
+                            Unmute(item.GetComponentInChildren<Toggle>().onValueChanged);
+                        }
                     }
                 }
+
+                //logs
+                if (!logs[item.name].Contains(item.name))
+                    logs[item.name].Add(item.name);
             }
         }
         monsterSelectedName = enemies[monsterIndex].name;
@@ -97,13 +121,16 @@ public class UiController : MonoBehaviour
         }
         if (btn.GetComponentInChildren<Text>().text == "Select")
         {
+            //start timer
+            if (dateTime.Year == 0001)
+                dateTime = DateTime.Now;
             //btn becomes selected
             btn.GetComponentInChildren<Text>().text = "Selected";
             ColorBlock colors = btn.colors;
-            colors.normalColor = btn.colors.highlightedColor;
+            colors.normalColor = new Color(0f, 0.7f, 0f);
             btn.colors = colors;
 
-            //If other btn is selected them unselect the selected btn
+            //If other btn is clicked then unselect the selected btn
             if (btnSelected != btn)
             {
                 ClearBullets();
@@ -117,8 +144,9 @@ public class UiController : MonoBehaviour
             }
             var enemy = CreateMonster(btn.transform.parent);
             ResetPlayerWeapon();
-
             GetMonsterCharac(enemy);
+            //logs
+            logs[enemy.name].Add("Select " + btn.GetComponentInParent<PlaceholderTier>().id);
         }
         else
         {
@@ -162,7 +190,7 @@ public class UiController : MonoBehaviour
         }
         else
         {
-            
+
             var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
             enemyCharac.numberOfBullets = (int)mInfo.numberBullets;
             enemyCharac.bulletSpeed = (int)mInfo.bulletSpeed;
@@ -217,40 +245,61 @@ public class UiController : MonoBehaviour
         {
             next.gameObject.SetActive(false);
             monsterIndex++;
-            UnselectMonster();
-            ClearInputField();
-            GetMonster();
+            if (monsterIndex == 10)
+            {
+                SaveOrNot(true);
+            }
+            else
+            {
+                UnselectMonster();
+                ClearInputField();
+                GetMonster();
+            }
+            DateTime newDateTime = DateTime.Now;
+            if ((newDateTime - dateTime).TotalSeconds < 5000)
+                logs[enemies[(monsterIndex - 1)].name].Add("Time: " + (newDateTime - dateTime).TotalSeconds);
+            dateTime = new DateTime();
         }
         if (btn.name == "Previous")
         {
             monsterIndex--;
+            SaveOrNot(false);
             UnselectMonster();
             ClearInputField();
             GetMonster();
         }
+
         if (monsterIndex > 0)
         {
             previous.gameObject.SetActive(true);
         }
+
         if (monsterIndex == 0)
         {
             previous.gameObject.SetActive(false);
         }
 
-
-        if (monsterIndex == (enemies.Count - 1))
+        if (monsterIndex == enemies.Count)
         {
             next.gameObject.SetActive(false);
         }
-        if (monsterIndex < (enemies.Count - 1))
+        AssignToggleValue();
+        var enemPlaceholder = enemiesPlaceholders.GetComponentsInChildren<InputField>();
+        int aux = 0;
+        foreach (var item in enemPlaceholder)
         {
-            //next.gameObject.SetActive(true);
+            if (item.text != "")
+            {
+                aux++;
+            }
         }
+        if (aux == 3)
+            EnableArrowForNextMonster();
     }
 
     void LoadFile()
     {
-        string path = Application.dataPath + "/Resources/denis.json";
+        string path = Application.dataPath + "/StreamingAssets/denis.json";
         string[] fileContent = File.ReadAllLines(path);
         foreach (var item in monstersInfo)
         {
@@ -286,35 +335,38 @@ public class UiController : MonoBehaviour
         }
         if (aux == 3)
             EnableArrowForNextMonster();
+        else
+        {
+            next.gameObject.SetActive(false);
+        }
         if (input.text != "")
         {
-            order[input.transform.parent.name][input.GetComponentInParent<PlaceholderTier>().id].orderNumber = Int32.Parse(input.text);
-            if (Int32.Parse(input.text) > 3 || Int32.Parse(input.text) < 1)
+            try
             {
-                input.text = "";
+                if (Int32.Parse(input.text) > 3 || Int32.Parse(input.text) < 1)
+                {
+                    input.text = "";
+                    StartCoroutine(EnablePopUp(input));
+                }
+                else
+                {
+                    order[input.transform.parent.name][input.GetComponentInParent<PlaceholderTier>().id].orderNumber = Int32.Parse(input.text);
+                    logs[input.transform.parent.name].Add("Order assigned: " + Int32.Parse(input.text) + " to monster of tier " + input.GetComponentInParent<PlaceholderTier>().tierName);
+                }
+            }
+            catch (FormatException)
+            {
                 StartCoroutine(EnablePopUp(input));
             }
         }
-        CheckIfReadyToSave();
     }
 
-    void CheckIfReadyToSave()
+    void SaveOrNot(bool aux)
     {
-        int count = 0;
-        foreach (var item in order)
-        {
-            foreach (var enemy in item.Value)
-            {
-                if (enemy.Value.orderNumber != 0)
-                {
-                    count++;
-                }
-            }
-        }
-        if (count == (enemies.Count * 3))
-        {
-            saveBtn.gameObject.SetActive(true);
-        }
+        saveUI.SetActive(aux);
+        testRoom.SetActive(!aux);
+        player.SetActive(!aux);
+        enemiesPlaceholders.SetActive(!aux);
     }
 
     void EnableArrowForNextMonster()
@@ -337,23 +389,29 @@ public class UiController : MonoBehaviour
             }
             aux.Add(item.text);
         }
-        if (aux.Count == 3 && GameObject.Find("ProgressBar").GetComponentInChildren<Slider>().value <= GetValueBasedOnIndex())
+        if (toggleSelected && aux.Count == 3 && GameObject.Find("ProgressBar").GetComponentInChildren<Slider>().value <= GetValueBasedOnIndex())
         {
             GameObject.Find("ProgressBar").GetComponent<ProgressBar>().IncreaseProgress(3 / ((float)enemies.Count * 3));
         }
-        if (aux.Count == 3 && monsterIndex < (enemies.Count - 1))
+        if (toggleSelected && aux.Count == 3 && monsterIndex <= (enemies.Count - 1))
         {
             next.gameObject.SetActive(true);
         }
+        else
+        {
+            next.gameObject.SetActive(false);
+        }
     }
 
-    float GetValueBasedOnIndex(){
+    float GetValueBasedOnIndex()
+    {
         var enemyName = enemiesPlaceholders.GetComponentInChildren<InputField>().transform.parent.name;
         float enemiesCount = enemies.Count;
         for (int i = 0; i < enemiesCount; i++)
         {
-            if(enemyName == enemies[i].name){
-                return (i/enemiesCount);
+            if (enemyName == enemies[i].name)
+            {
+                return (i / enemiesCount);
             }
         }
         return 0;
@@ -377,10 +435,21 @@ public class UiController : MonoBehaviour
 
     void ClearInputField()
     {
-        var enemPlaceholder = enemiesPlaceholders.GetComponentsInChildren<InputField>();
-        foreach (var item in enemPlaceholder)
+
+        var inputField = enemiesPlaceholders.GetComponentsInChildren<InputField>();
+        foreach (var item in inputField)
         {
+            Mute(item.GetComponentInChildren<InputField>().onValueChanged);
             item.text = "";
+            Unmute(item.GetComponentInChildren<InputField>().onValueChanged);
+        }
+        var toggles = enemiesPlaceholders.GetComponentsInChildren<Toggle>();
+        foreach (var item in toggles)
+        {
+            Mute(item.GetComponentInChildren<Toggle>().onValueChanged);
+            item.isOn = false;
+            item.GetComponentInParent<PlaceholderTier>().mostDifferent = false;
+            Unmute(item.GetComponentInChildren<Toggle>().onValueChanged);
         }
     }
 
@@ -391,5 +460,55 @@ public class UiController : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
+    }
+
+    public void Mute(UnityEngine.Events.UnityEventBase ev)
+    {
+        int count = ev.GetPersistentEventCount();
+        for (int i = 0; i < count; i++)
+        {
+            ev.SetPersistentListenerState(i, UnityEngine.Events.UnityEventCallState.Off);
+        }
+    }
+
+    public void Unmute(UnityEngine.Events.UnityEventBase ev)
+    {
+        int count = ev.GetPersistentEventCount();
+        for (int i = 0; i < count; i++)
+        {
+            ev.SetPersistentListenerState(i, UnityEngine.Events.UnityEventCallState.RuntimeOnly);
+        }
+    }
+
+    public void MostDifferentMonster(Toggle toggle)
+    {
+        if (!order[toggle.transform.parent.name][toggle.GetComponentInParent<PlaceholderTier>().id].mostDifferent)
+        {
+            order[toggle.transform.parent.name][toggle.GetComponentInParent<PlaceholderTier>().id].mostDifferent = true;
+            // toggle.GetComponentInParent<PlaceholderTier>().mostDifferent = true;
+            toggleSelected = true;
+        }
+        else
+        {
+            order[toggle.transform.parent.name][toggle.GetComponentInParent<PlaceholderTier>().id].mostDifferent = false;
+            // toggle.GetComponentInParent<PlaceholderTier>().mostDifferent = false;
+            toggleSelected = false;
+        }
+        EnableArrowForNextMonster();
+    }
+
+    void AssignToggleValue()
+    {
+        var tg = enemiesPlaceholders.GetComponentsInChildren<Toggle>();
+        foreach (var item in tg)
+        {
+            Debug.Log(item.isOn);
+            if (item.isOn)
+            {
+                toggleSelected = true;
+                return;
+            }
+        }
+        toggleSelected = false;
     }
 }

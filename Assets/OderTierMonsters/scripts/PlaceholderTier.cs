@@ -10,4 +10,5 @@ public class PlaceholderTier : MonoBehaviour
 	public int id;
     public string tierName;
     public int orderNumber;
+    public bool mostDifferent;
 }

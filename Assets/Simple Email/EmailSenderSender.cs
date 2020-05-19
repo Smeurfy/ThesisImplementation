@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SimpleEmailSender
 {
@@ -19,25 +20,27 @@ public class SimpleEmailSender
         public string UserPass;
     }
 
-    public static void Send(string attachFile, Action<object, AsyncCompletedEventArgs> callback)
+    public static void Send(List<string> attachedFiles, Action<object, AsyncCompletedEventArgs> callback)
     {
         try
         {
             SmtpClient mailServer = new SmtpClient(emailSettings.STMPClient, emailSettings.SMTPPort);
             mailServer.EnableSsl = true;
             mailServer.Credentials = new NetworkCredential(emailSettings.UserName, emailSettings.UserPass) as ICredentialsByHost;
-            ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) {
+            ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+            {
                 return true;
             };
 
             MailMessage msg = new MailMessage(emailSettings.UserName, "dennydenii@gmail.com");
             msg.Subject = "Dados do jogo";
-            Debug.Log(userEmail);
             msg.Body = userEmail;
-            if (attachFile != null && !attachFile.Equals(""))
-                if (File.Exists(attachFile))
-                    msg.Attachments.Add(new Attachment(attachFile));
-
+            foreach (var attachFile in attachedFiles)
+            {
+                if (attachFile != null && !attachFile.Equals(""))
+                    if (File.Exists(attachFile))
+                        msg.Attachments.Add(new Attachment(attachFile));
+            }
             mailServer.SendCompleted += new SendCompletedEventHandler(callback);
             mailServer.SendAsync(msg, "");
 
@@ -50,7 +53,8 @@ public class SimpleEmailSender
         }
     }
 
-    public static void SetEmail(string email){
+    public static void SetEmail(string email)
+    {
         userEmail = email;
     }
 }
