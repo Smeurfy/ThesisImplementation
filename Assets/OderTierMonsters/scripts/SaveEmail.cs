@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 public class SaveEmail : MonoBehaviour
 {
-	public const string MatchEmailPattern =
+    public const string MatchEmailPattern =
             @"^(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
             + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\."
               + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
@@ -19,16 +19,19 @@ public class SaveEmail : MonoBehaviour
     public Button nextBtn;
 
     public void EnableBtnNext(InputField input)
-    {  
-        if(IsEmail(input.text)){
-			nextBtn.interactable = true;
-		}
-		else{
-			nextBtn.interactable = false;
-		}   
+    {
+        if (IsEmail(input.text))
+        {
+            saveUserEmail(input.text);
+            nextBtn.interactable = true;
+        }
+        else
+        {
+            nextBtn.interactable = false;
+        }
     }
 
-	    public void saveUserEmail(string input)
+    public void saveUserEmail(string input)
     {
         SimpleEmailSender.SetEmail(input);
     }
@@ -38,11 +41,11 @@ public class SaveEmail : MonoBehaviour
         SceneManager.LoadScene("OrderTierMonsters");
     }
 
-	public static bool IsEmail(string email)
-        {
-            if (email != null) 
-				return Regex.IsMatch(email, MatchEmailPattern);
-            else 
-				return false;
-        }
+    public static bool IsEmail(string email)
+    {
+        if (email != null)
+            return Regex.IsMatch(email, MatchEmailPattern);
+        else
+            return false;
+    }
 }
