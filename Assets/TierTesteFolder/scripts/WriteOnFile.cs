@@ -73,10 +73,11 @@ public class WriteOnFile : MonoBehaviour
         {
             foreach (var item in logs)
             {
-                foreach (var item1 in item.Value)
+                foreach (var item1 in item.Value.logs)
                 {
                     writer.WriteLine(item1);
                 }
+                writer.WriteLine("Total time: " + item.Value.totalSeconds);
             }
         }
         return path;

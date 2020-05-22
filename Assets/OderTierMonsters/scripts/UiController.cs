@@ -10,7 +10,7 @@ public class UiController : MonoBehaviour
     public Dictionary<string, Dictionary<string, MonstersInfo>> monstersInfo;
     public Dictionary<string, Dictionary<int, PlaceholderTier>> order;
 
-    public Dictionary<string, List<string>> logs;
+    public Dictionary<string, LogsInfo> logs;
     public GameObject enemiesPlaceholders;
     public GameObject weapon;
     public GameObject player;
@@ -34,7 +34,7 @@ public class UiController : MonoBehaviour
         enemies = EnemyLibrary.instance.GetAllPossibleEnemiesPrefabs();
         monstersInfo = new Dictionary<string, Dictionary<string, MonstersInfo>>();
         order = new Dictionary<string, Dictionary<int, PlaceholderTier>>();
-        logs = new Dictionary<string, List<string>>();
+        logs = new Dictionary<string, LogsInfo>();
         InitializeList();
         InitializeDic();
         LoadFile();
@@ -54,7 +54,7 @@ public class UiController : MonoBehaviour
         {
             monstersInfo.Add(item.name, new Dictionary<string, MonstersInfo>());
             order.Add(item.name, new Dictionary<int, PlaceholderTier>());
-            logs.Add(item.name, new List<string>());
+            logs.Add(item.name, new LogsInfo());
         }
     }
 
@@ -106,8 +106,8 @@ public class UiController : MonoBehaviour
                 }
 
                 //logs
-                if (!logs[item.name].Contains(item.name))
-                    logs[item.name].Add(item.name);
+                if (!logs[item.name].logs.Contains(item.name))
+                    logs[item.name].logs.Add(item.name);
             }
         }
         monsterSelectedName = enemies[monsterIndex].name;
@@ -146,7 +146,7 @@ public class UiController : MonoBehaviour
             ResetPlayerWeapon();
             GetMonsterCharac(enemy);
             //logs
-            logs[enemy.name].Add("Select " + btn.GetComponentInParent<PlaceholderTier>().id);
+            logs[enemy.name].logs.Add("Select " + btn.GetComponentInParent<PlaceholderTier>().id);
         }
         else
         {
@@ -244,6 +244,7 @@ public class UiController : MonoBehaviour
         if (btn.name == "Next")
         {
             next.gameObject.SetActive(false);
+            logs[enemies[monsterIndex].name].logs.Add("Next");
             monsterIndex++;
             if (monsterIndex == 10)
             {
@@ -257,11 +258,17 @@ public class UiController : MonoBehaviour
             }
             DateTime newDateTime = DateTime.Now;
             if ((newDateTime - dateTime).TotalSeconds < 5000)
-                logs[enemies[(monsterIndex - 1)].name].Add("Time: " + (newDateTime - dateTime).TotalSeconds);
+                logs[enemies[(monsterIndex - 1)].name].totalSeconds += (newDateTime - dateTime).TotalSeconds;
             dateTime = new DateTime();
         }
         if (btn.name == "Previous")
         {
+            logs[enemies[monsterIndex].name].logs.Add("Previous");
+            DateTime newDateTime = DateTime.Now;
+            if ((newDateTime - dateTime).TotalSeconds < 5000)
+                logs[enemies[(monsterIndex)].name].totalSeconds += (newDateTime - dateTime).TotalSeconds;
+            dateTime = new DateTime();
+
             monsterIndex--;
             SaveOrNot(false);
             UnselectMonster();
@@ -351,7 +358,7 @@ public class UiController : MonoBehaviour
                 else
                 {
                     order[input.transform.parent.name][input.GetComponentInParent<PlaceholderTier>().id].orderNumber = Int32.Parse(input.text);
-                    logs[input.transform.parent.name].Add("Order assigned: " + Int32.Parse(input.text) + " to monster of tier " + input.GetComponentInParent<PlaceholderTier>().tierName);
+                    logs[input.transform.parent.name].logs.Add("Order assigned: " + Int32.Parse(input.text) + " to monster of tier " + input.GetComponentInParent<PlaceholderTier>().tierName);
                 }
             }
             catch (FormatException)
