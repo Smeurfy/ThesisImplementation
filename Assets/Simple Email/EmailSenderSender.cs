@@ -57,5 +57,8 @@ public class SimpleEmailSender
     {
         userEmail = email;
     }
+    public static string GetEmail(){
+        return userEmail;
+    }
 }
 

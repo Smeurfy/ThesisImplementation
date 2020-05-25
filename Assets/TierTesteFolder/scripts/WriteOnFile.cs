@@ -46,6 +46,7 @@ public class WriteOnFile : MonoBehaviour
         FileStream stream = new FileStream(path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
         {
+            writer.WriteLine(SimpleEmailSender.GetEmail());
             foreach (var item in dic)
             {
                 foreach (var item1 in item.Value)
@@ -71,6 +72,7 @@ public class WriteOnFile : MonoBehaviour
         FileStream stream = new FileStream(path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
         {
+            writer.WriteLine(SimpleEmailSender.GetEmail());
             foreach (var item in logs)
             {
                 foreach (var item1 in item.Value.logs)
