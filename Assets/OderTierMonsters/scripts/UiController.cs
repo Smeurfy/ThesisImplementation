@@ -244,7 +244,6 @@ public class UiController : MonoBehaviour
         if (btn.name == "Next")
         {
             next.gameObject.SetActive(false);
-            logs[enemies[monsterIndex].name].logs.Add("Next");
             monsterIndex++;
             if (monsterIndex == 10)
             {
@@ -263,13 +262,13 @@ public class UiController : MonoBehaviour
         }
         if (btn.name == "Previous")
         {
-            logs[enemies[monsterIndex].name].logs.Add("Previous");
             DateTime newDateTime = DateTime.Now;
             if ((newDateTime - dateTime).TotalSeconds < 5000)
                 logs[enemies[(monsterIndex)].name].totalSeconds += (newDateTime - dateTime).TotalSeconds;
             dateTime = new DateTime();
 
             monsterIndex--;
+            logs[enemies[monsterIndex].name].logs.Add("Come back");
             SaveOrNot(false);
             UnselectMonster();
             ClearInputField();
@@ -509,7 +508,6 @@ public class UiController : MonoBehaviour
         var tg = enemiesPlaceholders.GetComponentsInChildren<Toggle>();
         foreach (var item in tg)
         {
-            Debug.Log(item.isOn);
             if (item.isOn)
             {
                 toggleSelected = true;
