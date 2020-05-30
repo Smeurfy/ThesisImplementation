@@ -1,0 +1,149 @@
+﻿asgcfigueiredo@hotmail.com
+bigZombieTest
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Select 2
+Select 1
+Select 0
+Select 1
+Select 2
+Select 2
+Select 0
+Select 0
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 1 to monster of tier default
+Order assigned: 2 to monster of tier Tier1
+Total time: 217.2137288
+chortTest
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Select 2
+Select 0
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 1 to monster of tier default
+Order assigned: 2 to monster of tier Tier1
+Total time: 74.8770148
+impTest
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Select 2
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 1 to monster of tier default
+Order assigned: 2 to monster of tier Tier1
+Total time: 65.2937996
+maskedOrcTest
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Select 0
+Select 1
+Select 2
+Select 0
+Order assigned: 1 to monster of tier default
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 2 to monster of tier Tier1
+Total time: 147.4231493
+muddyTest
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Select 2
+Select 0
+Select 2
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 2 to monster of tier Tier1
+Order assigned: 1 to monster of tier default
+Total time: 187.6667869
+orcTest
+Select 0
+Select 1
+Select 2
+Select 0
+Select 0
+Select 1
+Select 2
+Select 0
+Order assigned: 1 to monster of tier default
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 2 to monster of tier Tier1
+Total time: 87.8374619
+shamanTest
+Select 0
+Select 1
+Select 0
+Select 1
+Select 2
+Select 0
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 2 to monster of tier Tier1
+Order assigned: 1 to monster of tier default
+Total time: 130.4769786
+skeletTest
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 1 to monster of tier default
+Order assigned: 2 to monster of tier Tier1
+Total time: 63.9739447
+swampyTest
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Select 2
+Select 0
+Select 1
+Select 0
+Select 1
+Select 2
+Select 0
+Select 0
+Select 0
+Select 1
+Select 2
+Select 1
+Select 2
+Select 0
+Order assigned: 1 to monster of tier default
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 2 to monster of tier Tier1
+Total time: 310.2795165
+iceZombieTest
+Select 2
+Select 0
+Select 1
+Select 2
+Select 1
+Select 2
+Select 1
+Select 2
+Select 1
+Select 2
+Select 1
+Select 2
+Select 1
+Select 2
+Order assigned: 3 to monster of tier Tier2
+Order assigned: 2 to monster of tier Tier1
+Order assigned: 1 to monster of tier default
+Total time: 178.0261112

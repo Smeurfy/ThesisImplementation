@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class PlaceholderTier : MonoBehaviour
+public class PlaceholderTier
 {
 	public string monsterName;
 	public int id;

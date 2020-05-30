@@ -1,88 +1,140 @@
-﻿dennydenii@gmail.com
+﻿filha
 bigZombieTest
 Select 0
 Select 1
 Select 2
+Select 0
+Select 1
+Select 1
+Select 0
+Select 2
 Order assigned: 1 to monster of tier default
-Order assigned: 3 to monster of tier Tier2
 Order assigned: 2 to monster of tier Tier1
-Total time: 16.6981432
+Order assigned: 3 to monster of tier Tier2
+Total time: 82.1116329
 chortTest
 Select 0
 Select 1
 Select 2
-Order assigned: 1 to monster of tier default
-Order assigned: 2 to monster of tier Tier1
+Select 0
+Select 1
+Select 2
+Select 2
+Select 1
+Select 0
+Select 0
+Select 1
 Order assigned: 3 to monster of tier Tier2
-Total time: 9.1254431
+Order assigned: 2 to monster of tier Tier1
+Order assigned: 1 to monster of tier default
+Total time: 104.5263421
 impTest
 Select 0
 Select 1
+Select 0
+Select 1
 Select 2
-Order assigned: 1 to monster of tier default
+Select 2
+Select 1
+Select 2
+Select 1
 Order assigned: 3 to monster of tier Tier2
 Order assigned: 2 to monster of tier Tier1
-Select 1
-Total time: 23.0145406
+Order assigned: 1 to monster of tier default
+Total time: 98.814042
 maskedOrcTest
 Select 0
 Select 1
+Select 0
 Select 2
-Order assigned: 3 to monster of tier Tier2
+Select 1
+Select 2
+Select 1
+Select 0
+Select 2
 Order assigned: 1 to monster of tier default
+Order assigned: 3 to monster of tier Tier2
 Order assigned: 2 to monster of tier Tier1
-Total time: 15.0144754
+Total time: 274.4581361
 muddyTest
 Select 0
 Select 1
+Select 0
 Select 2
+Select 1
+Select 0
+Order assigned: 3 to monster of tier Tier2
 Order assigned: 1 to monster of tier default
 Order assigned: 2 to monster of tier Tier1
-Order assigned: 3 to monster of tier Tier2
-Select 1
-Total time: 26.1088431
+Total time: 160.382638
 orcTest
 Select 0
 Select 1
+Select 0
+Select 1
+Select 2
+Select 0
 Select 2
 Order assigned: 1 to monster of tier default
 Order assigned: 2 to monster of tier Tier1
 Order assigned: 3 to monster of tier Tier2
-Total time: 14.1867813
+Total time: 127.4394984
 shamanTest
 Select 0
 Select 1
+Select 0
+Select 1
 Select 2
-Order assigned: 1 to monster of tier default
-Order assigned: 2 to monster of tier Tier1
+Select 0
+Select 2
+Select 1
+Select 0
 Order assigned: 3 to monster of tier Tier2
-Total time: 17.4649838
+Order assigned: 2 to monster of tier Tier1
+Order assigned: 1 to monster of tier default
+Total time: 73.4077871
 skeletTest
 Select 0
 Select 1
+Select 0
 Select 2
+Select 1
 Order assigned: 1 to monster of tier default
-Order assigned: 2 to monster of tier Tier1
 Order assigned: 3 to monster of tier Tier2
-Total time: 10.7770136
+Order assigned: 2 to monster of tier Tier1
+Total time: 86.8852784
 swampyTest
 Select 0
 Select 1
+Select 0
+Select 2
+Select 0
+Select 0
+Select 1
 Select 2
 Select 1
 Select 0
 Select 1
 Select 0
 Select 1
-Order assigned: 3 to monster of tier Tier2
-Order assigned: 2 to monster of tier Tier1
+Select 0
+Select 1
+Select 0
+Select 2
+Select 1
+Select 0
 Order assigned: 1 to monster of tier default
-Total time: 84.6849404
+Order assigned: 3 to monster of tier Tier1
+Order assigned: 2 to monster of tier Tier2
+Total time: 499.2292577
 iceZombieTest
 Select 0
 Select 1
+Select 0
 Select 2
+Select 1
+Select 0
 Order assigned: 3 to monster of tier Tier2
 Order assigned: 2 to monster of tier Tier1
 Order assigned: 1 to monster of tier default
-Total time: 11.1727276
+Total time: 86.0828917
