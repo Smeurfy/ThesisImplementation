@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class RoomChallengeGenerator : MonoBehaviour
 {
@@ -37,8 +38,10 @@ public class RoomChallengeGenerator : MonoBehaviour
 
     private PossibleChallengeData PickBestChallengeFromPossiblePopulation()
     {
+        //TODO
+        //get the best challenge from the list in dungeon manager
         var possibleChallengeData = new PossibleChallengeData();
-        possibleChallengeData = possibleChallengeData.GeneratePossibleChallenge();
+        // possibleChallengeData = possibleChallengeData.GeneratePossibleChallenge();
 
         // PossibleChallengeData bestChallenge = new PossibleChallengeData();
         // foreach(PossibleChallengeData possibleChallenge in DungeonManager.instance.possibleChallenges)
@@ -72,28 +75,28 @@ public class RoomChallengeGenerator : MonoBehaviour
         }
     }
 
-    private void GeneratePossibleChallengesPopulation()
-    {
+    // private void GeneratePossibleChallengesPopulation()
+    // {
 
 
 
-        // for (int i = 0; i < DungeonManager.instance.possibleChallenges.Count; i++)
-        //     {
-        //         DungeonManager.instance.possibleChallenges[i] = DungeonManager.instance.possibleChallenges[i].GeneratePossibleChallenge(i);
-        //         roomManager.enemy1.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]);
-        //         roomManager.enemy2.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]);
-        //         if(!DungeonManager.instance.tierOfEnemies.ContainsKey(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]))
-        //         {
-        //             DungeonManager.instance.tierOfEnemies.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0], 0);
-        //             //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]);
-        //         }
-        //         if(!DungeonManager.instance.tierOfEnemies.ContainsKey(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]))
-        //         {
-        //             DungeonManager.instance.tierOfEnemies.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1], 0);
-        //             //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]);
-        //         }
-        //     }
-        //     //Debug.Log(DungeonManager.instance.tierOfEnemies.Count + " is the size of the dictionary with the tiers of each enemy")   ;
+    //     // for (int i = 0; i < DungeonManager.instance.possibleChallenges.Count; i++)
+    //     //     {
+    //     //         DungeonManager.instance.possibleChallenges[i] = DungeonManager.instance.possibleChallenges[i].GeneratePossibleChallenge(i);
+    //     //         roomManager.enemy1.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]);
+    //     //         roomManager.enemy2.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]);
+    //     //         if(!DungeonManager.instance.tierOfEnemies.ContainsKey(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]))
+    //     //         {
+    //     //             DungeonManager.instance.tierOfEnemies.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0], 0);
+    //     //             //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]);
+    //     //         }
+    //     //         if(!DungeonManager.instance.tierOfEnemies.ContainsKey(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]))
+    //     //         {
+    //     //             DungeonManager.instance.tierOfEnemies.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1], 0);
+    //     //             //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]);
+    //     //         }
+    //     //     }
+    //     //     //Debug.Log(DungeonManager.instance.tierOfEnemies.Count + " is the size of the dictionary with the tiers of each enemy")   ;
 
-    }
+    // }
 }

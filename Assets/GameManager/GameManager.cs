@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     public int GetMainGameSceneNumber() { return gameSceneNumber; }
     public int GetVictorySceneNumber() { return victorySceneNumber; }
     public Vector2 GetRespawnPosition() { return playerRespawnPosition; }
-    //public bool IsUsingModel() { return usingModel; }
     public int GetPlayerAssignedNumber() { return playerAssignedNumber; }
     public int GetNumberOfRoomsToVictory() { return GetComponent<ScoreManager>().GetNumberOfRoomsToBeatDungeon(); }
     #endregion
@@ -67,7 +66,6 @@ public class GameManager : MonoBehaviour
         }
         soundSource.PlayOneShot(victorySound);
         OnGameWon();
-        //JsonWriter.instance.UpdateRunRoomsClearedOnVictory();
         fadeToBlack.enabled = true;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         if(player)

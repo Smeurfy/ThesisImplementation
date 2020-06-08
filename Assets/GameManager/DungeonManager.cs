@@ -16,6 +16,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private Transform enemyBulletHolder;
     [SerializeField] private List<RoomManager> allRooms;
     public List<TypeOfEnemy[]> skipedChallenges = new List<TypeOfEnemy[]>();
+    public List<PossibleChallengeData> _finalChallenges = new List<PossibleChallengeData>();
 
     private int roomID = -1;
     private int nextRoomToGenerateIndex = 0;
@@ -42,8 +43,8 @@ public class DungeonManager : MonoBehaviour
 
     private void Start()
     {
-        //InitializePossibleChallengesList();
         InitializeMonstersTier();
+        GenerateDungeonChallenges();
         CreateNextRoom();
         GenerateChallengeForFirstRoom();
         SceneManager.sceneLoaded += SceneLoaded;
@@ -76,7 +77,7 @@ public class DungeonManager : MonoBehaviour
         {
             // if (!DungeonBeaten())
             // {
-                CreateNextRoom();
+            CreateNextRoom();
             // }
 
             allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
@@ -139,23 +140,30 @@ public class DungeonManager : MonoBehaviour
         }
 
     }
-    // private void InitializePossibleChallengesList()
-    // {
-    //     var enemiesCount = EnemyLibrary.instance.GetAllPossibleEnemies().Count;
-    //     for (int i = enemiesCount; i > 0 ; i--)
-    //     {
-    //         numberOfChallengesToGenerate += i;
-    //     }
-    //     numberOfChallengesToGenerate -= enemiesCount;
-    //     possibleChallenges = new List<PossibleChallengeData>
-    //     {
-    //         Capacity = numberOfChallengesToGenerate
-    //     };
-    //     for (int i = 0; i < possibleChallenges.Capacity; i++)
-    //     {
-    //         possibleChallenges.Add(new PossibleChallengeData());
-    //     }
-    // }
+    ///<summary>
+    /// Generates the challenges before starting the game.
+    ///</summary>
+    private void GenerateDungeonChallenges()
+    {
+        List<GameObject> enemies = EnemyLibrary.instance.GetAllPossibleEnemiesPrefabs();
+        //List with the final challenges
+
+        for (int i = 0; i < 25; i++)
+        {
+            _finalChallenges.Add(new PossibleChallengeData());
+            _finalChallenges[i].GeneratePossibleChallenge();
+            tierOfEnemies[_finalChallenges[i].GetTypeOfEnemies()[0]]++;
+            tierOfEnemies[_finalChallenges[i].GetTypeOfEnemies()[1]]++;
+            // Debug.Log(_finalChallenges[i].GetTypeOfEnemies()[0] + " " + tierOfEnemies[_finalChallenges[i].GetTypeOfEnemies()[0]]);
+            // Debug.Log(_finalChallenges[i].GetTypeOfEnemies()[1] + " " + tierOfEnemies[_finalChallenges[i].GetTypeOfEnemies()[1]]);
+        }
+        foreach (var item in tierOfEnemies)
+        {
+            // Debug.Log(item.Key.name + " " + item.Value);
+        }
+        tierOfEnemies.Clear();
+        InitializeMonstersTier();
+    }
 
     internal void AssignRoomID()
     {
