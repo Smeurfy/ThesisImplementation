@@ -1884,7 +1884,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e150a8f50246744a226e0c185ca2db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  performanceCalculationMethod: 0
 --- !u!4 &608318294
 Transform:
   m_ObjectHideFlags: 0
@@ -3428,6 +3427,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
+        type: 2}
+      propertyPath: mutatedEnemiesJail
+      value: 
+      objectReference: {fileID: 1770048467}
     - target: {fileID: 114753464685062938, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
       propertyPath: roomsHolder
@@ -3443,11 +3447,6 @@ Prefab:
       propertyPath: allRooms.Array.data[0]
       value: 
       objectReference: {fileID: 2028966235}
-    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: mutatedEnemiesJail
-      value: 
-      objectReference: {fileID: 1770048467}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fba91bb27fe1fee4186a5cdcbc689244, type: 2}
   m_IsPrefabAsset: 0

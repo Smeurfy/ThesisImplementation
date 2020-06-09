@@ -40,7 +40,8 @@ public class RoomChallengeGenerator : MonoBehaviour
     {
         //TODO
         //get the best challenge from the list in dungeon manager
-        var possibleChallengeData = new PossibleChallengeData();
+
+        var possibleChallengeData = DungeonManager.instance._finalChallenges[DungeonManager.instance.playersRoom];
         // possibleChallengeData = possibleChallengeData.GeneratePossibleChallenge();
 
         // PossibleChallengeData bestChallenge = new PossibleChallengeData();

@@ -17,7 +17,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private List<RoomManager> allRooms;
     public List<TypeOfEnemy[]> skipedChallenges = new List<TypeOfEnemy[]>();
     public List<PossibleChallengeData> _finalChallenges = new List<PossibleChallengeData>();
-
+    public int _maxDifBewTiers = 1;
     private int roomID = -1;
     private int nextRoomToGenerateIndex = 0;
     private ScoreManager scoreManager;
@@ -159,7 +159,7 @@ public class DungeonManager : MonoBehaviour
         }
         foreach (var item in tierOfEnemies)
         {
-            // Debug.Log(item.Key.name + " " + item.Value);
+            Debug.Log(item.Key.name + " " + item.Value);
         }
         tierOfEnemies.Clear();
         InitializeMonstersTier();

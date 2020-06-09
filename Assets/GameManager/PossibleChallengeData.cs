@@ -9,8 +9,6 @@ public class PossibleChallengeData
     public bool challengeAvailable = true;
     private bool possibleChallenge = true;
 
-    private int _maxDifBewTiers = 2;
-
     private List<PossibleChallengeData> _challenges;
     private Dictionary<TypeOfEnemy, int> _enemyTiers;
 
@@ -49,16 +47,13 @@ public class PossibleChallengeData
     {
         if (DifferentEnemies() && !EqualChallengeAsPrevious() && DifferenceBtwMaxMinTier())
         {
-            Debug.Log(possibleEnemies[0] + " " + _enemyTiers[possibleEnemies[0]]);
-            Debug.Log(possibleEnemies[1] + " " + _enemyTiers[possibleEnemies[1]]);
+            
             if (_enemyTiers[possibleEnemies[0]] == 5 || _enemyTiers[possibleEnemies[1]] == 5)
             {
-                _maxDifBewTiers--;
-                Debug.Log(_maxDifBewTiers + " dsafiudhjsafiloughjadfspiçuadfsijuhadfgsigjasdfvçikjlgabdsv");
+                DungeonManager.instance._maxDifBewTiers--;
             }
             else
             {
-                Debug.Log("good challenge");
                 possibleChallenge = false;
             }
         }
@@ -79,9 +74,8 @@ public class PossibleChallengeData
                 max = item.Value;
             }
         }
-        Debug.Log("Max " + max);
-        Debug.Log("Min " + min);
-        if ((max - min) > _maxDifBewTiers)
+        
+        if ((max - min) > DungeonManager.instance._maxDifBewTiers)
         {
             int sum = 0;
             foreach (var item in _enemyTiers)

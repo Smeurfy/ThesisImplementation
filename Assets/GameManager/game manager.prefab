@@ -229,6 +229,7 @@ MonoBehaviour:
   enemyBulletHolder: {fileID: 0}
   allRooms:
   - {fileID: 0}
+  _maxDifBewTiers: 2
   playersRoom: -1
 --- !u!114 &114898225653702740
 MonoBehaviour:
