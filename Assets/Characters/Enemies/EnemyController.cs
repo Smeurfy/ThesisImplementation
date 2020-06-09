@@ -8,7 +8,7 @@ namespace Thesis.Enemy
     public class EnemyController : MonoBehaviour
     {
         [SerializeField] protected Transform player;
-        [SerializeField] protected float attackDistance;
+        [SerializeField] public float attackDistance;
         [SerializeField] protected float durationOfPush;
         [SerializeField] protected bool isStationaryEnemy = false;
         

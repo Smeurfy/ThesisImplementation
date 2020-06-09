@@ -262,21 +262,9 @@ public class RoomManager : MonoBehaviour
     public void RepeatChallenge()
     {
         AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
-        var lastSpawnPosition = new Vector3();
         if (this.roomID == DungeonManager.instance.playersRoom)
         {
-            foreach (TypeOfEnemy toe in challengeOfThisRoom.GetTypeOfEnemies())
-            {
-                var enemyPrefab = EnemyLibrary.instance.GetEnemyTypePrefab(toe);
-                var randomPosition = GetRandomSpawnPoint().position;
-                while (lastSpawnPosition == randomPosition)
-                {
-                    randomPosition = GetRandomSpawnPoint().position;
-                }
-                GameObject spawnedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.identity, this.GetEnemyHolder());
-                lastSpawnPosition = randomPosition;
-                GameManager.instance.GetComponentInChildren<TierEvolution>().ApplyMutation(spawnedEnemy);
-            }
+            roomChallengeGenerator.CreateChallengeInGame(challengeOfThisRoom);
         }
         HideChallenge();
         PlayerMovement.characterCanReceiveInput = false;
@@ -349,7 +337,7 @@ public class RoomManager : MonoBehaviour
                     if (DungeonManager.instance.tierOfEnemies[enemy] < 5)
                     {
                         DungeonManager.instance.tierOfEnemies[enemy]++;
-                        FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponent<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy]);
+                        FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy]);
                         Debug.Log(DungeonManager.instance.tierOfEnemies[enemy] + " tier monstro");
                     }
                 }

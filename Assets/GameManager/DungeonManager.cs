@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class DungeonManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class DungeonManager : MonoBehaviour
     //public List<PossibleChallengeData> possibleChallenges;
 
     public Dictionary<TypeOfEnemy, int> tierOfEnemies = new Dictionary<TypeOfEnemy, int>();
+    public Dictionary<string, Dictionary<string, MonstersInfo>> monstersInfo = new Dictionary<string, Dictionary<string, MonstersInfo>>();
 
     [SerializeField] private int numberOfChallengesToGenerate;
     [SerializeField] private GameObject[] roomToSpawnNextPrefab;
@@ -43,6 +45,7 @@ public class DungeonManager : MonoBehaviour
 
     private void Start()
     {
+        LoadFile();
         InitializeMonstersTier();
         GenerateDungeonChallenges();
         CreateNextRoom();
@@ -136,7 +139,7 @@ public class DungeonManager : MonoBehaviour
     {
         foreach (var enemy in EnemyLibrary.instance.GetAllPossibleEnemies())
         {
-            tierOfEnemies.Add(enemy, 0);
+            tierOfEnemies.Add(enemy , 0);
         }
 
     }
@@ -145,7 +148,6 @@ public class DungeonManager : MonoBehaviour
     ///</summary>
     private void GenerateDungeonChallenges()
     {
-        List<GameObject> enemies = EnemyLibrary.instance.GetAllPossibleEnemiesPrefabs();
         //List with the final challenges
 
         for (int i = 0; i < 25; i++)
@@ -157,10 +159,10 @@ public class DungeonManager : MonoBehaviour
             // Debug.Log(_finalChallenges[i].GetTypeOfEnemies()[0] + " " + tierOfEnemies[_finalChallenges[i].GetTypeOfEnemies()[0]]);
             // Debug.Log(_finalChallenges[i].GetTypeOfEnemies()[1] + " " + tierOfEnemies[_finalChallenges[i].GetTypeOfEnemies()[1]]);
         }
-        // foreach (var item in tierOfEnemies)
-        // {
-        //     Debug.Log(item.Key.name + " " + item.Value);
-        // }
+        foreach (var item in tierOfEnemies)
+        {
+            Debug.Log(item.Key.name + " " + item.Value);
+        }
         tierOfEnemies.Clear();
         InitializeMonstersTier();
     }
@@ -210,6 +212,36 @@ public class DungeonManager : MonoBehaviour
             GenerateChallengeForFirstRoom();
 
         }
+    }
+
+    void LoadFile()
+    {
+        string path = Application.dataPath + "/StreamingAssets/denis.json";
+        string[] fileContent = File.ReadAllLines(path);
+        var enemies = EnemyLibrary.instance.GetAllPossibleEnemiesPrefabs();
+        foreach (var item in enemies)
+        {
+            monstersInfo.Add(item.name, new Dictionary<string, MonstersInfo>());
+        }
+        foreach (var item in monstersInfo)
+        {
+            foreach (var str in fileContent)
+            {
+                MonstersInfo obj = JsonUtility.FromJson<MonstersInfo>(str);
+                if (obj.monsterName == item.Key)
+                {
+                    item.Value.Add(obj.tier, obj);
+                }
+            }
+        }
+        // foreach (var item in monstersInfo)
+        // {
+        // 	Debug.Log(item.Key);
+        //     foreach (var str in item.Value)
+        //     {
+        // 		Debug.Log(str.Key);
+        //     }
+        // }
     }
 
     private void MakeThisObjectSingleton()

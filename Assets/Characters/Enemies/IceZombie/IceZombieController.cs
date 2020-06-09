@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IceZombieController : EnemyController 
 {
-    [SerializeField] float timeBetweenAttacksInSecs = 1f;
+    [SerializeField] public float timeBetweenAttacksInSecs = 1f;
 
     private IceZombiePhysicalAttack physicalAttack;
     private bool isAttacking = false;

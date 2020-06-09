@@ -8,7 +8,7 @@ namespace Thesis.Enemy
         [SerializeField] Weapon weaponBeingHeld;
         [SerializeField] Transform gunTip;
 
-        private float timeToWaitBeforeShootingAgain;
+        public float timeToWaitBeforeShootingAgain;
         private bool canShoot;
         private bool isLookingToTheRight = true;
         private AudioSource audioSource;

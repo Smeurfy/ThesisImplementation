@@ -12,9 +12,6 @@ public class RoomChallengeGenerator : MonoBehaviour
 
     public void GenerateChallengeForNextRoom()
     {
-        // if(DungeonManager.instance.GetFirstTimeGeneratingChallenges())
-        //     GeneratePossibleChallengesPopulation();
-        // CheckForTierUpdate();
         var bestChallenge = PickBestChallengeFromPossiblePopulation();
         roomManager.challengeOfThisRoom = bestChallenge;
         roomManager.enem1 = roomManager.challengeOfThisRoom.GetTypeOfEnemies()[0];
@@ -22,41 +19,13 @@ public class RoomChallengeGenerator : MonoBehaviour
         CreateChallengeInGame(bestChallenge);
     }
 
-    // private void CheckForTierUpdate()
-    // {
-    //     var enemiesCount = EnemyLibrary.instance.GetAllPossibleEnemies().Count;
-    //     int tierCount = 0;
-    //     foreach (var item in DungeonManager.instance.tierOfEnemies)
-    //     {
-    //         tierCount += item.Value;
-    //     }
-    //     if(tierCount != 0 && tierCount % enemiesCount == 0)
-    //     {
-    //         DungeonManager.instance.IncreaseGlobalTier();
-    //     }
-    // }
-
     private PossibleChallengeData PickBestChallengeFromPossiblePopulation()
     {
         var possibleChallengeData = DungeonManager.instance._finalChallenges[DungeonManager.instance.playersRoom];
-        // possibleChallengeData = possibleChallengeData.GeneratePossibleChallenge();
-
-        // PossibleChallengeData bestChallenge = new PossibleChallengeData();
-        // foreach(PossibleChallengeData possibleChallenge in DungeonManager.instance.possibleChallenges)
-        // {
-        //     if(possibleChallenge.challengeAvailable && DungeonManager.instance.tierOfEnemies[possibleChallenge.GetTypeOfEnemies()[0]] == DungeonManager.instance.GetGlobalTier() && 
-        //                                                DungeonManager.instance.tierOfEnemies[possibleChallenge.GetTypeOfEnemies()[1]] == DungeonManager.instance.GetGlobalTier())
-        //     {
-        //         Debug.Log("Devolvo MONSTRTODS");
-        //         return possibleChallenge;
-        //     }
-        // }
-
-        //bestChallenge = DungeonManager.instance.possibleChallenges[Random.Range(0, DungeonManager.instance.possibleChallenges.Count)];
         return possibleChallengeData;
     }
 
-    private void CreateChallengeInGame(PossibleChallengeData bestChallenge)
+    public void CreateChallengeInGame(PossibleChallengeData bestChallenge)
     {
         var lastSpawnPosition = new Vector3();
         foreach (TypeOfEnemy toe in bestChallenge.GetTypeOfEnemies())
@@ -68,8 +37,47 @@ public class RoomChallengeGenerator : MonoBehaviour
             }
             var enemyPrefab = EnemyLibrary.instance.GetEnemyTypePrefab(toe);
             GameObject spawnedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.identity, roomManager.GetEnemyHolder());
+            spawnedEnemy.name = enemyPrefab.name;
             lastSpawnPosition = randomPosition;
-            GameManager.instance.GetComponentInChildren<TierEvolution>().ApplyMutation(spawnedEnemy);
+            ApplyCharacteristics(spawnedEnemy, toe);
+        }
+    }
+
+    private void ApplyCharacteristics(GameObject enemy, TypeOfEnemy typeOfEnemy)
+    {
+        //i need the tier name: default, Tier1, Tier2
+
+        var enemyTier = DungeonManager.instance.tierOfEnemies[typeOfEnemy];
+        string tierName = "";
+        //Convert 0,1,2,3,4,5 to default, Tier1, Tier2 as in the loaded json file
+        if (enemyTier == 0 || enemyTier == 1)
+            tierName = "default";
+        if (enemyTier == 2 || enemyTier == 3)
+            tierName = "Tier1";
+        if (enemyTier == 4)
+            tierName = "Tier2";
+        var mInfo = DungeonManager.instance.monstersInfo[enemy.name][tierName];
+        if (enemy.name == "iceZombieTest")
+        {
+            enemy.GetComponent<IceZombieController>().timeBetweenAttacksInSecs = mInfo.timeBetweenAttacks;
+            enemy.GetComponent<IceZombiePhysicalAttack>().DurationOfAttackInSecs = mInfo.durationOfAttacks;
+            enemy.GetComponent<IceZombiePhysicalAttack>().attackFlightSpeed = mInfo.attackSpeed;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovement>().stoppingDistanceToPlayer = mInfo.stoppingDistance;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovement>().movementSpeed = mInfo.movementSpeed;
+        }
+        else
+        {
+            var enemyCharac = enemy.GetComponentInChildren<BulletSpawner>();
+            enemyCharac.numberOfBullets = (int)mInfo.numberBullets;
+            enemyCharac.bulletSpeed = (int)mInfo.bulletSpeed;
+            enemyCharac.numberOfWaves = (int)mInfo.numberOfWaves;
+            enemyCharac.secondsBetweenWaves = (int)mInfo.secBtwWaves;
+            enemyCharac.secondsBetweenShots = mInfo.secBtwShots;
+            enemyCharac.angleToShootInDegrees = mInfo.angleToShoot;
+            enemy.GetComponent<Thesis.Enemy.EnemyController>().attackDistance = mInfo.attackDistance;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovement>().stoppingDistanceToPlayer = mInfo.stoppingDistance;
+            enemy.GetComponent<Thesis.Enemy.EnemyMovement>().movementSpeed = mInfo.movementSpeed;
+            enemy.GetComponentInChildren<Thesis.Enemy.EnemyShoot>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
         }
     }
 

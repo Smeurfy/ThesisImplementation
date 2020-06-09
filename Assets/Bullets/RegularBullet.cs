@@ -3,8 +3,8 @@
 public class RegularBullet : TypeOfBullet
 {
     private void Start(){
-        // AfterDeathOptions.instance.OnTryAgain += DestroyBullet;
-        // AfterDeathOptions.instance.OnSkip += DestroyBullet;
+        AfterDeathOptions.instance.OnTryAgain += DestroyBullet;
+        AfterDeathOptions.instance.OnSkip += DestroyBullet;
     }
 
     public override void SetTarget(Vector2 target)
@@ -26,14 +26,6 @@ public class RegularBullet : TypeOfBullet
         {
             objectHitted.TakeDamage(damage);
         }
-        //if(performancedata.instance.getperformancecalculationmethod() == performancecalculationmethod.basedonhits)
-        //{
-        //    if (collision.gameobject.getcomponent<playerhealthsystem>())
-        //    {
-        //        // for this to work enemyperformancedata has to be added to all enemy prefabs again
-        //        gameobject.getcomponentinparent<enemyperformancedata>().playerwasshot();
-        //    }
-        //}
         Destroy(gameObject);
     }
 

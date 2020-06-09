@@ -21,7 +21,7 @@ public class DebugUILeft : MonoBehaviour
         var thisChallenge = GameObject.Find("ThisChallenge").GetComponentsInChildren<Image>();
         for (int i = 0; i < thisChallenge.Length; i++)
         {
-            thisChallenge[i].sprite = EnemyLibrary.instance.GetEnemyTypePrefab(roomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]).GetComponent<SpriteRenderer>().sprite;
+            thisChallenge[i].sprite = EnemyLibrary.instance.GetEnemyTypePrefab(roomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]).GetComponentInChildren<SpriteRenderer>().sprite;
             thisChallenge[i].preserveAspect = true;
             thisChallenge[i].GetComponentInChildren<Text>().text = "Tier: " + DungeonManager.instance.tierOfEnemies[roomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]];
         }
@@ -33,7 +33,7 @@ public class DebugUILeft : MonoBehaviour
             var previousRoomManager = DungeonManager.instance.GetRoomManagerByRoomID(previousRoomPlayer);
             for (int i = 0; i < previousChallenge.Length; i++)
             {
-                previousChallenge[i].sprite = EnemyLibrary.instance.GetEnemyTypePrefab(previousRoomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]).GetComponent<SpriteRenderer>().sprite;
+                previousChallenge[i].sprite = EnemyLibrary.instance.GetEnemyTypePrefab(previousRoomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]).GetComponentInChildren<SpriteRenderer>().sprite;
                 previousChallenge[i].preserveAspect = true;
                 previousChallenge[i].GetComponentInChildren<Text>().text = "Tier: " + DungeonManager.instance.tierOfEnemies[previousRoomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]];
             }
