@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 114545553012969172}
   - component: {fileID: 199200406312198394}
   - component: {fileID: 114182093032534280}
-  - component: {fileID: 114790740255285380}
   m_Layer: 10
   m_Name: swampy bs
   m_TagString: Untagged
@@ -516,11 +515,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
   secondsToShowDamageBar: 1
   HUD: {fileID: 1363202207269548}
   remaningHealth: {fileID: 114070378256085410}
   damageVisualization: {fileID: 114858056240893128}
   bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
+  enemyData: {fileID: 0}
 --- !u!114 &114070378256085410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -676,17 +677,6 @@ MonoBehaviour:
   secondsBetweenShots: 0.45
   angleToShootInDegrees: 100
   goesBack: 0
---- !u!114 &114790740255285380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1451395243094344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e998c14e6b6429428b3c0ef88c415ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114816005883207534
 MonoBehaviour:
   m_ObjectHideFlags: 1

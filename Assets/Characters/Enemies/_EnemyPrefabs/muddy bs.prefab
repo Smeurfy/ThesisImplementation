@@ -152,7 +152,6 @@ GameObject:
   - component: {fileID: 114970220744682886}
   - component: {fileID: 199973048015165506}
   - component: {fileID: 114508253273783558}
-  - component: {fileID: 114231375872649568}
   m_Layer: 10
   m_Name: muddy bs
   m_TagString: Untagged
@@ -548,17 +547,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114231375872649568
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1908729465408552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e998c14e6b6429428b3c0ef88c415ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114407061893952226
 MonoBehaviour:
   m_ObjectHideFlags: 1

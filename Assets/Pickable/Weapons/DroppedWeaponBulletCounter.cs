@@ -8,7 +8,7 @@ public class DroppedWeaponBulletCounter : MonoBehaviour
     private void Start()
     {
         bulletCount = GetComponent<TextMeshProUGUI>();
-        bulletCount.text = GetComponentInParent<BulletManagerTest>().AvailableBulletsCount().ToString();
+        bulletCount.text = GetComponentInParent<BulletManager>().AvailableBulletsCount().ToString();
     }
 
     public void UpdateBulletCount(int bulletsToAdd)

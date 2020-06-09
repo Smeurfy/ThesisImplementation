@@ -773,7 +773,6 @@ GameObject:
   - component: {fileID: 4825573337022552}
   - component: {fileID: 114850098939040354}
   - component: {fileID: 114410227131628500}
-  - component: {fileID: 114706712816357766}
   - component: {fileID: 114487289223935018}
   m_Layer: 0
   m_Name: room specific
@@ -1936,11 +1935,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
   secondsToShowDamageBar: 1
   HUD: {fileID: 0}
   remaningHealth: {fileID: 0}
   damageVisualization: {fileID: 0}
   bombPrefab: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!114 &114017014244177974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3060,17 +3061,6 @@ MonoBehaviour:
   m_FillAmount: 0.68
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114706712816357766
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1516697949029014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f13311201fdb4fa48b7a43e0c910eed6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114710966248393922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3195,7 +3185,15 @@ MonoBehaviour:
   switchesHolderGameObject: {fileID: 1877299790977476}
   itemsHolderGameObject: {fileID: 1345883134109198}
   spawnPointsGameObject: {fileID: 1328283238259264}
-  nextRoomsPosition: {fileID: 4967213198459110}
+  nextRoom: {x: 0, y: 0, z: 0}
+  playerRoomInitialPosition: {x: 0, y: 0, z: 0}
+  roomID: 0
+  challengesCleared: 0
+  typesOfRoom: []
+  enem1: {fileID: 0}
+  enem2: {fileID: 0}
+  enemy1: []
+  enemy2: []
 --- !u!114 &114858276076962786
 MonoBehaviour:
   m_ObjectHideFlags: 1

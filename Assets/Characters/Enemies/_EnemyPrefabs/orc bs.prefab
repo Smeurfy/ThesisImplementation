@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 114302618046159410}
   - component: {fileID: 199443580947132746}
   - component: {fileID: 114905955621581210}
-  - component: {fileID: 114848418590628840}
   m_Layer: 10
   m_Name: orc bs
   m_TagString: Untagged
@@ -614,11 +613,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
   secondsToShowDamageBar: 1
   HUD: {fileID: 1109265123024112}
   remaningHealth: {fileID: 114368376961779274}
   damageVisualization: {fileID: 114964586783914506}
   bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
+  enemyData: {fileID: 0}
 --- !u!114 &114499476748287108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -726,17 +727,6 @@ MonoBehaviour:
   attackDistance: 15
   durationOfPush: 0.1
   isStationaryEnemy: 0
---- !u!114 &114848418590628840
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1677851457544892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e998c14e6b6429428b3c0ef88c415ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114905955621581210
 MonoBehaviour:
   m_ObjectHideFlags: 1

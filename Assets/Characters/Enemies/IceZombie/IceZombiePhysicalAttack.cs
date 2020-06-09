@@ -8,8 +8,8 @@ public class IceZombiePhysicalAttack : EnemyPhysicalAttack
     [SerializeField] public float attackFlightSpeed = 5f;
     [SerializeField] private Animator animator;
     
-    private IceZombieControllerTest iceZombieController;
-    private EnemyMovementTest movement;
+    private IceZombieController iceZombieController;
+    private EnemyMovement movement;
     private bool preparingToAttackNotSet = true;
 
     private const string animatorPreparingAttack = "preparingAttack";
@@ -17,8 +17,8 @@ public class IceZombiePhysicalAttack : EnemyPhysicalAttack
 
     private void Start()
     {
-        iceZombieController = GetComponent<IceZombieControllerTest>();
-        movement = GetComponent<EnemyMovementTest>();
+        iceZombieController = GetComponent<IceZombieController>();
+        movement = GetComponent<EnemyMovement>();
     }
 
     internal void PrepareToAttackPlayer()

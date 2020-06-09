@@ -1248,7 +1248,6 @@ GameObject:
   - component: {fileID: 4851020418882562}
   - component: {fileID: 114615861644989326}
   - component: {fileID: 114563805646522666}
-  - component: {fileID: 114552491457859870}
   m_Layer: 0
   m_Name: room specific
   m_TagString: Untagged
@@ -2865,17 +2864,6 @@ MonoBehaviour:
   m_FillAmount: 0.68
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114552491457859870
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1867853497117668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f13311201fdb4fa48b7a43e0c910eed6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114563805646522666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3062,7 +3050,6 @@ MonoBehaviour:
   playerRoomInitialPosition: {x: 6, y: 0, z: 0}
   roomID: 0
   challengesCleared: 0
-  canvasDebugScreen: {fileID: 0}
   typesOfRoom: []
   enem1: {fileID: 0}
   enem2: {fileID: 0}

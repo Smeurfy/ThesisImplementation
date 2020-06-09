@@ -31,7 +31,6 @@ GameObject:
   - component: {fileID: 114263821055831380}
   - component: {fileID: 199035040583364292}
   - component: {fileID: 114856286711636486}
-  - component: {fileID: 114436458535372532}
   m_Layer: 10
   m_Name: skelet bs
   m_TagString: Untagged
@@ -559,11 +558,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
   secondsToShowDamageBar: 1
   HUD: {fileID: 1086515681375136}
   remaningHealth: {fileID: 114599899410765976}
   damageVisualization: {fileID: 114562846178802488}
   bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
+  enemyData: {fileID: 0}
 --- !u!114 &114110322331366654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -686,17 +687,6 @@ MonoBehaviour:
   movementSpeed: 1.5
   patrolPath: {fileID: 0}
   stoppingDistanceToPatrolPoint: 0.2
---- !u!114 &114436458535372532
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1016459060962374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e998c14e6b6429428b3c0ef88c415ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114562846178802488
 MonoBehaviour:
   m_ObjectHideFlags: 1

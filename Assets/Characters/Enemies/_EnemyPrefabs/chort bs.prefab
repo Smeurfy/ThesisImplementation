@@ -169,7 +169,6 @@ GameObject:
   - component: {fileID: 114500079308718124}
   - component: {fileID: 199625269068344192}
   - component: {fileID: 114564897705009986}
-  - component: {fileID: 114340433564846730}
   m_Layer: 10
   m_Name: chort bs
   m_TagString: Untagged
@@ -559,17 +558,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114340433564846730
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914784437845604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e998c14e6b6429428b3c0ef88c415ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114343482976070734
 MonoBehaviour:
   m_ObjectHideFlags: 1

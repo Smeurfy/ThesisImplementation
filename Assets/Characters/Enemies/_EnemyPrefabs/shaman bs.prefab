@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 114772579284755574}
   - component: {fileID: 199641988292554602}
   - component: {fileID: 114389071533987344}
-  - component: {fileID: 114135630022543748}
   m_Layer: 10
   m_Name: shaman bs
   m_TagString: Untagged
@@ -505,17 +504,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114135630022543748
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1388176606074540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e998c14e6b6429428b3c0ef88c415ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114264209710231702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -636,11 +624,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ba321c2c19d404bbecfabff7bd1482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBeforeChallenge: 0
   secondsToShowDamageBar: 1
   HUD: {fileID: 1165023485287240}
   remaningHealth: {fileID: 114264209710231702}
   damageVisualization: {fileID: 114823356893961464}
   bombPrefab: {fileID: 1633241718584908, guid: 9f3be09e8036fce44b67632b73cbd6be, type: 2}
+  enemyData: {fileID: 0}
 --- !u!114 &114486894556269490
 MonoBehaviour:
   m_ObjectHideFlags: 1
