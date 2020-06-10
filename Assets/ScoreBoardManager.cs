@@ -32,6 +32,8 @@ public class ScoreBoardManager : MonoBehaviour
 
     private void SubscribeAgain()
     {
+        //on try again the subscribed events disappear so i had to hard code
+        //maybe this is the right way maybe is hard coded. I definitely aint the person to know the answer
         ScoreManager.OnUpdateScore += UpdateScoreBoard;
     }
 
