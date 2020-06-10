@@ -3,15 +3,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ScoreBoardManager : MonoBehaviour 
+public class ScoreBoardManager : MonoBehaviour
 {
     private static List<Image> scoreImages;
     private static bool firstTime = true;
-
     private ParticleSystem ps;
-    
+    private ScoreManager _scoreManager;
+
     private void Start()
     {
+        _scoreManager = GameManager.instance.GetComponentInChildren<ScoreManager>();
         if (firstTime)
         {
             scoreImages = new List<Image>();
@@ -25,6 +26,12 @@ public class ScoreBoardManager : MonoBehaviour
         }
         PlayerHealthSystem.instance.OnPlayerDied += UnsubscribeFillImages;
         ScoreManager.OnWinAchieved += UnsubscribeFillImages;
+        ScoreManager.OnUpdateScore += UpdateScoreBoard;
+        AfterDeathOptions.instance.OnTryAgain += SubscribeAgain;
+    }
+
+    private void SubscribeAgain()
+    {
         ScoreManager.OnUpdateScore += UpdateScoreBoard;
     }
 
@@ -48,7 +55,7 @@ public class ScoreBoardManager : MonoBehaviour
             {
                 if (image.type == Image.Type.Filled)
                 {
-                    if(image.fillAmount == 0  && scoreImages[i].fillAmount == 1)
+                    if (image.fillAmount == 0 && scoreImages[i].fillAmount == 1)
                     {
                         image.GetComponent<ParticleSystem>().Play();
                     }
@@ -77,9 +84,9 @@ public class ScoreBoardManager : MonoBehaviour
     private void UpdateScoreBoard(int roomsClearedCount)
     {
         int indexToUpdate = --roomsClearedCount;
-        if(indexToUpdate == 0)  //cleared first room
+        if (indexToUpdate == 0)  //cleared first room
         {
-            for(int i = 0; i < scoreImages.Count; i++)
+            for (int i = 0; i < scoreImages.Count; i++)
             {
                 scoreImages[i].fillAmount = 0;
             }
@@ -92,7 +99,7 @@ public class ScoreBoardManager : MonoBehaviour
                 scoreImages[i].fillAmount = 1;
             }
         }
-        if(roomsClearedCount != GameManager.instance.GetNumberOfRoomsToVictory() - 1)
+        if (roomsClearedCount != GameManager.instance.GetNumberOfRoomsToVictory() - 1)
         {
             FillImages();
         }
@@ -117,7 +124,7 @@ public class ScoreBoardManager : MonoBehaviour
             }
         }
     }
-    
+
     private void UnsubscribeFillImages()
     {
         GetComponentInParent<RoomManager>().OnPlayerEnteredNewRoom -= FillImages;

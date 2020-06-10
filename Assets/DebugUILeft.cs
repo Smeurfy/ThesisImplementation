@@ -35,7 +35,7 @@ public class DebugUILeft : MonoBehaviour
             {
                 previousChallenge[i].sprite = EnemyLibrary.instance.GetEnemyTypePrefab(previousRoomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]).GetComponentInChildren<SpriteRenderer>().sprite;
                 previousChallenge[i].preserveAspect = true;
-                previousChallenge[i].GetComponentInChildren<Text>().text = "Tier: " + DungeonManager.instance.tierOfEnemies[previousRoomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]];
+                previousChallenge[i].GetComponentInChildren<Text>().text = "Tier: " + (DungeonManager.instance.tierOfEnemies[previousRoomManager.challengeOfThisRoom.GetTypeOfEnemies()[i]] - 1);
             }
         }
         roomManager.GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += UpdateUI;

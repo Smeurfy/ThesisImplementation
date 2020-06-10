@@ -44,7 +44,7 @@ public class JsonWriter : MonoBehaviour
             CheckIfAJsonFileAlreadyExists(DocToWrite.PlayerStats);
             File.WriteAllText(tagPerformanceFile, "");    // used to initiate the file
             File.WriteAllText(playerStatsFile, "");    // used to initiate the file
-            ScoreManager.OnUpdateScore += UpdateRunRoomsClearedRealtime;    // called everytime a room is cleared for simplicity of references
+            // ScoreManager.OnUpdateScore += UpdateRunRoomsClearedRealtime;    // called everytime a room is cleared for simplicity of references
             PlayerHealthSystem.instance.OnPlayerDied += RunEnded;
             firstTime = false;
         }
@@ -61,7 +61,7 @@ public class JsonWriter : MonoBehaviour
     {
         if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
         {
-            ScoreManager.OnUpdateScore += UpdateRunRoomsClearedRealtime;    // called everytime a room is cleared for simplicity of references
+            // ScoreManager.OnUpdateScore += UpdateRunRoomsClearedRealtime;    // called everytime a room is cleared for simplicity of references
             GameManager.instance.OnGameWon += UpdateRunRoomsClearedOnVictory;
             PlayerHealthSystem.instance.OnPlayerDied += RunEnded;
         }

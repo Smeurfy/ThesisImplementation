@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScoreManager : MonoBehaviour 
+public class ScoreManager : MonoBehaviour
 {
     public static event Action OnWinAchieved;
     public static event Action<int> OnUpdateScore;
@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += SceneLoaded;
     }
-    
+
     public int GetNumberOfRoomsCleared()
     {
         return roomsClearedCount;
@@ -32,12 +32,13 @@ public class ScoreManager : MonoBehaviour
     public void UpdateScore()
     {
         roomsClearedCount++;
-        //OnUpdateScore(roomsClearedCount);
-        if(DungeonManager.instance.DungeonBeaten())
+        Debug.Log("Entrei no update");
+        OnUpdateScore(roomsClearedCount);
+        if (DungeonManager.instance.DungeonBeaten())
         {
             OnWinAchieved();
         }
-        if(roomsClearedCount == activateShieldOnRoomNumber)
+        if (roomsClearedCount == activateShieldOnRoomNumber)
         {
             OnReachedShieldUnlockRoom();
         }

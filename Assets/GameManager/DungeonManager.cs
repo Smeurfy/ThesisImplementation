@@ -159,10 +159,10 @@ public class DungeonManager : MonoBehaviour
             // Debug.Log(_finalChallenges[i].GetTypeOfEnemies()[0] + " " + tierOfEnemies[_finalChallenges[i].GetTypeOfEnemies()[0]]);
             // Debug.Log(_finalChallenges[i].GetTypeOfEnemies()[1] + " " + tierOfEnemies[_finalChallenges[i].GetTypeOfEnemies()[1]]);
         }
-        foreach (var item in tierOfEnemies)
-        {
-            Debug.Log(item.Key.name + " " + item.Value);
-        }
+        // foreach (var item in tierOfEnemies)
+        // {
+        //     Debug.Log(item.Key.name + " " + item.Value);
+        // }
         tierOfEnemies.Clear();
         InitializeMonstersTier();
     }

@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 114066037054289716}
   - component: {fileID: 114898225653702740}
   - component: {fileID: 114107471125638486}
-  - component: {fileID: 114469358501467362}
   - component: {fileID: 82650260110988010}
   m_Layer: 0
   m_Name: game manager
@@ -179,22 +178,6 @@ MonoBehaviour:
   numberOfRoomsToWin: 20
   scoreBoard: {fileID: 0}
   activateShieldOnRoomNumber: 5
---- !u!114 &114469358501467362
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1318369121762974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c19e0a74afb67fa43b3d97f6183487df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  increaseNumberOfBullets: 2
-  increaseNumberOfWaves: 1
-  increaseBulletSpeed: 1
-  increaseMovSpeed: 1
-  iceZombieAttackSpeed: 1
 --- !u!114 &114731638515965010
 MonoBehaviour:
   m_ObjectHideFlags: 1
