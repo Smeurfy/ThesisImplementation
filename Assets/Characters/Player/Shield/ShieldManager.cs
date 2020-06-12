@@ -31,7 +31,7 @@ public class ShieldManager : MonoBehaviour
         }
         shieldUI.gameObject.SetActive(false);
         ScoreManager.OnReachedShieldUnlockRoom += UnlockShield;
-        AfterDeathOptions.instance.OnTryAgain += ResetShield;
+        AfterDeathOptions.instance.OnTryAgainNow += ResetShield;
         AfterDeathOptions.instance.OnSkip += ResetShield;
         SceneManager.sceneLoaded += FindShieldUIController;
     }
@@ -63,7 +63,7 @@ public class ShieldManager : MonoBehaviour
             shieldUI.gameObject.SetActive(isShieldUnlocked);
             shieldIsCharged = false;
             shieldUI.OnShieldIsCharged += EnableShieldActivation;
-            AfterDeathOptions.instance.OnTryAgain += ResetShield;
+            AfterDeathOptions.instance.OnTryAgainNow += ResetShield;
             AfterDeathOptions.instance.OnSkip += ResetShield;
             shieldController.gameObject.SetActive(false);
         }

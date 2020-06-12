@@ -27,7 +27,7 @@ public class ScoreBoardManager : MonoBehaviour
         PlayerHealthSystem.instance.OnPlayerDied += UnsubscribeFillImages;
         ScoreManager.OnWinAchieved += UnsubscribeFillImages;
         ScoreManager.OnUpdateScore += UpdateScoreBoard;
-        AfterDeathOptions.instance.OnTryAgain += SubscribeAgain;
+        AfterDeathOptions.instance.OnTryAgainNow += SubscribeAgain;
     }
 
     private void SubscribeAgain()

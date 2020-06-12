@@ -55,7 +55,7 @@ public class RoomManager : MonoBehaviour
         GetSpawnPoints();
         roomChallengeGenerator = GetComponent<RoomChallengeGenerator>();
         PlayerHealthSystem.instance.OnPlayerDied += DisableEnemies;
-        AfterDeathOptions.instance.OnTryAgain += RepeatChallenge;
+        AfterDeathOptions.instance.OnTryAgainNow += RepeatChallenge;
         AfterDeathOptions.instance.OnSkip += SkipChallenge;
         doorsHolderGameObject.GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += UpdateTierOfMonsters;
     }

@@ -230,7 +230,7 @@ public class PlayerShootTest : MonoBehaviour
         gameObject.GetComponentInParent<ThrowItem>().OnPlayerThrow += DroppedThrowable;
         PauseMenuManager.instance.OnGameIsPaused += GameIsPaused;
         SceneManager.sceneUnloaded += DereferencePause;
-        AfterDeathOptions.instance.OnTryAgain += EnableWeapon;
+        AfterDeathOptions.instance.OnTryAgainNow += EnableWeapon;
         AfterDeathOptions.instance.OnSkip += EnableWeapon;
         Debug.Log(DungeonManager.instance.playersRoom + " PLAYERSROOM");
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;

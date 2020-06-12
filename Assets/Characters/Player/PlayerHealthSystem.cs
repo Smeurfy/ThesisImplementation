@@ -39,7 +39,7 @@ public class PlayerHealthSystem : HealthSystem
     new private void Start()
     {
         Debug.Log("Start");
-        AfterDeathOptions.instance.OnTryAgain += EnablePlayer;
+        AfterDeathOptions.instance.OnTryAgainNow += EnablePlayer;
         AfterDeathOptions.instance.OnSkip += EnablePlayer;
         GetReferencesToAttributes();
         initialHp = startingHp;
@@ -184,7 +184,7 @@ public class PlayerHealthSystem : HealthSystem
 
     private void GetFlashingDamageIndicatorReference(Scene arg0, LoadSceneMode arg1)
     {
-        AfterDeathOptions.instance.OnTryAgain += EnablePlayer;
+        AfterDeathOptions.instance.OnTryAgainNow += EnablePlayer;
         AfterDeathOptions.instance.OnSkip += EnablePlayer;
         flashingScreenOnDamage = Camera.main.GetComponentInChildren<Image>();
         GetReferencesToAttributes();

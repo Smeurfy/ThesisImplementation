@@ -23,7 +23,7 @@ public class BulletDrop : MonoBehaviour
         amountOfBulletsToAdd = (byte) UnityEngine.Random.Range(3, 10);
         text.text = amountOfBulletsToAdd.ToString();
         AfterDeathOptions.instance.OnSkip += DestroyBullets;
-        AfterDeathOptions.instance.OnTryAgain += DestroyBullets;
+        AfterDeathOptions.instance.OnTryAgainNow += DestroyBullets;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

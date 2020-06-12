@@ -22,7 +22,7 @@ public class DoorManager : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         GetComponentInParent<RoomManager>().RoomCleared += OpenDoor;
-        AfterDeathOptions.instance.OnTryAgain += CloseDoor;
+        AfterDeathOptions.instance.OnTryAgainNow += CloseDoor;
         AfterDeathOptions.instance.OnSkip += CloseDoor;
         StartTriggerToCloseDoorAfterPlayerEnteredTheRoom();
     }

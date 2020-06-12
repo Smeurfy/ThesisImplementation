@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         MakeThisObjectSingleton();
         player = FindObjectOfType<PlayerHealthSystem>().transform;
-        FindObjectOfType<AfterDeathOptions>().OnRestart += ResetGame;
+        FindObjectOfType<AfterDeathOptions>().OnRestartSameRun += ResetGame;
         dungeonManager = GetComponent<DungeonManager>();
         ScoreManager.OnWinAchieved += WinGame;
         SceneManager.sceneLoaded += EnablePlayerAndGetWinFadeReference;
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         // {
             if(!reseting)
             {
-                FindObjectOfType<AfterDeathOptions>().OnRestart -= ResetGame;
+                FindObjectOfType<AfterDeathOptions>().OnRestartSameRun -= ResetGame;
                 reseting = true;
                 if(this == null)
                 {

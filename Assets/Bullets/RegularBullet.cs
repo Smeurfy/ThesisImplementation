@@ -3,7 +3,7 @@
 public class RegularBullet : TypeOfBullet
 {
     private void Start(){
-        AfterDeathOptions.instance.OnTryAgain += DestroyBullet;
+        AfterDeathOptions.instance.OnTryAgainNow += DestroyBullet;
         AfterDeathOptions.instance.OnSkip += DestroyBullet;
     }
 

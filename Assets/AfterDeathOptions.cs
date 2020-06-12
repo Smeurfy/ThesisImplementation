@@ -10,9 +10,10 @@ public class AfterDeathOptions : MonoBehaviour
 	[SerializeField]
 	public GameObject afterDeathMenu;
 
-	public event Action OnTryAgain = delegate { };
-	public event Action OnRestart = delegate { };
-
+	public event Action OnTryAgainNow = delegate { };
+	public event Action OnTryAgainLater = delegate { };
+	public event Action OnRestartSameRun = delegate { };
+	public event Action OnRestartNewRun = delegate { };
 	public event Action OnSkip = delegate { };
 
 	private void Awake()
@@ -25,27 +26,36 @@ public class AfterDeathOptions : MonoBehaviour
 	{
 		afterDeathMenu.SetActive(false);
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
 
-	public void TryAgain()
+	public void TryAgainNow()
 	{
-		if(OnTryAgain != null)
+		if(OnTryAgainNow != null)
 		{
 			Debug.Log("try again");
-			OnTryAgain();
+			OnTryAgainNow();
+		}
+			
+	}
+	public void TryAgainLater()
+	{
+		if(OnTryAgainNow != null)
+		{
+			Debug.Log("try again later");
+			OnTryAgainLater();
 		}
 			
 	}
 
-	public void Restart()
+	public void RestartSameRun()
 	{
-		Debug.Log("restart");
-		OnRestart();
+		Debug.Log("restart same run");
+		OnRestartSameRun();
+	}
+
+	public void RestartNewRun()
+	{
+		Debug.Log("restart new run");
+		OnRestartNewRun();
 	}
 
 	public void Skip()

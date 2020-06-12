@@ -43,7 +43,7 @@ namespace Thesis.Enemy
             hasEffectOnDeath = enemyData.HasOnDeathEffect();
             InitializeHealthBar();
             base.Start();
-            AfterDeathOptions.instance.OnTryAgain += EnableVariables;
+            AfterDeathOptions.instance.OnTryAgainNow += EnableVariables;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
