@@ -238,7 +238,6 @@ public class PlayerShoot : MonoBehaviour
         SceneManager.sceneUnloaded += DereferencePause;
         AfterDeathOptions.instance.OnTryAgainNow += EnableWeapon;
         AfterDeathOptions.instance.OnSkip += EnableWeapon;
-        Debug.Log(DungeonManager.instance.playersRoom + " PLAYERSROOM");
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
     }
 }

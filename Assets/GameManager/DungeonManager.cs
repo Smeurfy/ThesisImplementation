@@ -50,7 +50,17 @@ public class DungeonManager : MonoBehaviour
         GenerateDungeonChallenges();
         CreateNextRoom();
         GenerateChallengeForFirstRoom();
+        AfterDeathOptions.instance.OnRestartNewRun += GenerateNewRun;
         SceneManager.sceneLoaded += SceneLoaded;
+    }
+
+    private void GenerateNewRun()
+    {
+        Debug.Log("ALOOLDSJADSHIOUJADEFSBHIUDEHIJUWFHINOPUDEF");
+        _finalChallenges.Clear();
+        tierOfEnemies.Clear();
+        InitializeMonstersTier();
+        GenerateDungeonChallenges();
     }
 
     public void CreateNextRoom()
@@ -139,7 +149,7 @@ public class DungeonManager : MonoBehaviour
     {
         foreach (var enemy in EnemyLibrary.instance.GetAllPossibleEnemies())
         {
-            tierOfEnemies.Add(enemy , 0);
+            tierOfEnemies.Add(enemy, 0);
         }
 
     }
@@ -163,6 +173,11 @@ public class DungeonManager : MonoBehaviour
         // {
         //     Debug.Log(item.Key.name + " " + item.Value);
         // }
+        foreach (var item in _finalChallenges)
+        {   
+            Debug.Log(item.GetTypeOfEnemies()[0].name + " " + item.GetTypeOfEnemies()[1].name);
+            
+        }
         tierOfEnemies.Clear();
         InitializeMonstersTier();
     }
@@ -210,10 +225,14 @@ public class DungeonManager : MonoBehaviour
 
             CreateNextRoom();
             GenerateChallengeForFirstRoom();
+            AfterDeathOptions.instance.OnRestartNewRun += GenerateNewRun;
 
         }
     }
 
+    ///<summary>
+    ///Load the characteristics of the monsters from a file
+    ///</summary>
     void LoadFile()
     {
         string path = Application.dataPath + "/StreamingAssets/denis.json";

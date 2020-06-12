@@ -3,17 +3,16 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour 
+public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public event Action OnGameWon = delegate { }; 
+    public event Action OnGameWon = delegate { };
 
     [SerializeField] private int gameSceneNumber;
     [SerializeField] private int victorySceneNumber;
     [SerializeField] private float secondsToWaitBeforeReset;
     [SerializeField] private Transform player;
     [SerializeField] private AudioClip victorySound;
-    //[SerializeField] private bool usingModel = false;
 
     private int playerAssignedNumber = -5;
     private DungeonManager dungeonManager;
@@ -35,11 +34,17 @@ public class GameManager : MonoBehaviour
     {
         MakeThisObjectSingleton();
         player = FindObjectOfType<PlayerHealthSystem>().transform;
-        FindObjectOfType<AfterDeathOptions>().OnRestartSameRun += ResetGame;
         dungeonManager = GetComponent<DungeonManager>();
         ScoreManager.OnWinAchieved += WinGame;
         SceneManager.sceneLoaded += EnablePlayerAndGetWinFadeReference;
         SceneManager.sceneUnloaded += Dereference;
+
+    }
+
+    private void Start()
+    {
+        AfterDeathOptions.instance.OnRestartSameRun += ResetGame;
+        AfterDeathOptions.instance.OnRestartNewRun += ResetGame;
     }
 
     private void Dereference(Scene unloadedScene)
@@ -52,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(player == null)
+        if (player == null)
         {
             player = FindObjectOfType<PlayerHealthSystem>().transform;
         }
@@ -60,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void WinGame()
     {
-        if(!soundSource)
+        if (!soundSource)
         {
             soundSource = instance.GetComponent<AudioSource>();
         }
@@ -68,7 +73,7 @@ public class GameManager : MonoBehaviour
         OnGameWon();
         fadeToBlack.enabled = true;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if(player)
+        if (player)
         {
             ResetAndDisablePlayer();
         }
@@ -91,24 +96,25 @@ public class GameManager : MonoBehaviour
         // }
         // else
         // {
-            if(!reseting)
+        if (!reseting)
+        {
+            AfterDeathOptions.instance.OnRestartSameRun -= ResetGame;
+            AfterDeathOptions.instance.OnRestartNewRun -= ResetGame;
+            reseting = true;
+            if (this == null)
             {
-                FindObjectOfType<AfterDeathOptions>().OnRestartSameRun -= ResetGame;
-                reseting = true;
-                if(this == null)
-                {
-                    instance.StartCoroutine(WaitAndResetGame());
-                }
-                else { StartCoroutine(WaitAndResetGame()); }
+                instance.StartCoroutine(WaitAndResetGame());
             }
-       //}
-        
+            else { StartCoroutine(WaitAndResetGame()); }
+        }
+        //}
+
     }
-    
+
     private IEnumerator WaitAndResetGame()
     {
         //OnGameOver();
-        Debug.Log("waitAndReset");                       
+        Debug.Log("waitAndReset");
         yield return new WaitForSecondsRealtime(secondsToWaitBeforeReset);
         SceneManager.LoadScene(gameSceneNumber);
         player.GetComponent<PlayerHealthSystem>().EnablePlayerControls();
@@ -123,6 +129,8 @@ public class GameManager : MonoBehaviour
                 player.gameObject.SetActive(true);
             fadeToBlack = Camera.main.GetComponentInChildren<Animator>();
         }
+        AfterDeathOptions.instance.OnRestartSameRun += ResetGame;
+        AfterDeathOptions.instance.OnRestartNewRun += ResetGame;
     }
 
     public void SetPlayerAssignedNumber(int numberToAssign)
