@@ -38,7 +38,6 @@ public class PlayerHealthSystem : HealthSystem
 
     new private void Start()
     {
-        Debug.Log("Start");
         AfterDeathOptions.instance.OnTryAgainNow += EnablePlayer;
         AfterDeathOptions.instance.OnSkip += EnablePlayer;
         GetReferencesToAttributes();
@@ -69,6 +68,7 @@ public class PlayerHealthSystem : HealthSystem
             yield return new WaitForEndOfFrame();
         }
         gameObject.SetActive(false);
+        AfterDeathOptions.instance.UpdateHealthUI(hpBeforeChallenge);
         AfterDeathOptions.instance.afterDeathMenu.SetActive(true);
     }
 

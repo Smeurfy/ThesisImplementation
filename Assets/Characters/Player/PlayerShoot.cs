@@ -202,8 +202,8 @@ public class PlayerShoot : MonoBehaviour
     public void BulletsBeforeChallenge()
     {
         bulletsBeforeChallenge = currentBulletManager.AvailableBulletsCount();
+        AfterDeathOptions.instance.UpdateBulletUI(bulletsBeforeChallenge);
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
-
     }
 
     private void EnableWeapon()

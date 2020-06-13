@@ -1532,6 +1532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   afterDeathMenu: {fileID: 156666236}
+  health: {fileID: 1504467001}
+  bullets: {fileID: 2112156437}
 --- !u!1 &171019227
 GameObject:
   m_ObjectHideFlags: 0
