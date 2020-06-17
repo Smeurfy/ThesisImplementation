@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class PossibleChallengeData
 {
@@ -20,7 +21,7 @@ public class PossibleChallengeData
 
     public PossibleChallengeData GeneratePossibleChallenge()
     {
-        int numberOfEnemiesInPossibleChallenge = Random.Range(2, 3);
+        int numberOfEnemiesInPossibleChallenge = UnityEngine.Random.Range(2, 3);
         possibleEnemies = new TypeOfEnemy[numberOfEnemiesInPossibleChallenge];
         PopulatePossibleChallenge(numberOfEnemiesInPossibleChallenge);
         return this;
@@ -45,9 +46,9 @@ public class PossibleChallengeData
 
     private void CheckChallenge()
     {
-        if (DifferentEnemies() && !EqualChallengeAsPrevious() && DifferenceBtwMaxMinTier())
+        if (DifferentEnemies() && !EqualChallengeAsPrevious() && DifferenceBtwMaxMinTier() && !ChallengeSkipped())
         {
-            
+
             if (_enemyTiers[possibleEnemies[0]] == 5 || _enemyTiers[possibleEnemies[1]] == 5)
             {
                 DungeonManager.instance._maxDifBewTiers--;
@@ -57,6 +58,19 @@ public class PossibleChallengeData
                 possibleChallenge = false;
             }
         }
+    }
+
+    private bool ChallengeSkipped()
+    {
+        foreach (var challenge in DungeonManager.instance.skipedChallenges)
+        {
+            if ((challenge[0] == possibleEnemies[0] && challenge[1] == possibleEnemies[1])
+                || (challenge[0] == possibleEnemies[1] && challenge[1] == possibleEnemies[0]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private bool DifferenceBtwMaxMinTier()
@@ -74,7 +88,7 @@ public class PossibleChallengeData
                 max = item.Value;
             }
         }
-        
+
         if ((max - min) > DungeonManager.instance._maxDifBewTiers)
         {
             int sum = 0;

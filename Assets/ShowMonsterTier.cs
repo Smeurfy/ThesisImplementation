@@ -62,11 +62,12 @@ public class ShowMonsterTier : MonoBehaviour
                 {
                     obj.GetComponent<Image>().sprite = monstersImages[i - 1];
                     obj.GetComponent<Image>().name = obj.GetComponent<Image>().sprite.name;
+                    obj.GetComponent<Image>().preserveAspect = true;
                     obj.GetComponentInChildren<Text>().enabled = false;
                 }
                 if (i != 0 && j != 0)
                 {
-                    obj.GetComponent<Image>().color = new Color(1f, 0f, 0f);
+                    obj.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                     obj.GetComponentInChildren<Text>().enabled = false;
                 }
                 obj.GetComponent<RectTransform>().sizeDelta = new Vector2(auxY - 10, auxY - 10);
@@ -78,7 +79,7 @@ public class ShowMonsterTier : MonoBehaviour
         }
     }
 
-    public void ChangeColor(string name, int tier)
+    public void ChangeColor(string name, int tier, string winLose)
     {
         gameObject.SetActive(true);
         var aux = gridLayout[0];
@@ -98,14 +99,12 @@ public class ShowMonsterTier : MonoBehaviour
             }
 
         }
-        for (int i = 0; i < 6  ; i++)
-        {
-            if (i != 0 && (i - 1) < tier)
-            {
-                aux[i].GetComponent<Image>().color = new Color(0f, 1f, 0f);
-            }
 
-        }
+        if (winLose == "win")
+            aux[tier].GetComponent<Image>().color = new Color(0f, 1f, 0f);
+        else if (winLose == "lose")
+            aux[tier].GetComponent<Image>().color = new Color(1f, 0f, 0f);
+
         gameObject.SetActive(false);
     }
 }

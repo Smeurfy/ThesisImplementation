@@ -1,12 +1,17 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class ScoreManager : MonoBehaviour
 {
     public static event Action OnWinAchieved;
     public static event Action<int> OnUpdateScore;
     public static event Action OnReachedShieldUnlockRoom;
+    ///<summary>
+    ///0 for skiped challenge and 1 for won challenge
+    ///</summary>
+    public List<int> _victoryAndLoses = new List<int>();
 
     [SerializeField] private int numberOfRoomsToWin = 2;
     [SerializeField] private ScoreBoardManager scoreBoard;
@@ -29,19 +34,34 @@ public class ScoreManager : MonoBehaviour
         return numberOfRoomsToWin;
     }
 
-    public void UpdateScore()
+    public void UpdateScore(bool value)
     {
-        roomsClearedCount++;
-        Debug.Log("Entrei no update");
-        OnUpdateScore(roomsClearedCount);
-        if (DungeonManager.instance.DungeonBeaten())
+        if (value)
         {
-            OnWinAchieved();
+            roomsClearedCount++;
+            OnUpdateScore(roomsClearedCount);
+            if (DungeonManager.instance.DungeonBeaten())
+            {
+                OnWinAchieved();
+            }
+            if (DefeatedRoomsToUnlockShield())
+            {
+                OnReachedShieldUnlockRoom();
+            }
         }
-        if (roomsClearedCount == activateShieldOnRoomNumber)
+    }
+
+    private bool DefeatedRoomsToUnlockShield()
+    {
+        int wins = 0;
+        foreach (var item in _victoryAndLoses)
         {
-            OnReachedShieldUnlockRoom();
+            if(item == 1)
+                wins++;
         }
+        if(wins == activateShieldOnRoomNumber)
+            return true;
+        return false;
     }
 
     private void SceneLoaded(Scene loadedScene, LoadSceneMode arg1)

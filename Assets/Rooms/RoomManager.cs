@@ -55,7 +55,7 @@ public class RoomManager : MonoBehaviour
         GetSpawnPoints();
         roomChallengeGenerator = GetComponent<RoomChallengeGenerator>();
         PlayerHealthSystem.instance.OnPlayerDied += DisableEnemies;
-        AfterDeathOptions.instance.OnTryAgainNow += RepeatChallenge;
+        AfterDeathOptions.instance.OnTryAgainNow += RepeatChallengeNow;
         AfterDeathOptions.instance.OnSkip += SkipChallenge;
         doorsHolderGameObject.GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += UpdateTierOfMonsters;
     }
@@ -177,8 +177,6 @@ public class RoomManager : MonoBehaviour
     public Transform GetRandomSpawnPoint()
     {
         var chosenSpawnPoint = spawnPointPositions[UnityEngine.Random.Range(0, spawnPointPositions.Count)];
-        // if (UnityEngine.Random.Range(0, 2) == 0)
-        //     spawnPointPositions.Remove(chosenSpawnPoint);
         return chosenSpawnPoint;
     }
 
@@ -259,7 +257,7 @@ public class RoomManager : MonoBehaviour
         //PlayerHealthSystem.instance.OnPlayerDied -= DisableEnemies;
     }
 
-    public void RepeatChallenge()
+    public void RepeatChallengeNow()
     {
         AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
         if (this.roomID == DungeonManager.instance.playersRoom)
@@ -292,17 +290,24 @@ public class RoomManager : MonoBehaviour
     {
         if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
         {
+            DungeonManager.instance.indexChallenge++;
             AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
+            GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses.Add(0);
+            GameManager.instance.GetComponentInChildren<ScoreManager>().UpdateScore(true);
+            foreach (TypeOfEnemy enemy in challengeOfThisRoom.GetTypeOfEnemies())
+            {
+                Debug.Log("aqui aqui");
+                DungeonManager.instance.tierOfEnemies[enemy]++;
+                FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy], "lose");
+            }
             if (this.roomID == DungeonManager.instance.playersRoom)
             {
                 DungeonManager.instance.skipedChallenges.Add(challengeOfThisRoom.GetTypeOfEnemies());
                 roomChallengeGenerator.GenerateChallengeForNextRoom();
             }
-            Debug.Log("UPdate do skip do crlh");
             DebugUILeft.instance.UpdateThisChallenge();
             HideChallenge();
             PlayerMovement.characterCanReceiveInput = false;
-            StartCoroutine(PlayerCanUpdateAgain());
             if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this)
             {
                 try
@@ -318,6 +323,7 @@ public class RoomManager : MonoBehaviour
 
             }
             SubscribeToTypeOfRoomWinningCondition();
+            StartCoroutine(PlayerCanUpdateAgain());
             StartCoroutine(ShowChallenge());
             challengesCleared = 0;
         }
@@ -337,7 +343,7 @@ public class RoomManager : MonoBehaviour
                     if (DungeonManager.instance.tierOfEnemies[enemy] < 5)
                     {
                         DungeonManager.instance.tierOfEnemies[enemy]++;
-                        FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy]);
+                        FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy], "win");
                         Debug.Log(DungeonManager.instance.tierOfEnemies[enemy] + " tier monstro");
                     }
                 }

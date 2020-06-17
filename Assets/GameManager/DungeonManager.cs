@@ -7,7 +7,6 @@ using System.IO;
 public class DungeonManager : MonoBehaviour
 {
     public static DungeonManager instance;
-    //public List<PossibleChallengeData> possibleChallenges;
 
     public Dictionary<TypeOfEnemy, int> tierOfEnemies = new Dictionary<TypeOfEnemy, int>();
     public Dictionary<string, Dictionary<string, MonstersInfo>> monstersInfo = new Dictionary<string, Dictionary<string, MonstersInfo>>();
@@ -24,7 +23,7 @@ public class DungeonManager : MonoBehaviour
     private int nextRoomToGenerateIndex = 0;
     private ScoreManager scoreManager;
     private bool firstTimeGeneratingChallenges = true;
-    public int playersRoom = -1;
+    public int playersRoom, indexChallenge = -1;
     private bool canCreateNextRoom = false;
 
 
@@ -56,7 +55,6 @@ public class DungeonManager : MonoBehaviour
 
     private void GenerateNewRun()
     {
-        Debug.Log("ALOOLDSJADSHIOUJADEFSBHIUDEHIJUWFHINOPUDEF");
         _finalChallenges.Clear();
         tierOfEnemies.Clear();
         InitializeMonstersTier();
@@ -95,8 +93,7 @@ public class DungeonManager : MonoBehaviour
 
             allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
             allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += GenerateChallengeForNextRoom;
-            allRooms[nextRoomToGenerateIndex].RoomCleared += scoreManager.UpdateScore;
-            AfterDeathOptions.instance.OnSkip += scoreManager.UpdateScore;
+            allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += scoreManager.UpdateScore;
 
             nextRoomToGenerateIndex++;
             firstTimeGeneratingChallenges = false;
@@ -105,31 +102,9 @@ public class DungeonManager : MonoBehaviour
 
     public bool DungeonBeaten()
     {
-        foreach (var enemy in tierOfEnemies)
-        {
-            var tierEnemy = enemy.Value;
-            foreach (var item in skipedChallenges)
-            {
-                if (tierEnemy == 4)
-                {
-                    break;
-                }
-                if (item[0] == enemy.Key || item[1] == enemy.Key)
-                {
-                    tierEnemy++;
-                }
-            }
-
-            if (tierEnemy >= 4)
-            {
-                continue;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return true;
+        if (scoreManager._victoryAndLoses.Count == 25)
+            return true;
+        return false;
     }
 
     internal RoomManager GetRoomManagerByRoomID(int roomID)
@@ -173,11 +148,6 @@ public class DungeonManager : MonoBehaviour
         // {
         //     Debug.Log(item.Key.name + " " + item.Value);
         // }
-        foreach (var item in _finalChallenges)
-        {   
-            Debug.Log(item.GetTypeOfEnemies()[0].name + " " + item.GetTypeOfEnemies()[1].name);
-            
-        }
         tierOfEnemies.Clear();
         InitializeMonstersTier();
     }

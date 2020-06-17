@@ -21,7 +21,7 @@ public class RoomChallengeGenerator : MonoBehaviour
 
     private PossibleChallengeData PickBestChallengeFromPossiblePopulation()
     {
-        var possibleChallengeData = DungeonManager.instance._finalChallenges[DungeonManager.instance.playersRoom];
+        var possibleChallengeData = DungeonManager.instance._finalChallenges[DungeonManager.instance.indexChallenge];
         return possibleChallengeData;
     }
 
@@ -45,8 +45,6 @@ public class RoomChallengeGenerator : MonoBehaviour
 
     private void ApplyCharacteristics(GameObject enemy, TypeOfEnemy typeOfEnemy)
     {
-        //i need the tier name: default, Tier1, Tier2
-
         var enemyTier = DungeonManager.instance.tierOfEnemies[typeOfEnemy];
         string tierName = "";
         //Convert 0,1,2,3,4,5 to default, Tier1, Tier2 as in the loaded json file
@@ -80,29 +78,4 @@ public class RoomChallengeGenerator : MonoBehaviour
             enemy.GetComponentInChildren<Thesis.Enemy.EnemyShoot>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
         }
     }
-
-    // private void GeneratePossibleChallengesPopulation()
-    // {
-
-
-
-    //     // for (int i = 0; i < DungeonManager.instance.possibleChallenges.Count; i++)
-    //     //     {
-    //     //         DungeonManager.instance.possibleChallenges[i] = DungeonManager.instance.possibleChallenges[i].GeneratePossibleChallenge(i);
-    //     //         roomManager.enemy1.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]);
-    //     //         roomManager.enemy2.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]);
-    //     //         if(!DungeonManager.instance.tierOfEnemies.ContainsKey(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]))
-    //     //         {
-    //     //             DungeonManager.instance.tierOfEnemies.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0], 0);
-    //     //             //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[0]);
-    //     //         }
-    //     //         if(!DungeonManager.instance.tierOfEnemies.ContainsKey(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]))
-    //     //         {
-    //     //             DungeonManager.instance.tierOfEnemies.Add(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1], 0);
-    //     //             //Debug.Log(DungeonManager.instance.possibleChallenges[i].GetTypeOfEnemies()[1]);
-    //     //         }
-    //     //     }
-    //     //     //Debug.Log(DungeonManager.instance.tierOfEnemies.Count + " is the size of the dictionary with the tiers of each enemy")   ;
-
-    // }
 }

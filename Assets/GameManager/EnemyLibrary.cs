@@ -140,6 +140,7 @@ public class EnemyLibrary : MonoBehaviour
 
     public TypeOfEnemy GetRandomEnemy()
     { 
+        Random.InitState((int)System.DateTime.Now.Ticks);
         return possibleEnemies[Random.Range(0, possibleEnemies.Count)];
     }
 

@@ -4,7 +4,11 @@ public class RegularBullet : TypeOfBullet
 {
     private void Start(){
         AfterDeathOptions.instance.OnTryAgainNow += DestroyBullet;
+        AfterDeathOptions.instance.OnTryAgainLater += DestroyBullet;
+        AfterDeathOptions.instance.OnRestartNewRun += DestroyBullet;
+        AfterDeathOptions.instance.OnRestartSameRun += DestroyBullet;
         AfterDeathOptions.instance.OnSkip += DestroyBullet;
+        
     }
 
     public override void SetTarget(Vector2 target)

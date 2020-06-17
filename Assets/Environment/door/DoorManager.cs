@@ -32,7 +32,11 @@ public class DoorManager : MonoBehaviour
         var triggerObject = other.gameObject;
         if (triggerObject.GetComponent<PlayerMovement>())
         {
+            if (DungeonManager.instance.playersRoom != -1)
+                GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses.Add(1);
             DungeonManager.instance.playersRoom++;
+            DungeonManager.instance.indexChallenge++;
+
             OnPlayerSurvivedRemaininBullets(true);
             OnPlayerEnteredRoom();
             UpdateCameraToLookAtNewRoom();
@@ -69,6 +73,7 @@ public class DoorManager : MonoBehaviour
 
     private void CloseDoor()
     {
+
         ChangeDoorIsOpen(false);
         audioSource.PlayOneShot(closeDoor);
         animator.SetBool(animatorBoolIsOpened, false);
