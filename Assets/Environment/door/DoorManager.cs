@@ -24,6 +24,7 @@ public class DoorManager : MonoBehaviour
         GetComponentInParent<RoomManager>().RoomCleared += OpenDoor;
         AfterDeathOptions.instance.OnTryAgainNow += CloseDoor;
         AfterDeathOptions.instance.OnSkip += CloseDoor;
+        AfterDeathOptions.instance.OnTryAgainLater += CloseDoor;
         StartTriggerToCloseDoorAfterPlayerEnteredTheRoom();
     }
 
@@ -33,7 +34,7 @@ public class DoorManager : MonoBehaviour
         if (triggerObject.GetComponent<PlayerMovement>())
         {
             if (DungeonManager.instance.playersRoom != -1)
-                GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses.Add(1);
+                GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] = 1;
             DungeonManager.instance.playersRoom++;
             DungeonManager.instance.indexChallenge++;
 

@@ -33,6 +33,7 @@ public class ShieldManager : MonoBehaviour
         ScoreManager.OnReachedShieldUnlockRoom += UnlockShield;
         AfterDeathOptions.instance.OnTryAgainNow += ResetShield;
         AfterDeathOptions.instance.OnSkip += ResetShield;
+        AfterDeathOptions.instance.OnTryAgainLater += ResetShield;
         SceneManager.sceneLoaded += FindShieldUIController;
     }
 

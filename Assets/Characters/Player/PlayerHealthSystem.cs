@@ -40,11 +40,13 @@ public class PlayerHealthSystem : HealthSystem
     {
         AfterDeathOptions.instance.OnTryAgainNow += EnablePlayer;
         AfterDeathOptions.instance.OnSkip += EnablePlayer;
+        AfterDeathOptions.instance.OnTryAgainLater += EnablePlayer;
         GetReferencesToAttributes();
         initialHp = startingHp;
         base.Start();
         OnPlayerHealthUpdate(currentHp);
         OnPlayerDied += DestroyWeapons;
+        OnPlayerDied += GameManager.instance.GetComponentInChildren<ScoreManager>().UndoScore;
     }
 
     internal override void CharacterDied()
@@ -186,6 +188,7 @@ public class PlayerHealthSystem : HealthSystem
     {
         AfterDeathOptions.instance.OnTryAgainNow += EnablePlayer;
         AfterDeathOptions.instance.OnSkip += EnablePlayer;
+        AfterDeathOptions.instance.OnTryAgainLater += EnablePlayer;
         flashingScreenOnDamage = Camera.main.GetComponentInChildren<Image>();
         GetReferencesToAttributes();
         initialHp = startingHp;

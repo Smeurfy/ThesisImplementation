@@ -16,8 +16,6 @@ public class ScoreBoardManager : MonoBehaviour
         _scoreManager = GameManager.instance.GetComponentInChildren<ScoreManager>();
         if (firstTime)
         {
-            Debug.Log("Start if");
-            Debug.Log(this.transform.parent.parent);
             scoreImages = new List<Image>();
             GetAllScoreImages();
             SceneManager.sceneLoaded += GetImages;
@@ -25,15 +23,14 @@ public class ScoreBoardManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Start else");
-            Debug.Log(this.transform.parent.parent);
             FillImages();
         }
         PlayerHealthSystem.instance.OnPlayerDied += UnsubscribeFillImages;
         ScoreManager.OnWinAchieved += UnsubscribeFillImages;
         ScoreManager.OnUpdateScore += UpdateScoreBoard;
+        DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += FillImages;
+        AfterDeathOptions.instance.OnSkip += FillImages;
     }
-
 
     private void GetImages(Scene loadedScene, LoadSceneMode arg1)
     {
@@ -48,12 +45,15 @@ public class ScoreBoardManager : MonoBehaviour
     {
         if (this)
         {
-            Debug.Log("Estou no fill");
             int i = 0;
             foreach (Image image in GetComponentsInChildren<Image>())
             {
                 if (image.type == Image.Type.Filled)
                 {
+                    if (image.fillAmount == 1 && image.color == Color.green && i == DungeonManager.instance.indexChallenge && image.color != scoreImages[i].color)
+                    {
+                        image.fillAmount = 0;
+                    }
                     if (image.fillAmount == 0 && scoreImages[i].fillAmount == 1)
                     {
                         ParticleSystem ps = image.GetComponent<ParticleSystem>();
@@ -63,6 +63,10 @@ public class ScoreBoardManager : MonoBehaviour
                     }
                     image.fillAmount = scoreImages[i].fillAmount;
                     image.color = scoreImages[i].color;
+                    if (i == DungeonManager.instance.indexChallenge)
+                        image.transform.parent.transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+                    else
+                        image.transform.parent.transform.localScale = new Vector3(1f, 1f, 1f);
                     i++;
                 }
             }
@@ -84,9 +88,9 @@ public class ScoreBoardManager : MonoBehaviour
     }
 
 
-    private void UpdateScoreBoard(int roomsClearedCount)
+    private void UpdateScoreBoard()
     {
-        int indexToUpdate = --roomsClearedCount;
+        // int indexToUpdate = --roomsClearedCount;
         // if (indexToUpdate == 0)  //cleared first room
         // {
         //     for (int i = 0; i < scoreImages.Count; i++)
@@ -100,24 +104,29 @@ public class ScoreBoardManager : MonoBehaviour
         // }
         // else
         // {
-        for (int i = 0; i <= indexToUpdate; i++)
+        for (int i = 0; i < _scoreManager._victoryAndLoses.Count; i++)
         {
-            scoreImages[i].fillAmount = 1;
+            if (_scoreManager._victoryAndLoses[i] == -1)
+                scoreImages[i].fillAmount = 0;
+            if (_scoreManager._victoryAndLoses[i] != -1)
+                scoreImages[i].fillAmount = 1;
             if (_scoreManager._victoryAndLoses[i] == 0)
                 scoreImages[i].color = Color.red;
             if (_scoreManager._victoryAndLoses[i] == 1)
                 scoreImages[i].color = Color.yellow;
+            if (_scoreManager._victoryAndLoses[i] == 2)
+                scoreImages[i].color = Color.green;
         }
         // }
-        if (roomsClearedCount != GameManager.instance.GetNumberOfRoomsToVictory() - 1)
-        {
-            FillImages();
-        }
-        else
-        {
-            FillImages();
-            PlayAllParticles();
-        }
+        // if (roomsClearedCount != GameManager.instance.GetNumberOfRoomsToVictory() - 1)
+        // {
+        //     FillImages();
+        // }
+        // else
+        // {
+        FillImages();
+        // PlayAllParticles();
+        // }
     }
 
     private void GetAllScoreImages()

@@ -6,10 +6,13 @@ using System.Collections.Generic;
 public class ScoreManager : MonoBehaviour
 {
     public static event Action OnWinAchieved;
-    public static event Action<int> OnUpdateScore;
+    public static event Action OnUpdateScore;
     public static event Action OnReachedShieldUnlockRoom;
     ///<summary>
-    ///0 for skiped challenge and 1 for won challenge
+    ///-1 for initialization
+    ///0 for skiped challenge
+    ///1 for won challenge 
+    ///2 for try later challenge
     ///</summary>
     public List<int> _victoryAndLoses = new List<int>();
 
@@ -21,7 +24,16 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        InitializeWinLoseList();
         SceneManager.sceneLoaded += SceneLoaded;
+    }
+
+    private void InitializeWinLoseList()
+    {
+        for (int i = 0; i < 25; i++)
+        {
+            _victoryAndLoses.Add(-1);
+        }
     }
 
     public int GetNumberOfRoomsCleared()
@@ -38,8 +50,9 @@ public class ScoreManager : MonoBehaviour
     {
         if (value)
         {
-            roomsClearedCount++;
-            OnUpdateScore(roomsClearedCount);
+            // if (DungeonManager.instance.indexChallenge != 0 && (_victoryAndLoses[DungeonManager.instance.indexChallenge - 1] == 0 || _victoryAndLoses[DungeonManager.instance.indexChallenge - 1] == 1))
+            //     roomsClearedCount++;
+            OnUpdateScore();
             if (DungeonManager.instance.DungeonBeaten())
             {
                 OnWinAchieved();
@@ -51,15 +64,31 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public void UpdateScoreBeforeExitRoom()
+    {
+        if (DungeonManager.instance.playersRoom != -1)
+        {
+            _victoryAndLoses[DungeonManager.instance.indexChallenge] = 1;
+        }
+        OnUpdateScore();
+    }
+
+    public void UndoScore()
+    {
+        if (DungeonManager.instance.playersRoom != -1 && _victoryAndLoses[DungeonManager.instance.indexChallenge] != 2)
+            _victoryAndLoses[DungeonManager.instance.indexChallenge] = -1;
+        OnUpdateScore();
+    }
+
     private bool DefeatedRoomsToUnlockShield()
     {
         int wins = 0;
         foreach (var item in _victoryAndLoses)
         {
-            if(item == 1)
+            if (item == 1)
                 wins++;
         }
-        if(wins == activateShieldOnRoomNumber)
+        if (wins == activateShieldOnRoomNumber)
             return true;
         return false;
     }
@@ -69,6 +98,8 @@ public class ScoreManager : MonoBehaviour
         if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
         {
             roomsClearedCount = 0;
+            _victoryAndLoses = new List<int>();
+            InitializeWinLoseList();
             scoreBoard = GameObject.FindGameObjectWithTag("FirstRoom").GetComponentInChildren<ScoreBoardManager>();
         }
     }

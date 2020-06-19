@@ -93,8 +93,8 @@ public class DungeonManager : MonoBehaviour
 
             allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
             allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += GenerateChallengeForNextRoom;
-            allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += scoreManager.UpdateScore;
-
+            // allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += scoreManager.UpdateScore;
+            allRooms[nextRoomToGenerateIndex].RoomCleared += scoreManager.UpdateScoreBeforeExitRoom;
             nextRoomToGenerateIndex++;
             firstTimeGeneratingChallenges = false;
         }
@@ -102,7 +102,13 @@ public class DungeonManager : MonoBehaviour
 
     public bool DungeonBeaten()
     {
-        if (scoreManager._victoryAndLoses.Count == 25)
+        int count = 0;
+        foreach (var item in scoreManager._victoryAndLoses)
+        {
+            if (item == 0 || item == 1)
+                count++;
+        }
+        if (count == 25)
             return true;
         return false;
     }
@@ -192,6 +198,7 @@ public class DungeonManager : MonoBehaviour
             roomID = -1;
             nextRoomToGenerateIndex = 0;
             playersRoom = -1;
+            indexChallenge = -1;
 
             CreateNextRoom();
             GenerateChallengeForFirstRoom();

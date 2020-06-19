@@ -24,6 +24,7 @@ public class BulletDrop : MonoBehaviour
         text.text = amountOfBulletsToAdd.ToString();
         AfterDeathOptions.instance.OnSkip += DestroyBullets;
         AfterDeathOptions.instance.OnTryAgainNow += DestroyBullets;
+        AfterDeathOptions.instance.OnTryAgainLater += DestroyBullets;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

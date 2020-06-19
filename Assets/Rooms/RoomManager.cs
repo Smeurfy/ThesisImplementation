@@ -57,6 +57,7 @@ public class RoomManager : MonoBehaviour
         PlayerHealthSystem.instance.OnPlayerDied += DisableEnemies;
         AfterDeathOptions.instance.OnTryAgainNow += RepeatChallengeNow;
         AfterDeathOptions.instance.OnSkip += SkipChallenge;
+        AfterDeathOptions.instance.OnTryAgainLater += TryAgainLater;
         doorsHolderGameObject.GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += UpdateTierOfMonsters;
     }
 
@@ -290,13 +291,12 @@ public class RoomManager : MonoBehaviour
     {
         if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
         {
-            DungeonManager.instance.indexChallenge++;
             AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
-            GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses.Add(0);
+            GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] = 0;
             GameManager.instance.GetComponentInChildren<ScoreManager>().UpdateScore(true);
+            DungeonManager.instance.indexChallenge++;
             foreach (TypeOfEnemy enemy in challengeOfThisRoom.GetTypeOfEnemies())
             {
-                Debug.Log("aqui aqui");
                 DungeonManager.instance.tierOfEnemies[enemy]++;
                 FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy], "lose");
             }
@@ -327,7 +327,45 @@ public class RoomManager : MonoBehaviour
             StartCoroutine(ShowChallenge());
             challengesCleared = 0;
         }
+    }
 
+    private void TryAgainLater()
+    {
+        if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
+        {
+            var nextIndex = DungeonManager.instance.indexChallenge + 2;
+            DungeonManager.instance._finalChallenges.Insert(nextIndex, challengeOfThisRoom);
+            DungeonManager.instance._finalChallenges.RemoveAt(DungeonManager.instance.indexChallenge);
+            AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
+
+            GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses.Insert(nextIndex, 2);
+            GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses.RemoveAt(DungeonManager.instance.indexChallenge);
+            GameManager.instance.GetComponentInChildren<ScoreManager>().UpdateScore(true);
+            if (this.roomID == DungeonManager.instance.playersRoom)
+            {
+                roomChallengeGenerator.GenerateChallengeForNextRoom();
+            }
+            DebugUILeft.instance.UpdateThisChallenge();
+            HideChallenge();
+            PlayerMovement.characterCanReceiveInput = false;
+            if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this)
+            {
+                try
+                {
+                    gameObject.GetComponent<KillAllChallenge>().enemiesKilled = 0;
+                    gameObject.GetComponent<KillAllChallenge>().totalNumberOfEnemies = 0;
+                    gameObject.GetComponent<KillAllChallenge>().InitializeEnemies(enemiesHolderGameObject);
+                }
+                catch (System.Exception)
+                {
+                    gameObject.AddComponent<KillAllChallenge>().InitializeEnemies(enemiesHolderGameObject);
+                }
+            }
+            SubscribeToTypeOfRoomWinningCondition();
+            StartCoroutine(PlayerCanUpdateAgain());
+            StartCoroutine(ShowChallenge());
+            challengesCleared = 0;
+        }
     }
 
     private void UpdateTierOfMonsters(bool value)
