@@ -50,16 +50,10 @@ public class ScoreManager : MonoBehaviour
     {
         if (value)
         {
-            // if (DungeonManager.instance.indexChallenge != 0 && (_victoryAndLoses[DungeonManager.instance.indexChallenge - 1] == 0 || _victoryAndLoses[DungeonManager.instance.indexChallenge - 1] == 1))
-            //     roomsClearedCount++;
             OnUpdateScore();
             if (DungeonManager.instance.DungeonBeaten())
             {
                 OnWinAchieved();
-            }
-            if (DefeatedRoomsToUnlockShield())
-            {
-                OnReachedShieldUnlockRoom();
             }
         }
     }
@@ -69,6 +63,10 @@ public class ScoreManager : MonoBehaviour
         if (DungeonManager.instance.playersRoom != -1)
         {
             _victoryAndLoses[DungeonManager.instance.indexChallenge] = 1;
+        }
+        if (DefeatedRoomsToUnlockShield())
+        {
+            OnReachedShieldUnlockRoom();
         }
         OnUpdateScore();
     }

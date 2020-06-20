@@ -93,7 +93,7 @@ public class DungeonManager : MonoBehaviour
 
             allRooms[nextRoomToGenerateIndex].GenerateChallengeForThisRoom();
             allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += GenerateChallengeForNextRoom;
-            // allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += scoreManager.UpdateScore;
+            allRooms[nextRoomToGenerateIndex].GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerSurvivedRemaininBullets += scoreManager.UpdateScore;
             allRooms[nextRoomToGenerateIndex].RoomCleared += scoreManager.UpdateScoreBeforeExitRoom;
             nextRoomToGenerateIndex++;
             firstTimeGeneratingChallenges = false;
