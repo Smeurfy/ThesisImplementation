@@ -47,6 +47,13 @@ public class PlayerHealthSystem : HealthSystem
         OnPlayerHealthUpdate(currentHp);
         OnPlayerDied += DestroyWeapons;
         OnPlayerDied += GameManager.instance.GetComponentInChildren<ScoreManager>().UndoScore;
+        HealthBonus.instance.OnHeartFull += GainOneHeart;
+    }
+
+    private void GainOneHeart()
+    {
+        currentHp++;
+        OnPlayerHealthUpdate(currentHp);
     }
 
     internal override void CharacterDied()
