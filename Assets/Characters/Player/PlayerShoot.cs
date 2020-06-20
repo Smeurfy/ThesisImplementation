@@ -98,7 +98,7 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    private void ShootWeapon() // TODO consider changing this Instantiate to a pool of bullets for optimazation's sake
+    private void ShootWeapon()
     {
         nextShotAvailable = false;
         PlayShotSoundFX();
@@ -153,7 +153,7 @@ public class PlayerShoot : MonoBehaviour
         hatImage.sprite = null;
         if (shootingPS != null)
             Destroy(shootingPS.gameObject);
-        currentBulletManager = null;
+        // currentBulletManager = null;
         isHoldingThrowable = false;
         nextShotAvailable = false;
         spriteRenderer.sprite = null;
