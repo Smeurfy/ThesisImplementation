@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class RegularBullet : TypeOfBullet
 {
-    private void Start(){
+    private void Start()
+    {
         AfterDeathOptions.instance.OnTryAgainNow += DestroyBullet;
         AfterDeathOptions.instance.OnTryAgainLater += DestroyBullet;
         AfterDeathOptions.instance.OnRestartNewRun += DestroyBullet;
         AfterDeathOptions.instance.OnRestartSameRun += DestroyBullet;
         AfterDeathOptions.instance.OnSkip += DestroyBullet;
-        
+
     }
 
     public override void SetTarget(Vector2 target)
@@ -16,13 +18,13 @@ public class RegularBullet : TypeOfBullet
         SetBulletDirection(target);
     }
 
-    protected virtual void SetBulletDirection(Vector2 directionToSet) 
+    protected virtual void SetBulletDirection(Vector2 directionToSet)
     {
         Vector2 movementDirection = directionToSet - (Vector2)transform.position;
         movementDirection.Normalize();
         rb.velocity = movementDirection * speed;
     }
-    
+
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         var objectHitted = collision.gameObject.GetComponent<HealthSystem>();
@@ -33,8 +35,10 @@ public class RegularBullet : TypeOfBullet
         Destroy(gameObject);
     }
 
-    private void DestroyBullet(){
-        if(this){
+    private void DestroyBullet()
+    {
+        if (this)
+        {
             Destroy(gameObject);
         }
     }

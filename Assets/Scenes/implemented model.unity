@@ -1404,7 +1404,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -3049,7 +3049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 782758011}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: BonusHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5395,11 +5395,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
+    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
-      propertyPath: scoreBoard
+      propertyPath: mutatedEnemiesJail
       value: 
-      objectReference: {fileID: 541258127}
+      objectReference: {fileID: 1770048467}
     - target: {fileID: 114753464685062938, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
       propertyPath: roomsHolder
@@ -5415,11 +5415,11 @@ Prefab:
       propertyPath: allRooms.Array.data[0]
       value: 
       objectReference: {fileID: 2028966235}
-    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
+    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
-      propertyPath: mutatedEnemiesJail
+      propertyPath: scoreBoard
       value: 
-      objectReference: {fileID: 1770048467}
+      objectReference: {fileID: 541258127}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fba91bb27fe1fee4186a5cdcbc689244, type: 2}
   m_IsPrefabAsset: 0
@@ -7546,6 +7546,11 @@ Prefab:
     - target: {fileID: 1454406197153588, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114595776519312866, guid: a150f86785d78064fa2ac1a55a6c0bef,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}

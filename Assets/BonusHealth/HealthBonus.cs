@@ -14,13 +14,15 @@ public class HealthBonus : MonoBehaviour
     private RoomManager room;
 
     private float _healthBonusBeforeChallenge = 0;
-	private float _currentHpProgress = 0;
-	float fillSpeed = 0.2f;
+    private float _currentHpProgress = 0;
+    float fillSpeed = 0.2f;
 
-    // Use this for initialization
-    void Start()
+    private void Awake()
     {
         MakeThisObjectSingleton();
+    }
+    void Start()
+    {
         challengeIndex = DungeonManager.instance.indexChallenge;
         GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoHealthBonus;
     }
@@ -29,19 +31,21 @@ public class HealthBonus : MonoBehaviour
     {
         if (_currentHpProgress > _healthBonusBeforeChallenge)
         {
-			_currentHpProgress -= 0.25f;
+            _currentHpProgress -= 0.25f;
         }
     }
-	void Update()
+    void Update()
     {
-		if(imgPlaceholder.fillAmount < _currentHpProgress){
+        if (imgPlaceholder.fillAmount < _currentHpProgress)
+        {
             animHeart.SetBool("gainBonus", true);
-			imgPlaceholder.fillAmount += fillSpeed * Time.deltaTime;
-		}
-		else{
+            imgPlaceholder.fillAmount += fillSpeed * Time.deltaTime;
+        }
+        else
+        {
             imgPlaceholder.fillAmount = _currentHpProgress;
             animHeart.SetBool("gainBonus", false);
-		}
+        }
     }
 
     public void SubscribeToRoom()
@@ -57,7 +61,7 @@ public class HealthBonus : MonoBehaviour
         if (_currentHpProgress == 1)
         {
             imgPlaceholder.fillAmount = 0;
-			_currentHpProgress = 0;
+            _currentHpProgress = 0;
             OnHeartFull();
         }
     }

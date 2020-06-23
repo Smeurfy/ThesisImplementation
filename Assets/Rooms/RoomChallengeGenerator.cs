@@ -40,6 +40,7 @@ public class RoomChallengeGenerator : MonoBehaviour
             spawnedEnemy.name = enemyPrefab.name;
             lastSpawnPosition = randomPosition;
             ApplyCharacteristics(spawnedEnemy, toe);
+            ApplyAuraEffect(spawnedEnemy, toe);
         }
     }
 
@@ -77,5 +78,28 @@ public class RoomChallengeGenerator : MonoBehaviour
             enemy.GetComponent<Thesis.Enemy.EnemyMovement>().movementSpeed = mInfo.movementSpeed;
             enemy.GetComponentInChildren<Thesis.Enemy.EnemyShoot>().timeToWaitBeforeShootingAgain = mInfo.attackSpeed;
         }
+    }
+
+    private void ApplyAuraEffect(GameObject enemy, TypeOfEnemy typeOfEnemy)
+    {
+        var enemyTier = DungeonManager.instance.tierOfEnemies[typeOfEnemy];
+        var effects =  DungeonManager.instance.tierEffects;
+        //Convert 0,1,2,3,4,5 to default, Tier1, Tier2 as in the loaded json file
+        if (enemyTier == 0 || enemyTier == 1)
+        {
+            Instantiate(effects[0].particleSystem, enemy.transform.position, Quaternion.identity, enemy.transform);
+        }
+
+        if (enemyTier == 2 || enemyTier == 3)
+        {
+            Instantiate(effects[1].particleSystem, enemy.transform.position, Quaternion.identity, enemy.transform);
+        }
+
+        if (enemyTier == 4)
+        {
+            Instantiate(effects[2].particleSystem, enemy.transform.position, Quaternion.identity, enemy.transform);
+        }
+
+
     }
 }

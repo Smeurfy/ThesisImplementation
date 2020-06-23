@@ -122,7 +122,6 @@ public class PlayerShoot : MonoBehaviour
         shootingPS.Play();
         StartCoroutine(CanShootAgain());
         animator.SetTrigger(RECOIL_TRIGGER);
-        //print("total shots fired: " + playerBullet.GetTotalShotsFired());
     }
 
     private void PlayShotSoundFX()
