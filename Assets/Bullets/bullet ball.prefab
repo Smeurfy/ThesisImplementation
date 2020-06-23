@@ -56,7 +56,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 0.2
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -4716,7 +4716,7 @@ SpriteRenderer:
   m_SortingLayerID: -1649510889
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1765140db1a5af04aad802f6badfec7e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2bd0abfdb82d6d84d8099d82d9ea3fc1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

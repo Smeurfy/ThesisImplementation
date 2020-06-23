@@ -1,5 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using System;
 
 public class RegularBullet : TypeOfBullet
 {
@@ -10,8 +11,19 @@ public class RegularBullet : TypeOfBullet
         AfterDeathOptions.instance.OnRestartNewRun += DestroyBullet;
         AfterDeathOptions.instance.OnRestartSameRun += DestroyBullet;
         AfterDeathOptions.instance.OnSkip += DestroyBullet;
-
+        RandomColor();
     }
+
+    private void RandomColor()
+    {
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        Color color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+        sprite.color = color;
+        ParticleSystem ps = GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule ma = ps.main;
+        ma.startColor = color;
+    }
+
 
     public override void SetTarget(Vector2 target)
     {
@@ -31,8 +43,17 @@ public class RegularBullet : TypeOfBullet
         if (objectHitted)
         {
             objectHitted.TakeDamage(damage);
+            // KnockBack(collision.gameObject);
         }
         Destroy(gameObject);
+    }
+
+    private void KnockBack(GameObject gObj)
+    {
+        Rigidbody2D rigidbody = gObj.GetComponent<Rigidbody2D>();
+        var direction = gObj.transform.position - this.transform.position;
+        direction.y = 0;
+        rigidbody.AddForce(direction.normalized * 5f, ForceMode2D.Impulse);
     }
 
     private void DestroyBullet()
