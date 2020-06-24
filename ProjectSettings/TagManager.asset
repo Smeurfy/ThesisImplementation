@@ -29,7 +29,7 @@ TagManager:
   - Bombs
   - PlayerShield
   - BulletDrops
-  - 
+  - FloatingPoints
   - 
   - 
   - 
@@ -55,4 +55,7 @@ TagManager:
     locked: 0
   - name: Weapon
     uniqueID: 2645456407
+    locked: 0
+  - name: FloatingPoints
+    uniqueID: 1413190999
     locked: 0

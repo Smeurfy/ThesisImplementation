@@ -44,6 +44,7 @@ namespace Thesis.Enemy
             InitializeHealthBar();
             base.Start();
             AfterDeathOptions.instance.OnTryAgainNow += EnableVariables;
+            HighScore.instance.SubscribeToRoom(gameObject);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -169,7 +170,8 @@ namespace Thesis.Enemy
         }
 
         private IEnumerator DestroyEnemy()
-        {                  
+        {          
+            Instantiate(DungeonManager.instance.pointsPopup, transform.position, Quaternion.identity);        
             if(particles)
             {
                 while (particles.isPlaying || audioSource.isPlaying)
@@ -177,7 +179,6 @@ namespace Thesis.Enemy
                     yield return new WaitForEndOfFrame();
                 }
             }
-
             Destroy(gameObject);
             
         }

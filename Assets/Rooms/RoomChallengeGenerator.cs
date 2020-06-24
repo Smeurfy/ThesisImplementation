@@ -12,11 +12,14 @@ public class RoomChallengeGenerator : MonoBehaviour
 
     public void GenerateChallengeForNextRoom()
     {
-        var bestChallenge = PickBestChallengeFromPossiblePopulation();
-        roomManager.challengeOfThisRoom = bestChallenge;
-        roomManager.enem1 = roomManager.challengeOfThisRoom.GetTypeOfEnemies()[0];
-        roomManager.enem2 = roomManager.challengeOfThisRoom.GetTypeOfEnemies()[1];
-        CreateChallengeInGame(bestChallenge);
+        if (!DungeonManager.instance.DungeonBeaten())
+        {
+            var bestChallenge = PickBestChallengeFromPossiblePopulation();
+            roomManager.challengeOfThisRoom = bestChallenge;
+            roomManager.enem1 = roomManager.challengeOfThisRoom.GetTypeOfEnemies()[0];
+            roomManager.enem2 = roomManager.challengeOfThisRoom.GetTypeOfEnemies()[1];
+            CreateChallengeInGame(bestChallenge);
+        }
     }
 
     private PossibleChallengeData PickBestChallengeFromPossiblePopulation()
@@ -83,7 +86,7 @@ public class RoomChallengeGenerator : MonoBehaviour
     private void ApplyAuraEffect(GameObject enemy, TypeOfEnemy typeOfEnemy)
     {
         var enemyTier = DungeonManager.instance.tierOfEnemies[typeOfEnemy];
-        var effects =  DungeonManager.instance.tierEffects;
+        var effects = DungeonManager.instance.tierEffects;
         //Convert 0,1,2,3,4,5 to default, Tier1, Tier2 as in the loaded json file
         if (enemyTier == 0 || enemyTier == 1)
         {

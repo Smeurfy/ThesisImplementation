@@ -52,7 +52,6 @@ public class HealthBonus : MonoBehaviour
     {
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).RoomCleared += UpdateHealthBonus;
         _healthBonusBeforeChallenge = imgPlaceholder.fillAmount;
-
     }
 
     private void UpdateHealthBonus()

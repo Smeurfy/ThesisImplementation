@@ -28,6 +28,7 @@ public class AfterDeathOptions : MonoBehaviour
     void Start()
     {
         afterDeathMenu.SetActive(false);
+        GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += CheckTryAgainLaterAvailability;
     }
 
     public void TryAgainNow()
@@ -46,7 +47,6 @@ public class AfterDeathOptions : MonoBehaviour
             Debug.Log("try again later");
             OnTryAgainLater();
         }
-
     }
 
     public void RestartSameRun()
@@ -75,6 +75,16 @@ public class AfterDeathOptions : MonoBehaviour
     public void UpdateHealthUI(int hp)
     {
         health.GetComponentInChildren<Text>().text = hp + " Health";
+    }
+
+    public void CheckTryAgainLaterAvailability()
+    {
+        var nextIndex = DungeonManager.instance.indexChallenge + 2;
+        if (nextIndex > 24)
+        {
+            Button btn = GameObject.Find("TryAgainLater").GetComponent<Button>();
+            btn.interactable = false;
+        }
     }
 
 
