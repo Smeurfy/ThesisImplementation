@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HighScore : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class HighScore : MonoBehaviour
     void Start()
     {
         GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoHealthBonus;
+        _highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
+        SceneManager.sceneLoaded += GetHighScore;
+    }
+
+    private void GetHighScore(Scene arg0, LoadSceneMode arg1)
+    {
+        if (arg0.buildIndex == GameManager.instance.GetMainGameSceneNumber())
+            _highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
     }
 
     private void UndoHealthBonus()
@@ -44,6 +53,12 @@ public class HighScore : MonoBehaviour
     {
         _score += 10;
         _currentScore.text = "Score: " + _score;
+    }
+
+    public void SaveHighScore()
+    {
+        if(_score > PlayerPrefs.GetInt("HighScore"))
+            PlayerPrefs.SetInt("HighScore", _score);
     }
 
     private void MakeThisObjectSingleton()

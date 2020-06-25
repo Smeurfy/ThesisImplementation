@@ -10,5 +10,4 @@ public class FloatingPoints : MonoBehaviour {
 		transform.localPosition += new Vector3(0f, 0.5f, 0f);
 	}
 	
-	// Update is called once per frame
 }

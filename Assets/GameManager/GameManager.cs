@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     internal void ResetGame()
     {
+        HighScore.instance.SaveHighScore();
         Debug.Log("resetGame");
         // if(DungeonManager.instance.GetAllRooms()[DungeonManager.instance.GetRoomID()])
         // {
