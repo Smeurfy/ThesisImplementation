@@ -868,7 +868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpBeforeChallenge: 0
-  startingHp: 3
+  startingHp: 6
   flashingScreenOnDamage: {fileID: 0}
 --- !u!114 &114232381947201146
 MonoBehaviour:

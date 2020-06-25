@@ -337,12 +337,6 @@ public class PopulateWithMonsters : MonoBehaviour
                 }
                 AddEnemyToDic(bulletSpawner.transform.parent.gameObject, mInfo.tier);
             }
-
-
-
-
-
-
         }
     }
 
