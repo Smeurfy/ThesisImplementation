@@ -1865,6 +1865,7 @@ MonoBehaviour:
   afterDeathMenu: {fileID: 156666236}
   health: {fileID: 1504467001}
   bullets: {fileID: 2112156437}
+  tryAgainLater: {fileID: 0}
 --- !u!1 &171019227
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,6 +2768,7 @@ MonoBehaviour:
   afterDeathMenu: {fileID: 448631807}
   health: {fileID: 668174704}
   bullets: {fileID: 1289641527}
+  tryAgainLater: {fileID: 1814267125}
 --- !u!1 &472157260
 GameObject:
   m_ObjectHideFlags: 0

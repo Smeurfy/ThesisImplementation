@@ -13,6 +13,8 @@ public class AfterDeathOptions : MonoBehaviour
     public GameObject health;
     public GameObject bullets;
 
+    public Button tryAgainLater;
+
     public event Action OnTryAgainNow = delegate { };
     public event Action OnTryAgainLater = delegate { };
     public event Action OnRestartSameRun = delegate { };
@@ -82,8 +84,7 @@ public class AfterDeathOptions : MonoBehaviour
         var nextIndex = DungeonManager.instance.indexChallenge + 2;
         if (nextIndex > 24)
         {
-            Button btn = GameObject.Find("TryAgainLater").GetComponent<Button>();
-            btn.interactable = false;
+            tryAgainLater.interactable = false;
         }
     }
 
