@@ -35,14 +35,14 @@ public class GameManager : MonoBehaviour
         MakeThisObjectSingleton();
         player = FindObjectOfType<PlayerHealthSystem>().transform;
         dungeonManager = GetComponent<DungeonManager>();
+        fadeToBlack = Camera.main.GetComponentInChildren<Animator>();
         ScoreManager.OnWinAchieved += WinGame;
-        SceneManager.sceneLoaded += EnablePlayerAndGetWinFadeReference;
         SceneManager.sceneUnloaded += Dereference;
-
     }
 
     private void Start()
     {
+        SceneManager.sceneLoaded += EnablePlayerAndGetWinFadeReference;
         AfterDeathOptions.instance.OnRestartSameRun += ResetGame;
         AfterDeathOptions.instance.OnRestartNewRun += ResetGame;
     }
@@ -90,17 +90,8 @@ public class GameManager : MonoBehaviour
     {
         HighScore.instance.SaveHighScore();
         Debug.Log("resetGame");
-        // if(DungeonManager.instance.GetAllRooms()[DungeonManager.instance.GetRoomID()])
-        // {
-        //     FindObjectOfType<AfterDeathOptions>().OnRestart -= ResetGame;
-        //     DungeonManager.instance.CreateNextRoom();
-        // }
-        // else
-        // {
         if (!reseting)
         {
-            AfterDeathOptions.instance.OnRestartSameRun -= ResetGame;
-            AfterDeathOptions.instance.OnRestartNewRun -= ResetGame;
             reseting = true;
             if (this == null)
             {
@@ -108,7 +99,6 @@ public class GameManager : MonoBehaviour
             }
             else { StartCoroutine(WaitAndResetGame()); }
         }
-        //}
 
     }
 
@@ -119,6 +109,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(secondsToWaitBeforeReset);
         SceneManager.LoadScene(gameSceneNumber);
         player.GetComponent<PlayerHealthSystem>().EnablePlayerControls();
+        AfterDeathOptions.instance.OnRestartSameRun -= ResetGame;
+        AfterDeathOptions.instance.OnRestartNewRun -= ResetGame;
         reseting = false;
     }
 
@@ -129,9 +121,9 @@ public class GameManager : MonoBehaviour
             if (player)
                 player.gameObject.SetActive(true);
             fadeToBlack = Camera.main.GetComponentInChildren<Animator>();
+            AfterDeathOptions.instance.OnRestartSameRun += ResetGame;
+            AfterDeathOptions.instance.OnRestartNewRun += ResetGame;
         }
-        AfterDeathOptions.instance.OnRestartSameRun += ResetGame;
-        AfterDeathOptions.instance.OnRestartNewRun += ResetGame;
     }
 
     public void SetPlayerAssignedNumber(int numberToAssign)

@@ -31,13 +31,13 @@ public class PlayerHealthSystem : HealthSystem
         shieldManager = GetComponent<ShieldManager>();
         shieldManager.OnShieldActivation += UpdateShieldState;
         shieldIsBeingUsed = false;
-        SceneManager.sceneLoaded += GetFlashingDamageIndicatorReference;
         MakeThisObjectSingleton();
         DontDestroyOnLoad(gameObject);
     }
 
     new private void Start()
     {
+        SceneManager.sceneLoaded += GetFlashingDamageIndicatorReference;
         AfterDeathOptions.instance.OnTryAgainNow += EnablePlayer;
         AfterDeathOptions.instance.OnSkip += EnablePlayer;
         AfterDeathOptions.instance.OnTryAgainLater += EnablePlayer;
@@ -202,6 +202,7 @@ public class PlayerHealthSystem : HealthSystem
         base.Start();
         OnPlayerHealthUpdate(currentHp);
         OnPlayerDied += DestroyWeapons;
+        HealthBonus.instance.OnHeartFull += GainOneHeart;
 
         currentHp = startingHp;
 

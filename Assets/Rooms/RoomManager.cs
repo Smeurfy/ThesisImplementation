@@ -105,7 +105,6 @@ public class RoomManager : MonoBehaviour
     {
         if (DungeonManager.instance.playersRoom == roomID)
         {
-            Debug.Log("player enter room " + roomID);
             int currentRoomID = roomID;
             previousRoomsDoorManager = DungeonManager.instance.GetRoomManagerByRoomID(--currentRoomID).GetComponentInChildren<DoorManager>(); // the trigger on the previous room's door is the one being used to show the challeng
             previousRoomsDoorManager.OnPlayerEnteredRoom += WaitToShowChallenge;
@@ -382,7 +381,6 @@ public class RoomManager : MonoBehaviour
                     {
                         DungeonManager.instance.tierOfEnemies[enemy]++;
                         FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy], "win");
-                        Debug.Log(DungeonManager.instance.tierOfEnemies[enemy] + " tier monstro");
                     }
                 }
                 catch (KeyNotFoundException)

@@ -27,20 +27,14 @@ public class HighScore : MonoBehaviour
 
     private void GetHighScore(Scene arg0, LoadSceneMode arg1)
     {
-        if (arg0.buildIndex == GameManager.instance.GetMainGameSceneNumber())
-            _highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
+        SceneManager.sceneLoaded -= GetHighScore;
+        _highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
     }
 
     private void UndoHealthBonus()
     {
         _score = _scoreBeforeChallenge;
         _currentScore.text = "Score: " + _score;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void SubscribeToRoom(GameObject gObj)
@@ -57,7 +51,7 @@ public class HighScore : MonoBehaviour
 
     public void SaveHighScore()
     {
-        if(_score > PlayerPrefs.GetInt("HighScore"))
+        if (_score > PlayerPrefs.GetInt("HighScore"))
             PlayerPrefs.SetInt("HighScore", _score);
     }
 

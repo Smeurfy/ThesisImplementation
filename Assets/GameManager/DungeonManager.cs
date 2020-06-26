@@ -61,6 +61,7 @@ public class DungeonManager : MonoBehaviour
         tierOfEnemies.Clear();
         InitializeMonstersTier();
         GenerateDungeonChallenges();
+        AfterDeathOptions.instance.OnRestartNewRun -= GenerateNewRun;
     }
 
     public void CreateNextRoom()
@@ -110,7 +111,7 @@ public class DungeonManager : MonoBehaviour
             if (item == 0 || item == 1)
                 count++;
         }
-        if (count == 25)
+        if (count >= 25)
             return true;
         return false;
     }
