@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void WinGame()
     {
+        JsonWriter.instance.SaveMonsterOrderToFile();
         if (!soundSource)
         {
             soundSource = instance.GetComponent<AudioSource>();

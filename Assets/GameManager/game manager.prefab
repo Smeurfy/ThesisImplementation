@@ -190,8 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b3b3d5d0ca14746892d9fbeda8547a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneNumber: 1
-  victorySceneNumber: 2
+  gameSceneNumber: 2
+  victorySceneNumber: 3
   secondsToWaitBeforeReset: 1
   player: {fileID: 0}
   victorySound: {fileID: 8300000, guid: ae563d30da771c6448da32a8afe0ad25, type: 3}
@@ -210,6 +210,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08fce5e100bf0ae479379830227dcaed, type: 2}
   - {fileID: 11400000, guid: 51be5f3c790252e4298da0c63a326a08, type: 2}
   - {fileID: 11400000, guid: 9100f53da65e1f749b516379ecf44407, type: 2}
+  pointsPopup: {fileID: 1540931008615880, guid: a6c9689d72aa99242ab8a08f767a51c1,
+    type: 2}
   numberOfChallengesToGenerate: 0
   roomToSpawnNextPrefab:
   - {fileID: 1936690420780442, guid: 167dd0cf17509084ba2f77fb9377705c, type: 2}

@@ -290,6 +290,7 @@ public class RoomManager : MonoBehaviour
     {
         if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
         {
+            JsonWriter.instance._skippedChallenges.Add(challengeOfThisRoom);
             AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
             GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] = 0;
             GameManager.instance.GetComponentInChildren<ScoreManager>().UpdateScore(true);
@@ -332,6 +333,7 @@ public class RoomManager : MonoBehaviour
     {
         if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
         {
+            JsonWriter.instance._tryLaterChallenges.Add(challengeOfThisRoom);
             var nextIndex = DungeonManager.instance.indexChallenge + 2;
             DungeonManager.instance._finalChallenges.Insert(nextIndex, challengeOfThisRoom);
             DungeonManager.instance._finalChallenges.RemoveAt(DungeonManager.instance.indexChallenge);

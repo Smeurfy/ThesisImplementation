@@ -225,20 +225,23 @@ public class PlayerShoot : MonoBehaviour
 
     private void DoStuff(Scene arg0, LoadSceneMode arg1)
     {
-        isHoldingThrowable = weaponBeingHeld ? true : false;
-        GetAttributeReferences();
-        if (isHoldingThrowable)
+        if (arg0.buildIndex == GameManager.instance.GetMainGameSceneNumber())
         {
-            spriteRenderer.sprite = weaponBeingHeld.GetSprite();                            // TODO change this to an observer when more weapons are implemented    
-            tipOfTheGun.transform.localPosition = weaponBeingHeld.GetGunTip().transform.localPosition;
-            shootingPS = Instantiate(weaponBeingHeld.GetFiringParticleSystem());
+            isHoldingThrowable = weaponBeingHeld ? true : false;
+            GetAttributeReferences();
+            if (isHoldingThrowable)
+            {
+                spriteRenderer.sprite = weaponBeingHeld.GetSprite();                            // TODO change this to an observer when more weapons are implemented    
+                tipOfTheGun.transform.localPosition = weaponBeingHeld.GetGunTip().transform.localPosition;
+                shootingPS = Instantiate(weaponBeingHeld.GetFiringParticleSystem());
+            }
+            gameObject.GetComponentInParent<ThrowItem>().OnPlayerThrow += DroppedThrowable;
+            PauseMenuManager.instance.OnGameIsPaused += GameIsPaused;
+            SceneManager.sceneUnloaded += DereferencePause;
+            AfterDeathOptions.instance.OnTryAgainNow += EnableWeapon;
+            AfterDeathOptions.instance.OnTryAgainLater += EnableWeapon;
+            AfterDeathOptions.instance.OnSkip += EnableWeapon;
+            DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
         }
-        gameObject.GetComponentInParent<ThrowItem>().OnPlayerThrow += DroppedThrowable;
-        PauseMenuManager.instance.OnGameIsPaused += GameIsPaused;
-        SceneManager.sceneUnloaded += DereferencePause;
-        AfterDeathOptions.instance.OnTryAgainNow += EnableWeapon;
-        AfterDeathOptions.instance.OnTryAgainLater += EnableWeapon;
-        AfterDeathOptions.instance.OnSkip += EnableWeapon;
-        DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
     }
 }

@@ -37,6 +37,7 @@ public class DoorManager : MonoBehaviour
                 GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] = 1;
             DungeonManager.instance.playersRoom++;
             DungeonManager.instance.indexChallenge++;
+            JsonWriter.instance._roomClearedCount++;
             HealthBonus.instance.SubscribeToRoom();
             OnPlayerSurvivedRemaininBullets(true);
             OnPlayerEnteredRoom();

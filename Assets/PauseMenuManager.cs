@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -49,8 +50,8 @@ public class PauseMenuManager : MonoBehaviour
 
     public void QuitGame()
     {
-        print("quit game");
-        Application.Quit();
+        JsonWriter.instance.SaveMonsterOrderToFile();
+        SceneManager.LoadScene(GameManager.instance.GetVictorySceneNumber());
     }
 
     public void ResumeGame()

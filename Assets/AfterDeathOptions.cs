@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AfterDeathOptions : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class AfterDeathOptions : MonoBehaviour
     {
         if (OnTryAgainNow != null)
         {
-            Debug.Log("try again");
+            JsonWriter.instance._btnClickedOnDeath.Add("TryNow");
             OnTryAgainNow();
         }
 
@@ -46,27 +47,33 @@ public class AfterDeathOptions : MonoBehaviour
     {
         if (OnTryAgainNow != null)
         {
-            Debug.Log("try again later");
+            JsonWriter.instance._btnClickedOnDeath.Add("TryLater");
             OnTryAgainLater();
         }
     }
 
     public void RestartSameRun()
     {
-        Debug.Log("restart same run");
+        JsonWriter.instance._btnClickedOnDeath.Add("SameRun");
         OnRestartSameRun();
     }
 
     public void RestartNewRun()
     {
-        Debug.Log("restart new run");
+        JsonWriter.instance._btnClickedOnDeath.Add("NewRun");
         OnRestartNewRun();
     }
 
     public void Skip()
     {
-        Debug.Log("skip");
+        JsonWriter.instance._btnClickedOnDeath.Add("Skipped");
         OnSkip();
+    }
+
+    public void GiveUp()
+    {
+        JsonWriter.instance.SaveMonsterOrderToFile();
+        SceneManager.LoadScene(GameManager.instance.GetVictorySceneNumber());
     }
 
     public void UpdateBulletUI(int bullet)
