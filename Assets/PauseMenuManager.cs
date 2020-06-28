@@ -9,7 +9,8 @@ public class PauseMenuManager : MonoBehaviour
     public event Action<bool> OnGameIsPaused = delegate { };
 
     [SerializeField] GameObject menuHolder;
-    [SerializeField] TextMeshProUGUI assignedNumber;
+
+    public static bool gameIsPaused = false;
 
     private const string pauseMenu = "escape";
 
@@ -21,16 +22,28 @@ public class PauseMenuManager : MonoBehaviour
     private void Start()
     {
         menuHolder.SetActive(false);
-        assignedNumber.text += GameManager.instance.GetPlayerAssignedNumber().ToString();
-        menuHolder.SetActive(false);
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(pauseMenu))
+        if (Input.GetKeyDown(pauseMenu))
         {
+            gameIsPaused = !gameIsPaused;
+            PauseGame();
             menuHolder.SetActive(!menuHolder.activeSelf);
-            OnGameIsPaused(menuHolder.activeSelf);
+            // OnGameIsPaused(menuHolder.activeSelf);
+        }
+    }
+
+    void PauseGame()
+    {
+        if (gameIsPaused)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1;
         }
     }
 
@@ -43,8 +56,10 @@ public class PauseMenuManager : MonoBehaviour
     public void ResumeGame()
     {
         menuHolder.SetActive(false);
+        gameIsPaused = !gameIsPaused;
+        PauseGame();
         print("resume game");
-        OnGameIsPaused(menuHolder.activeSelf);
+        // OnGameIsPaused(menuHolder.activeSelf);
     }
 
     private void MakeThisObjectSingleton()

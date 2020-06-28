@@ -88,7 +88,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void AttemptToShoot()
     {
-        if (nextShotAvailable && weaponBeingHeld && currentBulletManager.HasAvailableBullets() && !isGamePaused)
+        if (nextShotAvailable && weaponBeingHeld && currentBulletManager.HasAvailableBullets() && !PauseMenuManager.gameIsPaused)
         {
             ShootWeapon();
         }

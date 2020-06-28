@@ -38,7 +38,7 @@ namespace Thesis.Enemy
         
         internal void AttemptToShoot()
         {
-            if (canShoot)
+            if (!PauseMenuManager.gameIsPaused && canShoot)
             {
                 Shoot();
             }
