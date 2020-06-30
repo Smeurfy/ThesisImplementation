@@ -38,7 +38,7 @@ public class SaveEmail : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("OrderTierMonsters");
+        SceneManager.LoadScene(2);
     }
 
     public static bool IsEmail(string email)

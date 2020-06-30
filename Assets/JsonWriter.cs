@@ -48,14 +48,14 @@ public class JsonWriter : MonoBehaviour
             writer.WriteLine("Skipped challenges");
             foreach (var item in _skippedChallenges)
             {
-                writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] +
+                writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
                                  item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
             }
             writer.WriteLine("Try later challenges");
             foreach (var item in _tryLaterChallenges)
             {
-                writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] +
+                writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
                                  item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
             }
