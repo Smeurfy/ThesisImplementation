@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 using Thesis.Enemy;
 
 public class DropWeaponAsPickup : MonoBehaviour

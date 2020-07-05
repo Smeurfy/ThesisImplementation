@@ -346,7 +346,7 @@ public class RoomManager : MonoBehaviour
             {
                 roomChallengeGenerator.GenerateChallengeForNextRoom();
             }
-            DebugUILeft.instance.UpdateThisChallenge();
+            // DebugUILeft.instance.UpdateThisChallenge();
             HideChallenge();
             PlayerMovement.characterCanReceiveInput = false;
             if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this)

@@ -14,17 +14,27 @@ public class BulletDrop : MonoBehaviour
     private byte amountOfBulletsToAdd;
     private AudioSource audioPlayer;
     private PlayerShoot playerShoot;
+    private Collider2D col;
 
     private const string PICKED_UP = "pickedUp";
 
     private void Awake()
     {
+        col = GetComponent<CircleCollider2D>();
+        col.enabled = false;
+        StartCoroutine(EnableCollider());
         audioPlayer = GetComponent<AudioSource>();
         amountOfBulletsToAdd = (byte) UnityEngine.Random.Range(3, 10);
         text.text = amountOfBulletsToAdd.ToString();
         AfterDeathOptions.instance.OnSkip += DestroyBullets;
         AfterDeathOptions.instance.OnTryAgainNow += DestroyBullets;
         AfterDeathOptions.instance.OnTryAgainLater += DestroyBullets;
+    }
+
+    private IEnumerator EnableCollider()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        col.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
