@@ -30,7 +30,7 @@ namespace Thesis.Enemy
         public event Action OnEnemyTakeFirstDamage = delegate { };
         public event Action<int> OnEnemyTakeDamageFromItem = delegate { };
         public event Action<int> OnEnemyTakeDamageFromBullet = delegate { };
-        public static event Action<int> OnEnemyTakeDamage = delegate { };
+        public static event Action<float> OnEnemyTakeDamage = delegate { };
 
         private new void Start()
         {

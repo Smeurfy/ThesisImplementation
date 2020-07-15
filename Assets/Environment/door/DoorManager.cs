@@ -41,7 +41,8 @@ public class DoorManager : MonoBehaviour
             HealthBonus.instance.SubscribeToRoom();
             if(!ShieldManager.isShieldUnlocked)
                 GameObject.Find("ProgressBar").GetComponent<ProgressBar>().SubscribeToRoom();
-
+            if(ShieldManager.isShieldUnlocked)  
+                GameObject.Find("UI/shield").GetComponent<ShieldUIManager>().SubscribeToRoom();
             OnPlayerSurvivedRemaininBullets(true);
             OnPlayerEnteredRoom();
             UpdateCameraToLookAtNewRoom();

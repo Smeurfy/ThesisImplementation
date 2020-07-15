@@ -40,7 +40,13 @@ public class ShieldManager : MonoBehaviour
     private void ResetShield()
     {
         shield.SetActive(false);
-        OnShieldActivation(false);
+        // OnShieldActivation(false);
+        try{
+            FindObjectOfType<ShieldUIManager>().UndoShieldCharge();
+        }catch(NullReferenceException){
+            //bah
+        }
+        
     }
 
     private void UnlockShield()

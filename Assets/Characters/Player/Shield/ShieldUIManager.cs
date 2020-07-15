@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Thesis.Enemy;
 using System.Collections;
 
-public class ShieldUIManager : MonoBehaviour 
+public class ShieldUIManager : MonoBehaviour
 {
     public event Action OnShieldIsCharged = delegate { };
 
@@ -16,11 +16,13 @@ public class ShieldUIManager : MonoBehaviour
     [SerializeField] private GameObject shieldTutorial;
     [SerializeField] private Color shieldDepletingColor;
 
-    private byte damageDealt = 0;
+    private float damageDealt = 0;
     private bool isFullyCharged = false;
     private bool isShieldBeingUsed = false;
     private AudioSource audioPlayer;
     private Animator animator;
+
+    private float shieldBeforeChallenge = 0;
 
     private const string ANIM_CHARGED = "charged";
     private float timePassed = 0f;
@@ -36,21 +38,25 @@ public class ShieldUIManager : MonoBehaviour
     {
         damageDealt = 0;
         GameManager.instance.GetPlayerReference().GetComponent<ShieldManager>().OnShieldActivation += StartCountdown;
+        // GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoShieldCharge;
+        ChargeShieldWithDamageDealt(50); // charges the shield so it can be used once unlocked
         SceneManager.sceneUnloaded += DereferenceEnemyTakeDamage;
     }
 
+    
+
     private void Update()
     {
-        if(isShieldBeingUsed)
+        if (isShieldBeingUsed)
         {
-            timePassed =  (timePassed + Time.deltaTime );
+            timePassed = (timePassed + Time.deltaTime);
             currentCharge.fillAmount = Mathf.Lerp(1, 0, timePassed * .33f);
         }
     }
 
     private void StartCountdown(bool isStarting)
     {
-        if(isStarting)
+        if (isStarting)
         {
             currentCharge.color = shieldDepletingColor;
             isShieldBeingUsed = true;
@@ -81,11 +87,11 @@ public class ShieldUIManager : MonoBehaviour
         ResetBarProgress();
     }
 
-    private void ChargeShieldWithDamageDealt(int damageDealt)
+    private void ChargeShieldWithDamageDealt(float damageDealt)
     {
-        if(!isFullyCharged)
+        if (!isFullyCharged)
         {
-            this.damageDealt += (byte) damageDealt;
+            this.damageDealt += damageDealt;
             CheckIfShieldReady();
             UpdateChargeBar();
         }
@@ -93,7 +99,7 @@ public class ShieldUIManager : MonoBehaviour
 
     private void CheckIfShieldReady()
     {
-        if(damageDealt >= damageToDealtToChargeShield)
+        if (damageDealt >= damageToDealtToChargeShield)
         {
             isFullyCharged = true;
             animator.SetBool(ANIM_CHARGED, true);
@@ -105,8 +111,8 @@ public class ShieldUIManager : MonoBehaviour
 
     private void UpdateChargeBar()
     {
-        if(gameObject.activeSelf)
-        { 
+        if (gameObject.activeSelf)
+        {
             incrementCharge.fillAmount = GetChargeAsPercentage();
             StartCoroutine(UpdateDamageVisualizationBar());
         }
@@ -128,9 +134,9 @@ public class ShieldUIManager : MonoBehaviour
 
     private float GetChargeAsPercentage()
     {
-        return (float) damageDealt / damageToDealtToChargeShield;
+        return (float)damageDealt / damageToDealtToChargeShield;
     }
-    
+
     private void DereferenceEnemyTakeDamage(Scene loadedScene)
     {
         if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
@@ -148,5 +154,19 @@ public class ShieldUIManager : MonoBehaviour
     public void DisableTutorial()
     {
         shieldTutorial.SetActive(false);
+    }
+
+    public void SubscribeToRoom()
+    {
+        shieldBeforeChallenge = currentCharge.fillAmount;
+    }
+
+    public void UndoShieldCharge()
+    {
+        damageDealt = 0;
+        isFullyCharged = false;
+        animator.SetBool(ANIM_CHARGED, false);
+        currentCharge.color = Color.green;
+        ChargeShieldWithDamageDealt(shieldBeforeChallenge * 30);
     }
 }

@@ -2329,60 +2329,22 @@ Prefab:
     - target: {fileID: 114700332756993422, guid: a150f86785d78064fa2ac1a55a6c0bef,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114700332756993422, guid: a150f86785d78064fa2ac1a55a6c0bef,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114121207051598078, guid: a150f86785d78064fa2ac1a55a6c0bef,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114121207051598078, guid: a150f86785d78064fa2ac1a55a6c0bef,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1082805703638670, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}
-      propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224688774477276726, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 212.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 224688774477276726, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -5.799988
-      objectReference: {fileID: 0}
-    - target: {fileID: 224688774477276726, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 119.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224639552089356632, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 5.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 224521988015941766, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -590.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454406197153588, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114501484072845296, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0.49019608
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}
@@ -8104,6 +8066,11 @@ Prefab:
       propertyPath: allRooms.Array.data[0]
       value: 
       objectReference: {fileID: 2028966235}
+    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
+        type: 2}
+      propertyPath: activateShieldOnRoomNumber
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fba91bb27fe1fee4186a5cdcbc689244, type: 2}
   m_IsPrefabAsset: 0
