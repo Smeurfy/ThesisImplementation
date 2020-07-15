@@ -86,7 +86,6 @@ public class ShieldUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("adsfijklçgbhipuawdegjrsçBHINOPUÇADEFGJRSW<");
         CheckIfShieldReady();
         // ResetBarProgress();
         EnemyHealthSystem.OnEnemyTakeDamage += ChargeShieldWithDamageDealt;
@@ -140,8 +139,6 @@ public class ShieldUIManager : MonoBehaviour
     {
         incrementCharge.fillAmount = GetChargeAsPercentage();
         currentCharge.fillAmount = GetChargeAsPercentage();
-        Debug.Log("bgbgbgbgbbgbg");
-
         currentCharge.color = Color.green;
         animator.SetBool(ANIM_CHARGED, false);
     }
@@ -183,7 +180,6 @@ public class ShieldUIManager : MonoBehaviour
 
     public void UndoShieldCharge()
     {
-        Debug.Log("AHAHAHAH");
         damageDealt = 0;
         isFullyCharged = false;
         animator.SetBool(ANIM_CHARGED, false);
