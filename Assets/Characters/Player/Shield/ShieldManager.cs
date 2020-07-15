@@ -45,8 +45,7 @@ public class ShieldManager : MonoBehaviour
             FindObjectOfType<ShieldUIManager>().UndoShieldCharge();
         }catch(NullReferenceException){
             //bah
-        }
-        
+        }  
     }
 
     private void UnlockShield()

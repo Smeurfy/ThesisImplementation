@@ -78,7 +78,7 @@ public class ScoreManager : MonoBehaviour
         OnUpdateScore();
     }
 
-    private bool DefeatedRoomsToUnlockShield()
+    public bool DefeatedRoomsToUnlockShield()
     {
         int wins = 0;
         foreach (var item in _victoryAndLoses)
@@ -86,7 +86,7 @@ public class ScoreManager : MonoBehaviour
             if (item == 1)
                 wins++;
         }
-        if (wins == activateShieldOnRoomNumber)
+        if (wins >= activateShieldOnRoomNumber)
             return true;
         return false;
     }

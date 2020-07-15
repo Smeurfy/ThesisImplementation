@@ -8041,16 +8041,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: scoreBoard
-      value: 
-      objectReference: {fileID: 541258127}
-    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: mutatedEnemiesJail
-      value: 
-      objectReference: {fileID: 1770048467}
     - target: {fileID: 114753464685062938, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
       propertyPath: roomsHolder
@@ -8066,11 +8056,16 @@ Prefab:
       propertyPath: allRooms.Array.data[0]
       value: 
       objectReference: {fileID: 2028966235}
+    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
+        type: 2}
+      propertyPath: mutatedEnemiesJail
+      value: 
+      objectReference: {fileID: 1770048467}
     - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
-      propertyPath: activateShieldOnRoomNumber
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: scoreBoard
+      value: 
+      objectReference: {fileID: 541258127}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fba91bb27fe1fee4186a5cdcbc689244, type: 2}
   m_IsPrefabAsset: 0

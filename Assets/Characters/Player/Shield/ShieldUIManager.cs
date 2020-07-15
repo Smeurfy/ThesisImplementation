@@ -38,12 +38,28 @@ public class ShieldUIManager : MonoBehaviour
     {
         damageDealt = 0;
         GameManager.instance.GetPlayerReference().GetComponent<ShieldManager>().OnShieldActivation += StartCountdown;
-        // GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoShieldCharge;
+        GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoShieldUnlock;
         ChargeShieldWithDamageDealt(50); // charges the shield so it can be used once unlocked
         SceneManager.sceneUnloaded += DereferenceEnemyTakeDamage;
     }
 
-    
+    private void UndoShieldUnlock()
+    {
+        bool result = FindObjectOfType<ScoreManager>().DefeatedRoomsToUnlockShield();
+        if (!result)
+        {
+            try
+            {
+                gameObject.SetActive(false);
+            }
+            catch (MissingReferenceException) {
+                //bah
+             }
+
+            ShieldManager.isShieldUnlocked = false;
+        }
+
+    }
 
     private void Update()
     {
@@ -70,7 +86,9 @@ public class ShieldUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ResetBarProgress();
+        Debug.Log("adsfijklçgbhipuawdegjrsçBHINOPUÇADEFGJRSW<");
+        CheckIfShieldReady();
+        // ResetBarProgress();
         EnemyHealthSystem.OnEnemyTakeDamage += ChargeShieldWithDamageDealt;
     }
 
@@ -122,6 +140,8 @@ public class ShieldUIManager : MonoBehaviour
     {
         incrementCharge.fillAmount = GetChargeAsPercentage();
         currentCharge.fillAmount = GetChargeAsPercentage();
+        Debug.Log("bgbgbgbgbbgbg");
+
         currentCharge.color = Color.green;
         animator.SetBool(ANIM_CHARGED, false);
     }
@@ -163,6 +183,7 @@ public class ShieldUIManager : MonoBehaviour
 
     public void UndoShieldCharge()
     {
+        Debug.Log("AHAHAHAH");
         damageDealt = 0;
         isFullyCharged = false;
         animator.SetBool(ANIM_CHARGED, false);
