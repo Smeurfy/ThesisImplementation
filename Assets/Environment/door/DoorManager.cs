@@ -39,6 +39,9 @@ public class DoorManager : MonoBehaviour
             DungeonManager.instance.indexChallenge++;
             JsonWriter.instance._roomClearedCount++;
             HealthBonus.instance.SubscribeToRoom();
+            if(!ShieldManager.isShieldUnlocked)
+                GameObject.Find("ProgressBar").GetComponent<ProgressBar>().SubscribeToRoom();
+
             OnPlayerSurvivedRemaininBullets(true);
             OnPlayerEnteredRoom();
             UpdateCameraToLookAtNewRoom();

@@ -214,22 +214,6 @@ public class RoomManager : MonoBehaviour
 
     private void SubscribeToTypeOfRoomWinningCondition()
     {
-        // foreach (RoomChallenge room in GetComponents<RoomChallenge>())
-        // {
-        //     Debug.Log(room.GetComponentInParent<Transform>().gameObject == this.GetComponentInParent<Transform>().gameObject);
-        //     Debug.Log(room.GetComponentInParent<Transform>().gameObject);
-        //     Debug.Log(this.GetComponentInParent<Transform>().gameObject);   
-        //     if (room.GetComponentInParent<Transform>().gameObject == this.GetComponentInParent<Transform>().gameObject)
-        //     {
-        //         room.RoomCleared += CheckIfAllChallengesHaveBeenOvercome;
-        //         typesOfRoom.Add(room);
-        //         room.SetRoomExits(doorsHolderGameObject);
-        //     }
-        // }
-
-        // Debug.Log(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this);
-        // Debug.Log(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom));
-        // Debug.Log(this);
         if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this)
         {
             var room = GetComponent<RoomChallenge>();
@@ -252,9 +236,6 @@ public class RoomManager : MonoBehaviour
                 Destroy(enemy.gameObject);
             }
         }
-
-
-        //PlayerHealthSystem.instance.OnPlayerDied -= DisableEnemies;
     }
 
     public void RepeatChallengeNow()
@@ -305,7 +286,7 @@ public class RoomManager : MonoBehaviour
                 DungeonManager.instance.skipedChallenges.Add(challengeOfThisRoom.GetTypeOfEnemies());
                 roomChallengeGenerator.GenerateChallengeForNextRoom();
             }
-            DebugUILeft.instance.UpdateThisChallenge();
+            // DebugUILeft.instance.UpdateThisChallenge();
             HideChallenge();
             PlayerMovement.characterCanReceiveInput = false;
             if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this)

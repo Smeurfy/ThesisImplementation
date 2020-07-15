@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] private int numberOfRoomsToWin = 2;
     [SerializeField] private ScoreBoardManager scoreBoard;
-    [SerializeField] private int activateShieldOnRoomNumber = 1;
+    [SerializeField] public int activateShieldOnRoomNumber = 1;
 
     private int roomsClearedCount = 0;
 
