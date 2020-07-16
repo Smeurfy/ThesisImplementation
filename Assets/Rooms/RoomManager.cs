@@ -241,6 +241,8 @@ public class RoomManager : MonoBehaviour
     public void RepeatChallengeNow()
     {
         AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
+        if (GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
+            FindObjectOfType<LaterChallengePopUp>().ShowPopUp();
         if (this.roomID == DungeonManager.instance.playersRoom)
         {
             roomChallengeGenerator.CreateChallengeInGame(challengeOfThisRoom);
@@ -276,6 +278,8 @@ public class RoomManager : MonoBehaviour
             GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] = 0;
             GameManager.instance.GetComponentInChildren<ScoreManager>().UpdateScore(true);
             DungeonManager.instance.indexChallenge++;
+            if (GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
+                FindObjectOfType<LaterChallengePopUp>().ShowPopUp();
             foreach (TypeOfEnemy enemy in challengeOfThisRoom.GetTypeOfEnemies())
             {
                 DungeonManager.instance.tierOfEnemies[enemy]++;
@@ -323,6 +327,8 @@ public class RoomManager : MonoBehaviour
             GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses.Insert(nextIndex, 2);
             GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses.RemoveAt(DungeonManager.instance.indexChallenge);
             GameManager.instance.GetComponentInChildren<ScoreManager>().UpdateScore(true);
+            if (GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
+                FindObjectOfType<LaterChallengePopUp>().ShowPopUp();
             if (this.roomID == DungeonManager.instance.playersRoom)
             {
                 roomChallengeGenerator.GenerateChallengeForNextRoom();
