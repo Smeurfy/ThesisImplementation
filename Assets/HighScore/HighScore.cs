@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class HighScore : MonoBehaviour
 {
@@ -20,18 +21,41 @@ public class HighScore : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoHealthBonus;
-        _highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
+        GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoScoreBonus;
+        StartCoroutine(GetHighScoreServer());
         SceneManager.sceneLoaded += GetHighScore;
+    }
+
+    private IEnumerator GetHighScoreServer()
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/Get_HighScore.php"))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                // Show results as text
+                _highScore.text = "High Score: " + www.downloadHandler.text;
+            }
+        }
     }
 
     private void GetHighScore(Scene arg0, LoadSceneMode arg1)
     {
         SceneManager.sceneLoaded -= GetHighScore;
-        _highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
+        try
+        {
+            StartCoroutine(GetHighScoreServer());
+        }catch(MissingReferenceException){
+            Debug.Log("AHJKLSDEFBGIAFSDIPABGIOPSUVÇF");
+        }
     }
 
-    private void UndoHealthBonus()
+    private void UndoScoreBonus()
     {
         _score = _scoreBeforeChallenge;
         _currentScore.text = "Score: " + _score;
@@ -51,8 +75,26 @@ public class HighScore : MonoBehaviour
 
     public void SaveHighScore()
     {
-        if (_score > PlayerPrefs.GetInt("HighScore"))
-            PlayerPrefs.SetInt("HighScore", _score);
+        StartCoroutine(PostHighScore());
+    }
+    private IEnumerator PostHighScore()
+    {
+        List<IMultipartFormSection> wwwForm = new List<IMultipartFormSection>();
+        wwwForm.Add(new MultipartFormDataSection("currentScore", _score.ToString()));
+
+        UnityWebRequest www = UnityWebRequest.Post("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/Post_HighScore.php", wwwForm);
+
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+        }
     }
 
     private void MakeThisObjectSingleton()
@@ -63,6 +105,7 @@ public class HighScore : MonoBehaviour
         }
         else if (instance != this)
         {
+            Debug.Log("dsaf");
             Destroy(gameObject);
         }
     }
