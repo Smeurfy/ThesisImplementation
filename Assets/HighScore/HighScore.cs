@@ -28,7 +28,7 @@ public class HighScore : MonoBehaviour
 
     public IEnumerator GetHighScoreServer()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/Player-"+ PlayersIDManager._playerID + "/Get_HighScore.php"))
+        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/"+ PlayersIDManager._playerID + "/Get_HighScore.php"))
         {
             yield return www.SendWebRequest();
 
