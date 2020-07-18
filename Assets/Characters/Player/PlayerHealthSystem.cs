@@ -86,7 +86,7 @@ public class PlayerHealthSystem : HealthSystem
     {
         if (this != null)
         {
-
+            Debug.Log("OLsdafgadgsdfadgsgdsaE");
             alreadySignaledPlayerDeath = false;
             GetComponent<PlayerMovement>().enabled = true;
             GetComponentInChildren<PlayerShoot>().enabled = true;
@@ -109,6 +109,7 @@ public class PlayerHealthSystem : HealthSystem
 
     private void PlayerCanControlCharacter(bool state)
     {
+        Debug.Log("OLEadfsgadfgadfg");
         //GetComponent<PlayerMovement>().enabled = state;
         PlayerMovement.characterCanReceiveInput = state;
         GetComponentInChildren<PlayerShoot>().enabled = state;
@@ -192,20 +193,25 @@ public class PlayerHealthSystem : HealthSystem
         }
     }
 
-    private void GetFlashingDamageIndicatorReference(Scene arg0, LoadSceneMode arg1)
+    private void GetFlashingDamageIndicatorReference(Scene loadedScene, LoadSceneMode arg1)
     {
-        AfterDeathOptions.instance.OnTryAgainNow += EnablePlayer;
-        AfterDeathOptions.instance.OnSkip += EnablePlayer;
-        AfterDeathOptions.instance.OnTryAgainLater += EnablePlayer;
-        flashingScreenOnDamage = Camera.main.GetComponentInChildren<Image>();
-        GetReferencesToAttributes();
-        initialHp = startingHp;
-        base.Start();
-        OnPlayerHealthUpdate(currentHp);
-        OnPlayerDied += DestroyWeapons;
-        HealthBonus.instance.OnHeartFull += GainOneHeart;
+        if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
+        {
+            Debug.Log("OLE");
+            EnablePlayerControls();
+            AfterDeathOptions.instance.OnTryAgainNow += EnablePlayer;
+            AfterDeathOptions.instance.OnSkip += EnablePlayer;
+            AfterDeathOptions.instance.OnTryAgainLater += EnablePlayer;
+            flashingScreenOnDamage = Camera.main.GetComponentInChildren<Image>();
+            GetReferencesToAttributes();
+            initialHp = startingHp;
+            base.Start();
+            OnPlayerHealthUpdate(currentHp);
+            OnPlayerDied += DestroyWeapons;
+            HealthBonus.instance.OnHeartFull += GainOneHeart;
 
-        currentHp = startingHp;
+            currentHp = startingHp;
+        }
 
     }
 

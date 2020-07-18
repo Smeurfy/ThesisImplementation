@@ -190,8 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b3b3d5d0ca14746892d9fbeda8547a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneNumber: 2
-  victorySceneNumber: 3
+  gameSceneNumber: 1
+  victorySceneNumber: 2
   secondsToWaitBeforeReset: 1
   player: {fileID: 0}
   victorySound: {fileID: 8300000, guid: ae563d30da771c6448da32a8afe0ad25, type: 3}

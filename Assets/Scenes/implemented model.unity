@@ -7031,11 +7031,6 @@ Prefab:
       propertyPath: allRooms.Array.data[0]
       value: 
       objectReference: {fileID: 2028966235}
-    - target: {fileID: 114066037054289716, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: mutatedEnemiesJail
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
       propertyPath: scoreBoard

@@ -72,7 +72,8 @@ public class AfterDeathOptions : MonoBehaviour
 
     public void GiveUp()
     {
-        JsonWriter.instance.SaveMonsterOrderToFile();
+        HighScore.instance.SaveHighScore();
+        // JsonWriter.instance.SaveMonsterOrderToFile();
         SceneManager.LoadScene(GameManager.instance.GetVictorySceneNumber());
     }
 

@@ -50,6 +50,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void QuitGame()
     {
+        HighScore.instance.SaveHighScore();
         JsonWriter.instance.SaveMonsterOrderToFile();
         SceneManager.LoadScene(GameManager.instance.GetVictorySceneNumber());
     }

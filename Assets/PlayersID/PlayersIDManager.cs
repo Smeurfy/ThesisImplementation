@@ -10,14 +10,34 @@ public class PlayersIDManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (_playerID == "")
-            StartCoroutine(GetID());
-        else
-            StartCoroutine(HighScore.instance.GetHighScoreServer());
+        // if (_playerID == "")
+        //     StartCoroutine(GetID());
+        // else
+        StartCoroutine(HighScore.instance.GetHighScoreServer());
 
     }
 
-    private IEnumerator GetID()
+    // public IEnumerator GetID()
+    // {
+    //     using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/IDManager.php"))
+    //     {
+    //         yield return www.SendWebRequest();
+
+    //         if (www.isNetworkError || www.isHttpError)
+    //         {
+    //             Debug.Log(www.error);
+    //         }
+    //         else
+    //         {
+    //             // Show results as text
+    //             Debug.Log(www.downloadHandler.text);
+    //             _playerID = www.downloadHandler.text;
+    //         }
+    //     }
+    //     StartCoroutine(HighScore.instance.GetHighScoreServer());
+    // }
+
+    public static IEnumerator GetNewID()
     {
         using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/IDManager.php"))
         {
@@ -30,11 +50,10 @@ public class PlayersIDManager : MonoBehaviour
             else
             {
                 // Show results as text
-                Debug.Log(www.downloadHandler.text);
-                _playerID = www.downloadHandler.text;
+				string id = www.downloadHandler.text;
+                PlayerPrefs.SetString("playerID", id);
             }
         }
-        StartCoroutine(HighScore.instance.GetHighScoreServer());
+        
     }
-
 }

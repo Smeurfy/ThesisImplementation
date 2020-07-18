@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitAndResetGame()
     {
-        //OnGameOver();
         Debug.Log("waitAndReset");
         yield return new WaitForSecondsRealtime(secondsToWaitBeforeReset);
         SceneManager.LoadScene(gameSceneNumber);
