@@ -21,15 +21,15 @@ namespace Thesis.Enemy
         private bool stillAlive = true;
         private bool isBullseye = false;
         private bool hasEffectOnDeath = false;
-        private bool hasBeenDamage = false;
         private EnemyController controller;
+        private bool cdDamage = false;
 
         public EnemyData enemyData;
 
         public event Action OnEnemyDie = delegate { };
-        public event Action OnEnemyTakeFirstDamage = delegate { };
-        public event Action<int> OnEnemyTakeDamageFromItem = delegate { };
-        public event Action<int> OnEnemyTakeDamageFromBullet = delegate { };
+        // public event Action OnEnemyTakeFirstDamage = delegate { };
+        // public event Action<int> OnEnemyTakeDamageFromItem = delegate { };
+        // public event Action<int> OnEnemyTakeDamageFromBullet = delegate { };
         public static event Action<float> OnEnemyTakeDamage = delegate { };
 
         private new void Start()
@@ -54,17 +54,23 @@ namespace Thesis.Enemy
                 particles = GetComponent<ParticleSystem>();
             }
             var incomingObject = collision.gameObject;
-            if(incomingObject.GetComponent<FlyingItem>() && incomingObject.GetComponent<FlyingItem>().CanDamage())
+            if(!cdDamage && incomingObject.GetComponent<FlyingItem>() && incomingObject.GetComponent<FlyingItem>().CanDamage())
             {
+                cdDamage = true;
                 int damageToTake = incomingObject.GetComponent<FlyingItem>().GetDamage();
                 TakeDamage(damageToTake);
-                OnEnemyTakeDamageFromItem(damageToTake);
+                StartCoroutine(WaitToTakeDmg());
             }
             else if(incomingObject.GetComponent<PlayerBullet>() && incomingObject.GetComponent<TypeOfBullet>().IsDamageImmediate())
             {
                 int damageToTake = incomingObject.GetComponent<PlayerBullet>().GetDamage();
-                OnEnemyTakeDamageFromBullet(damageToTake);
             }
+        }
+
+        private IEnumerator WaitToTakeDmg()
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+            cdDamage = false;
         }
 
         public override void TakeDamage(int damageToTake)
@@ -72,11 +78,6 @@ namespace Thesis.Enemy
             if (controller)
             {
                 controller.PlayerDetected();
-            }
-            if (!hasBeenDamage)
-            {
-                hasBeenDamage = true;
-                OnEnemyTakeFirstDamage();
             }
             OnEnemyTakeDamage(Math.Min(damageToTake, currentHp));
             base.TakeDamage(damageToTake);
