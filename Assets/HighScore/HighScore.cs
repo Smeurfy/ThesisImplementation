@@ -22,13 +22,13 @@ public class HighScore : MonoBehaviour
     void Start()
     {
         GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoScoreBonus;
-        StartCoroutine(GetHighScoreServer());
+        // StartCoroutine(GetHighScoreServer());
         SceneManager.sceneLoaded += GetHighScore;
     }
 
-    private IEnumerator GetHighScoreServer()
+    public IEnumerator GetHighScoreServer()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/Get_HighScore.php"))
+        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/Player-"+ PlayersIDManager._playerID + "/Get_HighScore.php"))
         {
             yield return www.SendWebRequest();
 
@@ -51,7 +51,7 @@ public class HighScore : MonoBehaviour
         {
             StartCoroutine(GetHighScoreServer());
         }catch(MissingReferenceException){
-            Debug.Log("AHJKLSDEFBGIAFSDIPABGIOPSUVÇF");
+            //bah
         }
     }
 
@@ -81,6 +81,7 @@ public class HighScore : MonoBehaviour
     {
         List<IMultipartFormSection> wwwForm = new List<IMultipartFormSection>();
         wwwForm.Add(new MultipartFormDataSection("currentScore", _score.ToString()));
+        wwwForm.Add(new MultipartFormDataSection("playerID", PlayersIDManager._playerID));
 
         UnityWebRequest www = UnityWebRequest.Post("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/Post_HighScore.php", wwwForm);
 
