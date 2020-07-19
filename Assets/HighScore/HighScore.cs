@@ -106,7 +106,6 @@ public class HighScore : MonoBehaviour
         }
         else if (instance != this)
         {
-            Debug.Log("dsaf");
             Destroy(gameObject);
         }
     }

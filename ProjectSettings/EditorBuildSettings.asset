@@ -8,18 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/main menu.unity
     guid: 9e63b9e9c4f92bf4eb3b395bbbec3d4e
-  - enabled: 0
-    path: Assets/Scenes/BeforeStartingTheGame.unity
-    guid: 13b742c8667cc1642a194ee93f89d7e0
   - enabled: 1
     path: Assets/Scenes/implemented model.unity
     guid: 81df84ffb2dba9346b9b062f45207075
   - enabled: 1
+    path: Assets/Scenes/HighScore.unity
+    guid: 8f9478d46cb03ad4783f4938ba11f870
+  - enabled: 1
     path: Assets/Scenes/ThankYou.unity
     guid: 3ce477f68aa6ed244a9956a4484bec69
   - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+    path: Assets/Scenes/BeforeStartingTheGame.unity
+    guid: 13b742c8667cc1642a194ee93f89d7e0
   - enabled: 0
     path: Assets/Scenes/credits.unity
     guid: 319c182f8d2371e47b8c295e671a0a91

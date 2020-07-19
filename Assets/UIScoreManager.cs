@@ -1,0 +1,49 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Networking;
+using System;
+
+public class UIScoreManager : MonoBehaviour
+{
+    public Text roomsCleared;
+    public Text monstersDeafeated;
+    public Text skips;
+    public Text time;
+    public Text score;
+    public Text highScore;
+
+    private void Start()
+    {
+		StartCoroutine(GetHighScoreServer());
+		PopulateWithStats();
+    }
+
+    private void PopulateWithStats()
+    {
+        roomsCleared.text += StatsForScoreScreen._roomsCleared.ToString();
+        monstersDeafeated.text += StatsForScoreScreen._monstersDefeated.ToString();
+        skips.text += StatsForScoreScreen._skips.ToString();
+        time.text += StatsForScoreScreen._time.ToString();
+        score.text += StatsForScoreScreen._score.ToString();
+    }
+
+    public IEnumerator GetHighScoreServer()
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/"+ PlayerPrefs.GetString("playerID") + "/Get_HighScore.php"))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                // Show results as text
+                highScore.text = "High Score: " + www.downloadHandler.text;
+            }
+        }
+    }
+}

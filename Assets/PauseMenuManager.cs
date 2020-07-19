@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,7 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] GameObject menuHolder;
 
     public static bool gameIsPaused = false;
+    public Text playerID;
 
     private const string pauseMenu = "escape";
 
@@ -23,6 +25,11 @@ public class PauseMenuManager : MonoBehaviour
     private void Start()
     {
         menuHolder.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        playerID.text = "Your ID is: " + PlayerPrefs.GetString("playerID");
     }
 
     private void Update()
@@ -52,7 +59,7 @@ public class PauseMenuManager : MonoBehaviour
     {
         HighScore.instance.SaveHighScore();
         JsonWriter.instance.SaveMonsterOrderToFile();
-        SceneManager.LoadScene(GameManager.instance.GetVictorySceneNumber());
+        SceneManager.LoadScene("HighScore");
     }
 
     public void ResumeGame()
