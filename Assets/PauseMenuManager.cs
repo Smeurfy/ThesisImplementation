@@ -39,7 +39,6 @@ public class PauseMenuManager : MonoBehaviour
             gameIsPaused = !gameIsPaused;
             PauseGame();
             menuHolder.SetActive(!menuHolder.activeSelf);
-            // OnGameIsPaused(menuHolder.activeSelf);
         }
     }
 

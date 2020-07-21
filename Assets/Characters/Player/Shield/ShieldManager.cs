@@ -41,11 +41,14 @@ public class ShieldManager : MonoBehaviour
     {
         shield.SetActive(false);
         // OnShieldActivation(false);
-        try{
+        try
+        {
             FindObjectOfType<ShieldUIManager>().UndoShieldCharge();
-        }catch(NullReferenceException){
+        }
+        catch (NullReferenceException)
+        {
             //bah
-        }  
+        }
     }
 
     private void UnlockShield()
@@ -56,6 +59,7 @@ public class ShieldManager : MonoBehaviour
             audioPlayer.PlayOneShot(shieldUnlocked);
             shieldUI.gameObject.SetActive(true);
             shieldUI.EnableTutorial();
+            EnableShieldActivation();
             shieldUI.OnShieldIsCharged += EnableShieldActivation;
         }
     }
@@ -75,8 +79,9 @@ public class ShieldManager : MonoBehaviour
         }
     }
 
-    private void EnableShieldActivation()
+    public void EnableShieldActivation()
     {
+        Debug.Log("true shield is charged");
         shieldIsCharged = true;
     }
 

@@ -45,6 +45,7 @@ public class PlayerHealthSystem : HealthSystem
         initialHp = startingHp;
         base.Start();
         OnPlayerHealthUpdate(currentHp);
+        FindObjectOfType<UIHealthManager>().UpdateHealthText(currentHp);
         OnPlayerDied += DestroyWeapons;
         OnPlayerDied += GameManager.instance.GetComponentInChildren<ScoreManager>().UndoScore;
         HealthBonus.instance.OnHeartFull += GainOneHeart;
@@ -54,6 +55,7 @@ public class PlayerHealthSystem : HealthSystem
     {
         currentHp++;
         OnPlayerHealthUpdate(currentHp);
+        FindObjectOfType<UIHealthManager>().UpdateHealthText(currentHp);
     }
 
     internal override void CharacterDied()
@@ -93,6 +95,7 @@ public class PlayerHealthSystem : HealthSystem
             GetComponent<Collider2D>().enabled = true;
             currentHp = hpBeforeChallenge;
             OnPlayerHealthUpdate(currentHp);
+            FindObjectOfType<UIHealthManager>().UpdateHealthText(currentHp);
             transform.position = DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition();
             canTakeDamage = true;
             gameObject.SetActive(true);
@@ -143,6 +146,7 @@ public class PlayerHealthSystem : HealthSystem
                 animator.SetTrigger(animatorGotHit);
                 audioSource.PlayOneShot(soundFXHolder.GetGotDamagedSound());
                 OnPlayerHealthUpdate(currentHp);
+                FindObjectOfType<UIHealthManager>().UpdateHealthText(currentHp);
             }
         }
     }

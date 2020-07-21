@@ -46,14 +46,10 @@ public class ShieldUIManager : MonoBehaviour
     private void UndoShieldUnlock()
     {
         bool result = FindObjectOfType<ScoreManager>().DefeatedRoomsToUnlockShield();
-        Debug.Log(result + " resultado");
         if (!result)
         {
             try
             {
-                Debug.Log("entrei aqui no cancer");
-                Debug.Log(gameObject + " game object");
-                Debug.Log(gameObject.activeSelf + " estado object");
                 gameObject.SetActive(false);
             }
             catch (MissingReferenceException)
@@ -97,7 +93,7 @@ public class ShieldUIManager : MonoBehaviour
     private void OnEnable()
     {
         CheckIfShieldReady();
-        // ResetBarProgress();
+        UpdateChargeBar();
         EnemyHealthSystem.OnEnemyTakeDamage += ChargeShieldWithDamageDealt;
     }
 
