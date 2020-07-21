@@ -968,7 +968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &766444901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,6 +1160,16 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224613111575754586, guid: a150f86785d78064fa2ac1a55a6c0bef,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 224613111575754586, guid: a150f86785d78064fa2ac1a55a6c0bef,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 101.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}

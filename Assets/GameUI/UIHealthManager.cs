@@ -7,7 +7,7 @@ public class UIHealthManager : MonoBehaviour
     private PlayerHealthSystem player;
     private TextMeshProUGUI healthText;
 
-    private void Start()
+    private void Awake()
     {
         if (player == null)
         {
@@ -19,7 +19,7 @@ public class UIHealthManager : MonoBehaviour
         player.OnPlayerHealthUpdate += UpdateHealthText;
     }
 
-    private void UpdateHealthText(int remainingHealth)
+    public void UpdateHealthText(int remainingHealth)
     {
         healthText.text = remainingHealth.ToString();
     }

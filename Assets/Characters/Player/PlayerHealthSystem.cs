@@ -204,6 +204,7 @@ public class PlayerHealthSystem : HealthSystem
             initialHp = startingHp;
             base.Start();
             OnPlayerHealthUpdate(currentHp);
+            FindObjectOfType<UIHealthManager>().UpdateHealthText(currentHp);
             OnPlayerDied += DestroyWeapons;
             HealthBonus.instance.OnHeartFull += GainOneHeart;
 

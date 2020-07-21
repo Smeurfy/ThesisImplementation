@@ -28,7 +28,7 @@ public class HighScore : MonoBehaviour
 
     public IEnumerator GetHighScoreServer()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/"+ PlayerPrefs.GetString("playerID") + "/Get_HighScore.php"))
+        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/" + PlayerPrefs.GetString("playerID") + "/Get_HighScore.php"))
         {
             yield return www.SendWebRequest();
 
@@ -44,14 +44,22 @@ public class HighScore : MonoBehaviour
         }
     }
 
-    private void GetHighScore(Scene arg0, LoadSceneMode arg1)
+    private void GetHighScore(Scene loadedScene, LoadSceneMode arg1)
     {
-        SceneManager.sceneLoaded -= GetHighScore;
-        try
+        if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
         {
-            StartCoroutine(GetHighScoreServer());
-        }catch(MissingReferenceException){
-            //bah
+            SceneManager.sceneLoaded -= GetHighScore;
+            try
+            {
+                StartCoroutine(GetHighScoreServer());
+            }
+            catch (MissingReferenceException)
+            {
+                //bah
+            }
+            catch(NullReferenceException){
+                //bah
+            }
         }
     }
 

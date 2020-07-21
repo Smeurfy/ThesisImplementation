@@ -10,15 +10,14 @@ public class SamePlayer : MonoBehaviour
 {
     private bool _playersFolderExist = false;
 
-    // Use this for initialization
-    void Start()
+    private void Awake()
     {
         StartCoroutine(CheckIfThePlayersFolderExists());
     }
 
     private IEnumerator CheckIfThePlayersFolderExists()
     {
-		Debug.Log(PlayerPrefs.GetString("playerID"));
+        Debug.Log(PlayerPrefs.GetString("playerID"));
         //Check if the folder exists in the server
         using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/" + PlayerPrefs.GetString("playerID") + "/Get_HighScore.php"))
         {
@@ -35,7 +34,7 @@ public class SamePlayer : MonoBehaviour
                 _playersFolderExist = true;
             }
         }
-		//if the folder doesnt exist or fresh player deactivate btn
+        //if the folder doesnt exist or fresh player deactivate btn
         if (!_playersFolderExist || PlayerPrefs.GetString("playerID", "none") == "none")
         {
             GetComponent<Button>().interactable = false;

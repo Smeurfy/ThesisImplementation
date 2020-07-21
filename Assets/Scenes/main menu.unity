@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114087577799475792, guid: 46a490b8c162cbc41b718d8241eddda9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224508554797031098, guid: 46a490b8c162cbc41b718d8241eddda9,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -220,7 +225,33 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114087577799475792, guid: 46a490b8c162cbc41b718d8241eddda9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114087577799475792, guid: 46a490b8c162cbc41b718d8241eddda9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114087577799475792, guid: 46a490b8c162cbc41b718d8241eddda9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114087577799475792, guid: 46a490b8c162cbc41b718d8241eddda9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114087577799475792, guid: 46a490b8c162cbc41b718d8241eddda9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114673791094107874, guid: 46a490b8c162cbc41b718d8241eddda9, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 46a490b8c162cbc41b718d8241eddda9, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &772420382

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class PlayersIDManager : MonoBehaviour
 {
@@ -50,10 +51,11 @@ public class PlayersIDManager : MonoBehaviour
             else
             {
                 // Show results as text
-				string id = www.downloadHandler.text;
+                string id = www.downloadHandler.text;
                 PlayerPrefs.SetString("playerID", id);
             }
         }
-        
+        SceneManager.LoadScene("implemented model");
+
     }
 }

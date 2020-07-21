@@ -38,7 +38,7 @@ public class ShieldUIManager : MonoBehaviour
     {
         damageDealt = 0;
         GameManager.instance.GetPlayerReference().GetComponent<ShieldManager>().OnShieldActivation += StartCountdown;
-        GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoShieldUnlock;
+        FindObjectOfType<PlayerHealthSystem>().OnPlayerDied += UndoShieldUnlock;
         ChargeShieldWithDamageDealt(50); // charges the shield so it can be used once unlocked
         SceneManager.sceneUnloaded += DereferenceEnemyTakeDamage;
     }
@@ -46,15 +46,25 @@ public class ShieldUIManager : MonoBehaviour
     private void UndoShieldUnlock()
     {
         bool result = FindObjectOfType<ScoreManager>().DefeatedRoomsToUnlockShield();
+        Debug.Log(result + " resultado");
         if (!result)
         {
             try
             {
+                Debug.Log("entrei aqui no cancer");
+                Debug.Log(gameObject + " game object");
+                Debug.Log(gameObject.activeSelf + " estado object");
                 gameObject.SetActive(false);
             }
-            catch (MissingReferenceException) {
+            catch (MissingReferenceException)
+            {
                 //bah
-             }
+            }
+            catch (NullReferenceException)
+            {
+                Debug.Log("cancer");
+                //bah
+            }
 
             ShieldManager.isShieldUnlocked = false;
         }

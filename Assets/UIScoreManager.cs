@@ -14,24 +14,24 @@ public class UIScoreManager : MonoBehaviour
     public Text score;
     public Text highScore;
 
-    private void Start()
+    private void Awake()
     {
-		StartCoroutine(GetHighScoreServer());
-		PopulateWithStats();
+        StartCoroutine(GetHighScoreServer());
+        PopulateWithStats();
     }
-
+	
     private void PopulateWithStats()
     {
-        roomsCleared.text += StatsForScoreScreen._roomsCleared.ToString();
-        monstersDeafeated.text += StatsForScoreScreen._monstersDefeated.ToString();
-        skips.text += StatsForScoreScreen._skips.ToString();
-        time.text += StatsForScoreScreen._time.ToString();
-        score.text += StatsForScoreScreen._score.ToString();
+        roomsCleared.text = "Rooms Cleared: " + StatsForScoreScreen._roomsCleared.ToString();
+        monstersDeafeated.text = "Monsters Defeated: " + StatsForScoreScreen._monstersDefeated.ToString();
+        skips.text = "Skips: " + StatsForScoreScreen._skips.ToString();
+        time.text = "Time: " + StatsForScoreScreen._time.ToString();
+        score.text = "Score: " + StatsForScoreScreen._score.ToString();
     }
 
     public IEnumerator GetHighScoreServer()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/"+ PlayerPrefs.GetString("playerID") + "/Get_HighScore.php"))
+        using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/" + PlayerPrefs.GetString("playerID") + "/Get_HighScore.php"))
         {
             yield return www.SendWebRequest();
 
