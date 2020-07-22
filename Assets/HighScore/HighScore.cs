@@ -71,13 +71,13 @@ public class HighScore : MonoBehaviour
 
     public void SubscribeToRoom(GameObject gObj)
     {
-        gObj.GetComponent<Thesis.Enemy.EnemyHealthSystem>().OnEnemyDie += UpdateScore;
+        // gObj.GetComponent<Thesis.Enemy.EnemyHealthSystem>().OnEnemyDie += UpdateScore;
         _scoreBeforeChallenge = _score;
     }
 
-    private void UpdateScore()
+    public void UpdateScore(int value)
     {
-        _score += 10;
+        _score += value;
         _currentScore.text = "Score: " + _score;
     }
 

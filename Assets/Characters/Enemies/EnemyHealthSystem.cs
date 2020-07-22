@@ -49,19 +49,19 @@ namespace Thesis.Enemy
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if(!particles)
+            if (!particles)
             {
                 particles = GetComponent<ParticleSystem>();
             }
             var incomingObject = collision.gameObject;
-            if(!cdDamage && incomingObject.GetComponent<FlyingItem>() && incomingObject.GetComponent<FlyingItem>().CanDamage())
+            if (!cdDamage && incomingObject.GetComponent<FlyingItem>() && incomingObject.GetComponent<FlyingItem>().CanDamage())
             {
                 cdDamage = true;
                 int damageToTake = incomingObject.GetComponent<FlyingItem>().GetDamage();
                 TakeDamage(damageToTake);
                 StartCoroutine(WaitToTakeDmg());
             }
-            else if(incomingObject.GetComponent<PlayerBullet>() && incomingObject.GetComponent<TypeOfBullet>().IsDamageImmediate())
+            else if (incomingObject.GetComponent<PlayerBullet>() && incomingObject.GetComponent<TypeOfBullet>().IsDamageImmediate())
             {
                 int damageToTake = incomingObject.GetComponent<PlayerBullet>().GetDamage();
             }
@@ -90,7 +90,7 @@ namespace Thesis.Enemy
 
         private void UpdateHealthbarUI(int damageToTake)
         {
-            if(!isBullseye)
+            if (!isBullseye)
             {
                 remaningHealth.fillAmount = GetRemainingHPAsPercentage();
                 StartCoroutine(UpdateDamageVisualizationBar());
@@ -105,7 +105,7 @@ namespace Thesis.Enemy
 
         private float GetRemainingHPAsPercentage()
         {
-            return  (float)currentHp / initialHp ;
+            return (float)currentHp / initialHp;
         }
 
         public void FellInPit()
@@ -115,13 +115,13 @@ namespace Thesis.Enemy
 
         internal override void CharacterDied()
         {
-            if(stillAlive)
+            if (stillAlive)
             {
-                if(hasEffectOnDeath)
+                if (hasEffectOnDeath)
                 {
                     ApplyEffectOnDeath();
                 }
-                if(HUD && !isBullseye)
+                if (HUD && !isBullseye)
                 {
                     HUD.SetActive(false);
                 }
@@ -131,7 +131,7 @@ namespace Thesis.Enemy
                 // notify that character is dead -> for points
                 // notify that character is dead -> for performance model
                 SpriteRenderer sr = GetComponent<SpriteRenderer>();
-                if(sr)
+                if (sr)
                 {
                     sr.enabled = false;
                 }
@@ -171,9 +171,9 @@ namespace Thesis.Enemy
         }
 
         private IEnumerator DestroyEnemy()
-        {          
-            Instantiate(DungeonManager.instance.pointsPopup, transform.position, Quaternion.identity);        
-            if(particles)
+        {
+            EnablePopUpPoints();
+            if (particles)
             {
                 while (particles.isPlaying || audioSource.isPlaying)
                 {
@@ -181,19 +181,53 @@ namespace Thesis.Enemy
                 }
             }
             Destroy(gameObject);
-            
+
         }
-        
+
+        private void EnablePopUpPoints()
+        {
+            var enemiesTier = DungeonManager.instance.tierOfEnemies;
+            try
+            {
+                foreach (TypeOfEnemy enemy in DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).challengeOfThisRoom.GetTypeOfEnemies())
+                {
+                    if ((enemy.name + "Test") == gameObject.name)
+                    {
+                        if (enemiesTier[enemy] == 0 || enemiesTier[enemy] == 1)
+                        {
+                            Instantiate(DungeonManager.instance.pointsPopup[0], transform.position, Quaternion.identity);
+                            HighScore.instance.UpdateScore(10);
+                        }
+                        if (enemiesTier[enemy] == 2 || enemiesTier[enemy] == 3)
+                        {
+                            Instantiate(DungeonManager.instance.pointsPopup[1], transform.position, Quaternion.identity);
+                            HighScore.instance.UpdateScore(20);
+                        }
+                        if (enemiesTier[enemy] == 4)
+                        {
+                            Instantiate(DungeonManager.instance.pointsPopup[2], transform.position, Quaternion.identity);
+                            HighScore.instance.UpdateScore(30);
+                        }
+                    }
+                }
+            }
+            catch (NullReferenceException)
+            {
+                //bah
+            }
+        }
+
         private void InitializeHealthBar()
         {
-            if(!isBullseye)
+            if (!isBullseye)
             {
                 remaningHealth.fillAmount = 1;
                 damageVisualization.fillAmount = 1;
             }
         }
 
-        private void EnableVariables(){
+        private void EnableVariables()
+        {
             stillAlive = true;
         }
     }

@@ -81,13 +81,12 @@ public class ShieldManager : MonoBehaviour
 
     public void EnableShieldActivation()
     {
-        Debug.Log("true shield is charged");
         shieldIsCharged = true;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown(activateShieldButton) && shieldIsCharged)
+        if (PlayerMovement.characterCanReceiveInput && Input.GetButtonDown(activateShieldButton) && shieldIsCharged)
         {
             EnableShield();
             shieldIsCharged = false;

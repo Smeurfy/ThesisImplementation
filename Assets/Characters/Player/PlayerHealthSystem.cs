@@ -72,7 +72,6 @@ public class PlayerHealthSystem : HealthSystem
 
     private IEnumerator DisablePlayer()
     {
-        //Camera.main.GetComponentInChildren<Animator>().enabled = true;
         PlayerCanControlCharacter(false);
         canTakeDamage = false;
         while (audioSource.isPlaying)

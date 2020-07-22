@@ -11,7 +11,7 @@ public class DungeonManager : MonoBehaviour
     public Dictionary<TypeOfEnemy, int> tierOfEnemies = new Dictionary<TypeOfEnemy, int>();
     public Dictionary<string, Dictionary<string, MonstersInfo>> monstersInfo = new Dictionary<string, Dictionary<string, MonstersInfo>>();
     public List<TierAuraEffect> tierEffects;
-    public GameObject pointsPopup;
+    public List<GameObject> pointsPopup;
 
     [SerializeField] private int numberOfChallengesToGenerate;
     [SerializeField] private GameObject[] roomToSpawnNextPrefab;

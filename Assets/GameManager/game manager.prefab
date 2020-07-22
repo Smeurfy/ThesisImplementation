@@ -210,8 +210,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08fce5e100bf0ae479379830227dcaed, type: 2}
   - {fileID: 11400000, guid: 51be5f3c790252e4298da0c63a326a08, type: 2}
   - {fileID: 11400000, guid: 9100f53da65e1f749b516379ecf44407, type: 2}
-  pointsPopup: {fileID: 1540931008615880, guid: a6c9689d72aa99242ab8a08f767a51c1,
-    type: 2}
+  pointsPopup:
+  - {fileID: 1540931008615880, guid: a6c9689d72aa99242ab8a08f767a51c1, type: 2}
+  - {fileID: 1635496286651476, guid: b155a01db908e114e9bd004d892aa0b6, type: 2}
+  - {fileID: 1113854717184874, guid: 2c68499392a98f1478135f03e579a95d, type: 2}
   numberOfChallengesToGenerate: 0
   roomToSpawnNextPrefab:
   - {fileID: 1936690420780442, guid: 167dd0cf17509084ba2f77fb9377705c, type: 2}
