@@ -41,6 +41,8 @@ public class DropWeaponAsPickup : MonoBehaviour
     private void DropBullets()
     {
         int randomIndex = Random.Range(0, bulletDropPrefabs.Length);
-        var weaponPickUp = Instantiate(bulletDropPrefabs[randomIndex], transform.position, Quaternion.identity);
+
+        var bulletDrop = Instantiate(bulletDropPrefabs[randomIndex], transform.position, Quaternion.identity);
+        bulletDrop.GetComponent<BulletDrop>().EnableCollider(0.5f);
     }
 }

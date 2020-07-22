@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void WinGame()
     {
+        StatsForScoreScreen.CalculateStats();
         // JsonWriter.instance.SaveMonsterOrderToFile();
         if (!soundSource)
         {

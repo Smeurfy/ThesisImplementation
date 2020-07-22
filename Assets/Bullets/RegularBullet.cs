@@ -43,17 +43,8 @@ public class RegularBullet : TypeOfBullet
         if (objectHitted)
         {
             objectHitted.TakeDamage(damage);
-            // KnockBack(collision.gameObject);
         }
         Destroy(gameObject);
-    }
-
-    private void KnockBack(GameObject gObj)
-    {
-        Rigidbody2D rigidbody = gObj.GetComponent<Rigidbody2D>();
-        var direction = gObj.transform.position - this.transform.position;
-        direction.y = 0;
-        rigidbody.AddForce(direction.normalized * 5f, ForceMode2D.Impulse);
     }
 
     private void DestroyBullet()

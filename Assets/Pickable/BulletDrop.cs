@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-public class BulletDrop : MonoBehaviour 
+public class BulletDrop : MonoBehaviour
 {
     public static event Action<int> OnPickUpBullets = delegate { };
 
@@ -22,18 +22,22 @@ public class BulletDrop : MonoBehaviour
     {
         col = GetComponent<CircleCollider2D>();
         col.enabled = false;
-        StartCoroutine(EnableCollider());
         audioPlayer = GetComponent<AudioSource>();
-        amountOfBulletsToAdd = (byte) UnityEngine.Random.Range(3, 10);
+        amountOfBulletsToAdd = (byte)UnityEngine.Random.Range(3, 10);
         text.text = amountOfBulletsToAdd.ToString();
         AfterDeathOptions.instance.OnSkip += DestroyBullets;
         AfterDeathOptions.instance.OnTryAgainNow += DestroyBullets;
         AfterDeathOptions.instance.OnTryAgainLater += DestroyBullets;
     }
 
-    private IEnumerator EnableCollider()
+    public void EnableCollider(float time)
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        StartCoroutine(EnableColl(time));
+    }
+
+    public IEnumerator EnableColl(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
         col.enabled = true;
     }
 
@@ -46,7 +50,7 @@ public class BulletDrop : MonoBehaviour
             collision.GetComponentInChildren<DroppedWeaponBulletCounter>().UpdateBulletCount(amountOfBulletsToAdd);
             FeedbackAndDestroy();
         }
-        else if(playerShoot != null)
+        else if (playerShoot != null)
         {
             if (playerShoot.IsPlayerHoldingThrowable())
             {
@@ -68,7 +72,7 @@ public class BulletDrop : MonoBehaviour
 
     private void DeactivateObject()
     {
-        foreach(SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
         {
             sr.enabled = false;
         }
@@ -77,7 +81,7 @@ public class BulletDrop : MonoBehaviour
 
     private IEnumerator WaitForSoundToBeOverAndDestroy()
     {
-        while(audioPlayer.isPlaying)
+        while (audioPlayer.isPlaying)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -90,8 +94,10 @@ public class BulletDrop : MonoBehaviour
         text.text = amountOfBulletsToAdd.ToString();
     }
 
-    private void DestroyBullets(){
-        if(this){
+    private void DestroyBullets()
+    {
+        if (this)
+        {
             Destroy(gameObject);
         }
     }

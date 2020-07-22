@@ -114,5 +114,6 @@ public class ShieldManager : MonoBehaviour
         byte amountOfBulletsToDrop = shieldController.GetAmountOfBulletsAbsorbedAndReset();
         var bulletDrop = Instantiate(bulletDropPrefab, transform.position, Quaternion.identity);
         bulletDrop.GetComponent<BulletDrop>().SetAmountOfBulletsToDrop(amountOfBulletsToDrop);
+        bulletDrop.GetComponent<BulletDrop>().EnableCollider(0f);
     }
 }

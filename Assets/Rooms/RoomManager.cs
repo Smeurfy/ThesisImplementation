@@ -139,7 +139,6 @@ public class RoomManager : MonoBehaviour
     private IEnumerator ShowChallenge()
     {
         yield return new WaitForSecondsRealtime(secondsBeforeUnfreezing);
-        //Debug.Log("show challenge");
         foreach (Transform enemy in enemiesHolderGameObject.transform)
         {
             enemy.gameObject.GetComponent<EnemyController>().enabled = true;
