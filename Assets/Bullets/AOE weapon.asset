@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: AOE weapon
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d46e026a14c08bf499977b7f0dc46d74, type: 3}
-  flyingItemPrefab: {fileID: 1650554321861568, guid: b956867003b672a4c80bf52a6945acfe,
+  flyingItemPrefab: {fileID: 1543722677442516, guid: 1875d04deeaac354e862000fa61abc78,
     type: 2}
   throwableSpeed: 14
   damageAsThrowable: 3

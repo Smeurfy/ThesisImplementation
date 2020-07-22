@@ -1,20 +1,23 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Thesis.Enemy;
+using System.Collections.Generic;
+using System;
 
-public class FlyingItem : MonoBehaviour 
+public class FlyingItem : MonoBehaviour
 {
     [SerializeField] float secondsBeforeFlightStops = 2f;
     [SerializeField] private float secondsAfterHittingToStop = .5f;
     [SerializeField] private float secondsBeforeAbleToPickupAgain = 1f;
     [SerializeField] private float secondsBeforeTurningOnCollider = .07f;
 
+
     private Item item;
     private Collider2D itemCollider;
     private bool canDamage = true;
     private Rigidbody2D rb;
 
-    public bool CanDamage () { return canDamage; }
+    public bool CanDamage() { return canDamage; }
 
     private void Start()
     {
@@ -58,7 +61,7 @@ public class FlyingItem : MonoBehaviour
         GetComponent<Rigidbody2D>().freezeRotation = true;
         canDamage = false;
     }
-    
+
     private IEnumerator EnableCollider()
     {
         yield return new WaitForSecondsRealtime(secondsBeforeTurningOnCollider);
@@ -70,7 +73,7 @@ public class FlyingItem : MonoBehaviour
         yield return new WaitForSecondsRealtime(secondsBeforeAbleToPickupAgain);
         GetComponent<CircleCollider2D>().enabled = true;
     }
-    
+
     private void SetSprite()
     {
         GetComponent<SpriteRenderer>().sprite = item.GetSprite();
