@@ -10,6 +10,15 @@ public class StatsForScoreScreen : MonoBehaviour
     public static int _time = 0;
     public static int _score = 0;
 
+    private void Start()
+    {
+        _roomsCleared = 0;
+        _monstersDefeated = 0;
+        _skips = 0;
+        _time = 0;
+        _score = 0;
+    }
+
     public static void CalculateStats()
     {
         List<int> victoryAndLoses = FindObjectOfType<ScoreManager>()._victoryAndLoses;
@@ -19,7 +28,8 @@ public class StatsForScoreScreen : MonoBehaviour
             {
                 _roomsCleared++;
             }
-            if(item == 0){
+            if (item == 0)
+            {
                 _skips++;
             }
         }
