@@ -55,12 +55,14 @@ public class AfterDeathOptions : MonoBehaviour
     public void RestartSameRun()
     {
         JsonWriter.instance._btnClickedOnDeath.Add("SameRun");
+        JsonWriter.instance._resetValues = false;
         OnRestartSameRun();
     }
 
     public void RestartNewRun()
     {
         JsonWriter.instance._btnClickedOnDeath.Add("NewRun");
+        JsonWriter.instance._resetValues = false;
         OnRestartNewRun();
     }
 
@@ -74,8 +76,7 @@ public class AfterDeathOptions : MonoBehaviour
     {
         HighScore.instance.SaveHighScore();
         StatsForScoreScreen.CalculateStats();
-        // JsonWriter.instance.SaveMonsterOrderToFile();
-        SceneManager.LoadScene("HighScore");
+        JsonWriter.instance.SaveLogs();
     }
 
     public void UpdateBulletUI(int bullet)

@@ -61,8 +61,8 @@ public class PauseMenuManager : MonoBehaviour
         StatsForScoreScreen.CalculateStats();
         HighScore.instance.SaveHighScore();
         Time.timeScale = 1;
-        // JsonWriter.instance.SaveMonsterOrderToFile();
-        SceneManager.LoadScene("HighScore");
+        JsonWriter.instance.SaveLogs();
+        
     }
 
     public void ResumeGame()

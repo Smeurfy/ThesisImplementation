@@ -67,6 +67,7 @@ public class PlayerHealthSystem : HealthSystem
             OnPlayerDied();
             StartCoroutine(DisablePlayer());
             JsonWriter.instance._roomsOfDeath.Add(DungeonManager.instance.indexChallenge);
+            JsonWriter.instance._health.Add(hpBeforeChallenge);
         }
     }
 

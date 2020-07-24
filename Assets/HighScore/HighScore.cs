@@ -22,7 +22,6 @@ public class HighScore : MonoBehaviour
     void Start()
     {
         GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoScoreBonus;
-        // StartCoroutine(GetHighScoreServer());
         SceneManager.sceneLoaded += GetHighScore;
     }
 

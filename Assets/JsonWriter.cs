@@ -8,43 +8,63 @@ using UnityEngine.UI;
 using System.Text;
 using System.ComponentModel;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+
 public class JsonWriter : MonoBehaviour
 {
     public static JsonWriter instance;
     public List<string> _btnClickedOnDeath = new List<string>();
+    public List<int> _health = new List<int>();
+    public List<int> _bullets = new List<int>();
+    public List<float> _shield = new List<float>();
     public List<int> _roomsOfDeath = new List<int>();
+
     public List<PossibleChallengeData> _skippedChallenges = new List<PossibleChallengeData>();
     public List<PossibleChallengeData> _tryLaterChallenges = new List<PossibleChallengeData>();
-    public int _roomClearedCount = 0;
+    public List<PossibleChallengeData> _tryNowChallenges = new List<PossibleChallengeData>();
 
-    bool triggerResultEmail = false;
-    bool resultEmailSucess;
+    public bool _resetValues = true;
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         MakeThisObjectSingleton();
+        SceneManager.sceneLoaded += ResetValues;
     }
 
-    public void SaveMonsterOrderToFile()
+    private void ResetValues(Scene arg0, LoadSceneMode arg1)
+    {
+        if (arg0.buildIndex == 1 && _resetValues)
+        {
+            _btnClickedOnDeath = new List<string>();
+            _health = new List<int>();
+            _bullets = new List<int>();
+            _shield = new List<float>();
+            _roomsOfDeath = new List<int>();
+            _skippedChallenges = new List<PossibleChallengeData>();
+            _tryLaterChallenges = new List<PossibleChallengeData>();
+            _tryNowChallenges = new List<PossibleChallengeData>();
+        }
+    }
+
+    public void SaveLogs()
     {
         DateTime dateTime = DateTime.Now;
 
         string path = Application.dataPath + "/Resources/" + "data_" + dateTime.Hour + "_" + dateTime.Minute + "_" + dateTime.Second + "_" + dateTime.Day + "_" + dateTime.Month + "_" + dateTime.Year + ".json";
-        Debug.Log(path);
         FileStream stream = new FileStream(path, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
         {
-            writer.WriteLine(SimpleEmailSender.GetEmail());
-            writer.WriteLine("Player died on this challenges");
-            foreach (var item in _roomsOfDeath)
+            for (int i = 0; i < _btnClickedOnDeath.Count; i++)
             {
-                writer.WriteLine(item);
+                writer.WriteLine("Option: " + _btnClickedOnDeath[i]);
+                writer.WriteLine("Life: " + _health[i]);
+                writer.WriteLine("Bullets: " + _bullets[i]);
+                writer.WriteLine("Shield: " + _shield[i]);
+                writer.WriteLine("Room: " + _roomsOfDeath[i]);
+                writer.WriteLine("----------------------------------------");
             }
-            writer.WriteLine("Option selected on death");
-            foreach (var item in _btnClickedOnDeath)
-            {
-                writer.WriteLine(item);
-            }
+
             writer.WriteLine("Skipped challenges");
             foreach (var item in _skippedChallenges)
             {
@@ -59,30 +79,45 @@ public class JsonWriter : MonoBehaviour
                                  item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
             }
-            writer.WriteLine("The player cleared " + _roomClearedCount + " room before giving up");
+            writer.WriteLine("Try now challenges");
+            foreach (var item in _tryNowChallenges)
+            {
+                writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
+                                 item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
+
+            }
+            writer.WriteLine("----------------------------------------");
+            writer.WriteLine();
         }
-        List<string> paths = new List<string>();
-        paths.Add(path);
-        SimpleEmailSender.Send(paths, SendCompletedCallback);
+        stream.Close();
+        StartCoroutine(PostLogs(path));
     }
 
-    private void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
+    private IEnumerator PostLogs(string path)
     {
-        if (e.Cancelled || e.Error != null)
+        List<IMultipartFormSection> wwwForm = new List<IMultipartFormSection>();
+        var fileContent = System.IO.File.ReadAllText(path);
+        wwwForm.Add(new MultipartFormFileSection("file", fileContent, null, "dados"));
+        wwwForm.Add(new MultipartFormDataSection("playerID", PlayerPrefs.GetString("playerID")));
+        using (UnityWebRequest www = UnityWebRequest.Post("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/" + PlayerPrefs.GetString("playerID") + "/Logs.php", wwwForm))
         {
-            print("Email not sent: " + e.Error.ToString());
+            yield return www.SendWebRequest();
 
-            resultEmailSucess = false;
-            triggerResultEmail = true;
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                // Show results as text
+                Debug.Log(www.downloadHandler.text);
+                Debug.Log("success");
+            }
         }
-        else
-        {
-            print("Email successfully sent.");
-
-            resultEmailSucess = true;
-            triggerResultEmail = true;
-        }
+        _resetValues = true;
+        SceneManager.LoadScene("HighScore");
     }
+
 
     private void MakeThisObjectSingleton()
     {

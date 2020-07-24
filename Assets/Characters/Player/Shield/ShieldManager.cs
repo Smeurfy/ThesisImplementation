@@ -34,7 +34,16 @@ public class ShieldManager : MonoBehaviour
         AfterDeathOptions.instance.OnTryAgainNow += ResetShield;
         AfterDeathOptions.instance.OnSkip += ResetShield;
         AfterDeathOptions.instance.OnTryAgainLater += ResetShield;
+        PlayerHealthSystem.instance.OnPlayerDied += WriteLog;
         SceneManager.sceneLoaded += FindShieldUIController;
+    }
+
+    private void WriteLog()
+    {
+        if (!isShieldUnlocked)
+        {
+            JsonWriter.instance._shield.Add(-1.0f);
+        }
     }
 
     private void ResetShield()

@@ -60,8 +60,14 @@ public class PlayerShoot : MonoBehaviour
         AfterDeathOptions.instance.OnTryAgainNow += EnableWeapon;
         AfterDeathOptions.instance.OnSkip += EnableWeapon;
         AfterDeathOptions.instance.OnTryAgainLater += EnableWeapon;
+        PlayerHealthSystem.instance.OnPlayerDied += WriteLog;
         DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetDoorHolder().GetComponentInChildren<DoorManager>().OnPlayerEnteredRoom += BulletsBeforeChallenge;
         SceneManager.sceneLoaded += DoStuff;
+    }
+
+    private void WriteLog()
+    {
+        JsonWriter.instance._bullets.Add(bulletsBeforeChallenge);
     }
 
     private void DereferencePause(Scene sceneToUnload)

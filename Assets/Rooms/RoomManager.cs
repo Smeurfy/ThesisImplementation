@@ -239,33 +239,37 @@ public class RoomManager : MonoBehaviour
 
     public void RepeatChallengeNow()
     {
-        AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
-        if (GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
-            FindObjectOfType<LaterChallengePopUp>().ShowPopUp();
-        if (this.roomID == DungeonManager.instance.playersRoom)
+        if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
         {
-            roomChallengeGenerator.CreateChallengeInGame(challengeOfThisRoom);
-        }
-        HideChallenge();
-        PlayerMovement.characterCanReceiveInput = false;
-        StartCoroutine(PlayerCanUpdateAgain());
-        if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this)
-        {
-            try
+            JsonWriter.instance._tryNowChallenges.Add(challengeOfThisRoom);
+            AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
+            if (GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
+                FindObjectOfType<LaterChallengePopUp>().ShowPopUp();
+            if (this.roomID == DungeonManager.instance.playersRoom)
             {
-                gameObject.GetComponent<KillAllChallenge>().enemiesKilled = 0;
-                gameObject.GetComponent<KillAllChallenge>().totalNumberOfEnemies = 0;
-                gameObject.GetComponent<KillAllChallenge>().InitializeEnemies(enemiesHolderGameObject);
+                roomChallengeGenerator.CreateChallengeInGame(challengeOfThisRoom);
             }
-            catch (System.Exception)
+            HideChallenge();
+            PlayerMovement.characterCanReceiveInput = false;
+            StartCoroutine(PlayerCanUpdateAgain());
+            if (DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom) == this)
             {
-                gameObject.AddComponent<KillAllChallenge>().InitializeEnemies(enemiesHolderGameObject);
-            }
+                try
+                {
+                    gameObject.GetComponent<KillAllChallenge>().enemiesKilled = 0;
+                    gameObject.GetComponent<KillAllChallenge>().totalNumberOfEnemies = 0;
+                    gameObject.GetComponent<KillAllChallenge>().InitializeEnemies(enemiesHolderGameObject);
+                }
+                catch (System.Exception)
+                {
+                    gameObject.AddComponent<KillAllChallenge>().InitializeEnemies(enemiesHolderGameObject);
+                }
 
+            }
+            SubscribeToTypeOfRoomWinningCondition();
+            StartCoroutine(ShowChallenge());
+            challengesCleared = 0;
         }
-        SubscribeToTypeOfRoomWinningCondition();
-        StartCoroutine(ShowChallenge());
-        challengesCleared = 0;
     }
 
     private void SkipChallenge()

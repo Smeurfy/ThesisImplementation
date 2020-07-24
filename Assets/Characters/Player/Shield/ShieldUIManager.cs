@@ -61,8 +61,12 @@ public class ShieldUIManager : MonoBehaviour
                 Debug.Log("cancer");
                 //bah
             }
-
+            JsonWriter.instance._shield.Add(-1.0f);
             ShieldManager.isShieldUnlocked = false;
+        }
+        else
+        {
+            JsonWriter.instance._shield.Add(shieldBeforeChallenge);
         }
 
     }
