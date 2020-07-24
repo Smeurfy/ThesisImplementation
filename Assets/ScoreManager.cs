@@ -60,7 +60,7 @@ public class ScoreManager : MonoBehaviour
 
     public void UpdateScoreBeforeExitRoom()
     {
-        if (DungeonManager.instance.playersRoom != -1)
+        if (DungeonManager.instance.playersRoom != -1 && DungeonManager.instance.indexChallenge < 25)
         {
             _victoryAndLoses[DungeonManager.instance.indexChallenge] = 1;
         }

@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayersIDManager : MonoBehaviour
 {
-    public static string _playerID = "";
-
+    
     void Start()
     {
         StartCoroutine(HighScore.instance.GetHighScoreServer());

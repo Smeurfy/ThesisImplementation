@@ -35,9 +35,12 @@ public class JsonWriter : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("ASadfs");
         _resetValues = true;
         SceneManager.sceneLoaded += ResetValues;
         run = PlayerPrefs.GetInt("run");
+        run++;
+        PlayerPrefs.SetInt("run", run);
     }
 
     private void ResetValues(Scene arg0, LoadSceneMode arg1)

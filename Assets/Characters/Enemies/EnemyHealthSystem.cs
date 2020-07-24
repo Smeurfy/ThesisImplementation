@@ -180,7 +180,6 @@ namespace Thesis.Enemy
                     yield return new WaitForEndOfFrame();
                 }
             }
-            Debug.Log("destroy gameobject");
             Destroy(gameObject);
 
         }
@@ -192,9 +191,7 @@ namespace Thesis.Enemy
             {
                 foreach (TypeOfEnemy enemy in DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).challengeOfThisRoom.GetTypeOfEnemies())
                 {
-                    Debug.Log((enemy.name + "Test"));
-                    Debug.Log(gameObject.name);
-                    Debug.Log((enemy.name + "Test") == gameObject.name);
+
                     if ((enemy.name + "Test") == gameObject.name)
                     {
                         if (enemiesTier[enemy] == 0 || enemiesTier[enemy] == 1)

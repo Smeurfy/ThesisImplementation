@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void WinGame()
     {
+        HighScore.instance.SaveHighScore();
         StatsForScoreScreen.CalculateStats();
         JsonWriter.instance.SaveLogs();
         if (!soundSource)

@@ -42,7 +42,7 @@ public class DoorManager : MonoBehaviour
                 GameObject.Find("ProgressBar").GetComponent<ProgressBar>().SubscribeToRoom();
             if (ShieldManager.isShieldUnlocked)
                 GameObject.Find("UI/shield").GetComponent<ShieldUIManager>().SubscribeToRoom();
-            if (GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
+            if (DungeonManager.instance.indexChallenge < 25 && GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
                 FindObjectOfType<LaterChallengePopUp>().ShowPopUp();
             OnPlayerSurvivedRemaininBullets(true);
             OnPlayerEnteredRoom();

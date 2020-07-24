@@ -1221,6 +1221,21 @@ Prefab:
       propertyPath: m_FontData.m_VerticalOverflow
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 224521988015941766, guid: a150f86785d78064fa2ac1a55a6c0bef,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224521988015941766, guid: a150f86785d78064fa2ac1a55a6c0bef,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224521988015941766, guid: a150f86785d78064fa2ac1a55a6c0bef,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 369.09003
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}
   m_IsPrefabAsset: 0
@@ -6883,9 +6898,9 @@ RectTransform:
   m_Father: {fileID: 280254585}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -537.36, y: -51.399994}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 355, y: -51.399994}
   m_SizeDelta: {x: 369.45, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1653503132
@@ -7120,11 +7135,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
-        type: 2}
-      propertyPath: scoreBoard
-      value: 
-      objectReference: {fileID: 541258127}
     - target: {fileID: 114753464685062938, guid: fba91bb27fe1fee4186a5cdcbc689244,
         type: 2}
       propertyPath: roomsHolder
@@ -7140,6 +7150,11 @@ Prefab:
       propertyPath: allRooms.Array.data[0]
       value: 
       objectReference: {fileID: 2028966235}
+    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
+        type: 2}
+      propertyPath: scoreBoard
+      value: 
+      objectReference: {fileID: 541258127}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fba91bb27fe1fee4186a5cdcbc689244, type: 2}
   m_IsPrefabAsset: 0
@@ -7548,11 +7563,6 @@ Prefab:
     - target: {fileID: 114126035612962700, guid: b9c5e18461923df43a014f1b68021fe5,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114216140855699066, guid: b9c5e18461923df43a014f1b68021fe5,
-        type: 2}
-      propertyPath: startingHp
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

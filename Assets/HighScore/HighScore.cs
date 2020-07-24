@@ -78,7 +78,6 @@ public class HighScore : MonoBehaviour
     {
         _score += value;
         _currentScore.text = "Score: " + _score;
-        Debug.Log("Updated score");
     }
 
     public void SaveHighScore()

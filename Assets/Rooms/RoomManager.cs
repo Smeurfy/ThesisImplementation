@@ -107,9 +107,12 @@ public class RoomManager : MonoBehaviour
         {
             int currentRoomID = roomID;
             previousRoomsDoorManager = DungeonManager.instance.GetRoomManagerByRoomID(--currentRoomID).GetComponentInChildren<DoorManager>(); // the trigger on the previous room's door is the one being used to show the challeng
-            previousRoomsDoorManager.OnPlayerEnteredRoom += WaitToShowChallenge;
-            previousRoomsDoorManager.OnPlayerEnteredRoom += FreezePlayer;
-            previousRoomsDoorManager.OnPlayerEnteredRoom += AnnouncePlayerEnteredRoom;
+            if (DungeonManager.instance.indexChallenge < 25)
+            {
+                previousRoomsDoorManager.OnPlayerEnteredRoom += WaitToShowChallenge;
+                previousRoomsDoorManager.OnPlayerEnteredRoom += FreezePlayer;
+                previousRoomsDoorManager.OnPlayerEnteredRoom += AnnouncePlayerEnteredRoom;
+            }
         }
 
     }
