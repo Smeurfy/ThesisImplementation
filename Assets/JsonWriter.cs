@@ -23,13 +23,21 @@ public class JsonWriter : MonoBehaviour
     public List<PossibleChallengeData> _tryLaterChallenges = new List<PossibleChallengeData>();
     public List<PossibleChallengeData> _tryNowChallenges = new List<PossibleChallengeData>();
 
-    public bool _resetValues = true;
+    public bool _resetValues;
+
+    public int run;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
         MakeThisObjectSingleton();
+    }
+
+    private void Start()
+    {
+        _resetValues = true;
         SceneManager.sceneLoaded += ResetValues;
+        run = PlayerPrefs.GetInt("run");
     }
 
     private void ResetValues(Scene arg0, LoadSceneMode arg1)
@@ -44,6 +52,9 @@ public class JsonWriter : MonoBehaviour
             _skippedChallenges = new List<PossibleChallengeData>();
             _tryLaterChallenges = new List<PossibleChallengeData>();
             _tryNowChallenges = new List<PossibleChallengeData>();
+            run = PlayerPrefs.GetInt("run");
+            run++;
+            PlayerPrefs.SetInt("run", run);
         }
     }
 
@@ -97,9 +108,9 @@ public class JsonWriter : MonoBehaviour
     {
         List<IMultipartFormSection> wwwForm = new List<IMultipartFormSection>();
         var fileContent = System.IO.File.ReadAllText(path);
-        wwwForm.Add(new MultipartFormFileSection("file", fileContent, null, "dados"));
+        wwwForm.Add(new MultipartFormFileSection("file", fileContent, null, "data" + PlayerPrefs.GetInt("run")));
         wwwForm.Add(new MultipartFormDataSection("playerID", PlayerPrefs.GetString("playerID")));
-        using (UnityWebRequest www = UnityWebRequest.Post("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/" + PlayerPrefs.GetString("playerID") + "/Logs.php", wwwForm))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/LogsManager.php", wwwForm))
         {
             yield return www.SendWebRequest();
 
@@ -110,8 +121,8 @@ public class JsonWriter : MonoBehaviour
             else
             {
                 // Show results as text
-                Debug.Log(www.downloadHandler.text);
-                Debug.Log("success");
+                // Debug.Log(www.downloadHandler.text);
+                // Debug.Log("success");
             }
         }
         _resetValues = true;

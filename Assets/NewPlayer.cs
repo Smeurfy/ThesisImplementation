@@ -7,6 +7,7 @@ public class NewPlayer : MonoBehaviour
 {
     public void NewPlayerSelection()
     {
+        PlayerPrefs.SetInt("run", 0);
         StartCoroutine(PlayersIDManager.GetNewID());
     }
 }

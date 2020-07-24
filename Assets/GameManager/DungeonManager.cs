@@ -184,8 +184,6 @@ public class DungeonManager : MonoBehaviour
 
     private void SceneLoaded(Scene loadedScene, LoadSceneMode arg1)
     {
-        Debug.Log("scene loaded");
-
         if (loadedScene.buildIndex == GameManager.instance.GetMainGameSceneNumber())
         {
             roomsHolder = GameObject.FindGameObjectWithTag("Dungeon").transform;
