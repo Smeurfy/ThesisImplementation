@@ -34,6 +34,6 @@ public class StatsForScoreScreen : MonoBehaviour
             }
         }
         _monstersDefeated = _roomsCleared * 2;
-        _score = HighScore.instance._scoreBeforeChallenge;
+        _score = HighScore.instance._score;
     }
 }
