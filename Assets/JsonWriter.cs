@@ -35,7 +35,6 @@ public class JsonWriter : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("ASadfs");
         _resetValues = true;
         SceneManager.sceneLoaded += ResetValues;
         run = PlayerPrefs.GetInt("run");
@@ -78,29 +77,36 @@ public class JsonWriter : MonoBehaviour
                 writer.WriteLine("Room: " + _roomsOfDeath[i]);
                 writer.WriteLine("----------------------------------------");
             }
-
-            writer.WriteLine("Skipped challenges");
-            foreach (var item in _skippedChallenges)
+            if (_skippedChallenges.Count > 0 || _tryLaterChallenges.Count > 0 || _tryNowChallenges.Count > 0)
             {
-                writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
-                                 item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
+                writer.WriteLine("Skipped challenges");
+                foreach (var item in _skippedChallenges)
+                {
+                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
+                                     item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
+                }
+                writer.WriteLine("Try later challenges");
+                foreach (var item in _tryLaterChallenges)
+                {
+                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
+                                     item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
+
+                }
+                writer.WriteLine("Try now challenges");
+                foreach (var item in _tryNowChallenges)
+                {
+                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
+                                     item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
+
+                }
+                writer.WriteLine("----------------------------------------");
             }
-            writer.WriteLine("Try later challenges");
-            foreach (var item in _tryLaterChallenges)
+            else
             {
-                writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
-                                 item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
-
+                writer.WriteLine("Win with no death");
+                writer.WriteLine("----------------------------------------");
             }
-            writer.WriteLine("Try now challenges");
-            foreach (var item in _tryNowChallenges)
-            {
-                writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
-                                 item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
-
-            }
-            writer.WriteLine("----------------------------------------");
             writer.WriteLine();
         }
         stream.Close();

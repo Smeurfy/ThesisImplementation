@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayersIDManager : MonoBehaviour
 {
-    
+
     void Start()
     {
         StartCoroutine(HighScore.instance.GetHighScoreServer());
@@ -25,11 +25,11 @@ public class PlayersIDManager : MonoBehaviour
             else
             {
                 // Show results as text
+                // Debug.Log(www.downloadHandler.text);
                 string id = www.downloadHandler.text;
                 PlayerPrefs.SetString("playerID", id);
             }
         }
         SceneManager.LoadScene("implemented model");
-
     }
 }

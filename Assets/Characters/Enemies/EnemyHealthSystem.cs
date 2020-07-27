@@ -69,7 +69,7 @@ namespace Thesis.Enemy
 
         private IEnumerator WaitToTakeDmg()
         {
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(0.2f);
             cdDamage = false;
         }
 

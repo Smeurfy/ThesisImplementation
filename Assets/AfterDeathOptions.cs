@@ -74,6 +74,7 @@ public class AfterDeathOptions : MonoBehaviour
 
     public void GiveUp()
     {
+        JsonWriter.instance._btnClickedOnDeath.Add("GiveUp");
         HighScore.instance.SaveHighScore();
         StatsForScoreScreen.CalculateStats();
         JsonWriter.instance.SaveLogs();
