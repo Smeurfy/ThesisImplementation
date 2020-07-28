@@ -17,7 +17,6 @@ public class SamePlayer : MonoBehaviour
 
     private IEnumerator CheckIfThePlayersFolderExists()
     {
-        Debug.Log(PlayerPrefs.GetString("playerID"));
         //Check if the folder exists in the server
         using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/" + PlayerPrefs.GetString("playerID") + "/Get_HighScore.php"))
         {

@@ -30,6 +30,6 @@ public class PlayersIDManager : MonoBehaviour
                 PlayerPrefs.SetString("playerID", id);
             }
         }
-        SceneManager.LoadScene("implemented model");
+        SceneManager.LoadSceneAsync("implemented model");
     }
 }
