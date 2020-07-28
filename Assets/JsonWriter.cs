@@ -75,7 +75,7 @@ public class JsonWriter : MonoBehaviour
                 writer.WriteLine("Bullets: " + _bullets[i]);
                 writer.WriteLine("Shield: " + _shield[i]);
                 writer.WriteLine("Room: " + _roomsOfDeath[i]);
-                writer.WriteLine("----------------------------------------");
+                writer.WriteLine();
             }
             writer.WriteLine("Rooms cleared: " + StatsForScoreScreen._roomsCleared);
             writer.WriteLine("Score: " + StatsForScoreScreen._score);
