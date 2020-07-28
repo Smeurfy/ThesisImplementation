@@ -77,6 +77,9 @@ public class JsonWriter : MonoBehaviour
                 writer.WriteLine("Room: " + _roomsOfDeath[i]);
                 writer.WriteLine("----------------------------------------");
             }
+            writer.WriteLine("Rooms cleared: " + StatsForScoreScreen._roomsCleared);
+            writer.WriteLine("Score: " + StatsForScoreScreen._score);
+            writer.WriteLine("Skips: " + StatsForScoreScreen._skips);
             if (_skippedChallenges.Count > 0 || _tryLaterChallenges.Count > 0 || _tryNowChallenges.Count > 0)
             {
                 writer.WriteLine("Skipped challenges");
@@ -104,7 +107,7 @@ public class JsonWriter : MonoBehaviour
             }
             else
             {
-                writer.WriteLine("Win with no death");
+                writer.WriteLine("Player quit without dying or won the game");
                 writer.WriteLine("----------------------------------------");
             }
             writer.WriteLine();

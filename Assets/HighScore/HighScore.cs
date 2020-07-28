@@ -56,7 +56,8 @@ public class HighScore : MonoBehaviour
             {
                 //bah
             }
-            catch(NullReferenceException){
+            catch (NullReferenceException)
+            {
                 //bah
             }
         }
@@ -65,7 +66,14 @@ public class HighScore : MonoBehaviour
     private void UndoScoreBonus()
     {
         _score = _scoreBeforeChallenge;
-        _currentScore.text = "Score: " + _score;
+        try
+        {
+            _currentScore.text = "Score: " + _score;
+        }
+        catch (MissingReferenceException)
+        {
+            //bah
+        }
     }
 
     public void SubscribeToRoom(GameObject gObj)
