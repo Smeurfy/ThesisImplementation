@@ -58,7 +58,6 @@ public class ShieldUIManager : MonoBehaviour
             }
             catch (NullReferenceException)
             {
-                Debug.Log("cancer");
                 //bah
             }
             JsonWriter.instance._shield.Add(-1.0f);
@@ -68,7 +67,6 @@ public class ShieldUIManager : MonoBehaviour
         {
             JsonWriter.instance._shield.Add(shieldBeforeChallenge);
         }
-
     }
 
     private void Update()

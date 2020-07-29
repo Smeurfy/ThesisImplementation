@@ -214,19 +214,15 @@ public class PlayerShoot : MonoBehaviour
 
     private void EnableWeapon()
     {
-        // Debug.Log("Enable Weapon");
+
         foreach (GameObject item in weaponsPrefab)
         {
-            // Debug.Log("item name " + item.name);
-            // Debug.Log("weapon before challenge name " + weaponBeforeChallenge.name);
             if (item.name == weaponBeforeChallenge.name && !FindObjectOfType<WeaponPickup>())
             {
-                // Debug.Log("arma");
                 var weapon = Instantiate(item, DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition(), Quaternion.identity);
                 weapon.GetComponent<BulletManager>().SetAvailableBullets(bulletsBeforeChallenge);
             }
         }
-        //AfterDeathOptions.instance.OnTryAgain -= EnableWeapon;
     }
 
     private void DoStuff(Scene arg0, LoadSceneMode arg1)

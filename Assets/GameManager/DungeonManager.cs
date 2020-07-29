@@ -125,7 +125,6 @@ public class DungeonManager : MonoBehaviour
                 return roomManager;
             }
         }
-        //Debug.LogError("previous roomManager was not found, can't hide challenge");
         return allRooms[0];
     }
 

@@ -1,0 +1,18 @@
+﻿Option: NewRun
+Life: 1
+Bullets: 10
+Shield: -1
+Room: 2
+
+Option: SameRun
+Life: 6
+Bullets: 23
+Shield: -1
+Room: 1
+
+Rooms cleared: 0
+Score: 0
+Skips: 0
+Player quit without dying or won the game
+----------------------------------------
+

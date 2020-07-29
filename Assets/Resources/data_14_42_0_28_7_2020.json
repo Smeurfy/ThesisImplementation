@@ -1,0 +1,27 @@
+﻿Option: TryNow
+Life: 6
+Bullets: 29
+Shield: -1
+Room: 0
+
+Option: SameRun
+Life: 3
+Bullets: 14
+Shield: -1
+Room: 1
+
+Option: GiveUp
+Life: 1
+Bullets: 3
+Shield: -1
+Room: 2
+
+Rooms cleared: 2
+Score: 40
+Skips: 0
+Skipped challenges
+Try later challenges
+Try now challenges
+bigZombie tier 1 iceZombie tier 1
+----------------------------------------
+

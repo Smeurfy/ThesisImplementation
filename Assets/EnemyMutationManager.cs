@@ -41,7 +41,6 @@ public class EnemyMutationManager : MonoBehaviour
                 return mutation;
             }
         }
-        Debug.LogError("Mutation doesn't exist");
         return ScriptableObject.CreateInstance<Mutation>();
     }
 
