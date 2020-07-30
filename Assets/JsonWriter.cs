@@ -80,6 +80,7 @@ public class JsonWriter : MonoBehaviour
             writer.WriteLine("Rooms cleared: " + StatsForScoreScreen._roomsCleared);
             writer.WriteLine("Score: " + StatsForScoreScreen._score);
             writer.WriteLine("Skips: " + StatsForScoreScreen._skips);
+            writer.WriteLine("Time: " + System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2));
             if (_skippedChallenges.Count > 0 || _tryLaterChallenges.Count > 0 || _tryNowChallenges.Count > 0)
             {
                 writer.WriteLine("Skipped challenges");

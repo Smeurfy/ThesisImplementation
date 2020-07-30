@@ -413,6 +413,16 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114655685398977756, guid: ba36029f1e02fe5489b309c77c94babb,
+        type: 2}
+      propertyPath: catchUpSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114655685398977756, guid: ba36029f1e02fe5489b309c77c94babb,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 1100000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba36029f1e02fe5489b309c77c94babb, type: 2}
   m_IsPrefabAsset: 0
@@ -968,7 +978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &766444901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1141,16 +1151,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114121207051598078, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114121207051598078, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114700332756993422, guid: a150f86785d78064fa2ac1a55a6c0bef,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -1161,80 +1161,15 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224613111575754586, guid: a150f86785d78064fa2ac1a55a6c0bef,
+    - target: {fileID: 114121207051598078, guid: a150f86785d78064fa2ac1a55a6c0bef,
         type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 224613111575754586, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 617.26
-      objectReference: {fileID: 0}
-    - target: {fileID: 114528913369032546, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114528913369032546, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_FontData.m_MinSize
+      propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114528913369032546, guid: a150f86785d78064fa2ac1a55a6c0bef,
+    - target: {fileID: 114121207051598078, guid: a150f86785d78064fa2ac1a55a6c0bef,
         type: 2}
-      propertyPath: m_FontData.m_LineSpacing
+      propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114528913369032546, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_FontData.m_RichText
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114528913369032546, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_FontData.m_MaxSize
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 224613111575754586, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.16574986
-      objectReference: {fileID: 0}
-    - target: {fileID: 224613111575754586, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.16574986
-      objectReference: {fileID: 0}
-    - target: {fileID: 224613111575754586, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.16574986
-      objectReference: {fileID: 0}
-    - target: {fileID: 114528913369032546, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_FontData.m_HorizontalOverflow
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114528913369032546, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_FontData.m_VerticalOverflow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224521988015941766, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224521988015941766, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224521988015941766, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 369.09003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}
@@ -7155,6 +7090,16 @@ Prefab:
       propertyPath: scoreBoard
       value: 
       objectReference: {fileID: 541258127}
+    - target: {fileID: 114731638515965010, guid: fba91bb27fe1fee4186a5cdcbc689244,
+        type: 2}
+      propertyPath: secondsToWaitBeforeReset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114107471125638486, guid: fba91bb27fe1fee4186a5cdcbc689244,
+        type: 2}
+      propertyPath: activateShieldOnRoomNumber
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fba91bb27fe1fee4186a5cdcbc689244, type: 2}
   m_IsPrefabAsset: 0
@@ -7225,7 +7170,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Shield ability in:'
+  m_Text: 'Shield:'
 --- !u!222 &1741246847
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7563,6 +7508,11 @@ Prefab:
     - target: {fileID: 114126035612962700, guid: b9c5e18461923df43a014f1b68021fe5,
         type: 2}
       propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114216140855699066, guid: b9c5e18461923df43a014f1b68021fe5,
+        type: 2}
+      propertyPath: startingHp
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

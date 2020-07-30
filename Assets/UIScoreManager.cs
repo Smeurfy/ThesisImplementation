@@ -25,7 +25,7 @@ public class UIScoreManager : MonoBehaviour
         roomsCleared.text = "Rooms Cleared: " + StatsForScoreScreen._roomsCleared.ToString();
         monstersDeafeated.text = "Monsters Defeated: " + StatsForScoreScreen._monstersDefeated.ToString();
         skips.text = "Skips: " + StatsForScoreScreen._skips.ToString();
-        time.text = "Time: " + StatsForScoreScreen._time.ToString();
+        time.text = "Time: " +  System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2).ToString();
         score.text = "Score: " + StatsForScoreScreen._score.ToString();
     }
 

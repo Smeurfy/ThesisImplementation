@@ -13,6 +13,7 @@ public class AfterDeathOptions : MonoBehaviour
     public GameObject afterDeathMenu;
     public GameObject health;
     public GameObject bullets;
+    public GameObject loadingImage;
 
     public Button tryAgainLater;
 
@@ -54,6 +55,7 @@ public class AfterDeathOptions : MonoBehaviour
 
     public void RestartSameRun()
     {
+        Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("SameRun");
         JsonWriter.instance._resetValues = false;
         OnRestartSameRun();
@@ -61,6 +63,7 @@ public class AfterDeathOptions : MonoBehaviour
 
     public void RestartNewRun()
     {
+        Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("NewRun");
         JsonWriter.instance._resetValues = false;
         OnRestartNewRun();
@@ -74,6 +77,7 @@ public class AfterDeathOptions : MonoBehaviour
 
     public void GiveUp()
     {
+        Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("GiveUp");
         HighScore.instance.SaveHighScore();
         StatsForScoreScreen.CalculateStats();

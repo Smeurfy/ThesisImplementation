@@ -20,7 +20,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private Vector3 playerRoomInitialPosition;
     [SerializeField] private int roomID;
     [SerializeField] private int challengesCleared = 0;
-    private float secondsBeforeUnfreezing = 1.5f;
+    private float secondsBeforeUnfreezing = 0.5f;
     [SerializeField] private List<RoomChallenge> typesOfRoom;
     private List<Transform> spawnPointPositions;
 

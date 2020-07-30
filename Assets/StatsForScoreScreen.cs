@@ -1,21 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StatsForScoreScreen : MonoBehaviour
 {
     public static int _roomsCleared = 0;
     public static int _monstersDefeated = 0;
     public static int _skips = 0;
-    public static int _time = 0;
     public static int _score = 0;
+    public static TimeSpan _time;
+    public static DateTime startTime;
 
     private void Start()
     {
+
         _roomsCleared = 0;
         _monstersDefeated = 0;
         _skips = 0;
-        _time = 0;
+        startTime = DateTime.Now;
         _score = 0;
     }
 
@@ -35,5 +38,7 @@ public class StatsForScoreScreen : MonoBehaviour
         }
         _monstersDefeated = _roomsCleared * 2;
         _score = HighScore.instance._score;
+        var timeNow = DateTime.Now;
+        _time = timeNow - startTime;
     }
 }

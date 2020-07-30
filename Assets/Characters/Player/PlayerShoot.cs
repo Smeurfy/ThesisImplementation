@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -86,14 +87,29 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if (ShootingButtonHeldDown() && PlayerMovement.characterCanReceiveInput && weaponBeingHeld != null)
+        if (!CheckIfClicksOnUI() && ShootingButtonHeldDown() && PlayerMovement.characterCanReceiveInput && weaponBeingHeld != null)
         {
             AttemptToShoot();
         }
     }
 
+    private bool CheckIfClicksOnUI()
+    {
+        try
+        {
+            if(EventSystem.current.currentSelectedGameObject.name == "Button")
+                return true;
+        }
+        catch (NullReferenceException)
+        {
+            //bah
+        }
+        return false;
+    }
+
     private void AttemptToShoot()
     {
+
         if (nextShotAvailable && weaponBeingHeld && currentBulletManager.HasAvailableBullets() && !PauseMenuManager.gameIsPaused)
         {
             ShootWeapon();
