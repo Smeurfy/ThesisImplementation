@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIHealthManager : MonoBehaviour 
 {
     private PlayerHealthSystem player;
-    private TextMeshProUGUI healthText;
+    public GameObject _heart;
+    public GameObject _heartPlaceholder;
 
     private void Awake()
     {
@@ -14,14 +16,22 @@ public class UIHealthManager : MonoBehaviour
             player = GameObject.FindObjectOfType<PlayerHealthSystem>();
         }
         SceneManager.sceneUnloaded += DereferencePlayerHealth;
-        healthText = GetComponentInChildren<TextMeshProUGUI>();
         UpdateHealthText(player.GetCurrentHP());
         player.OnPlayerHealthUpdate += UpdateHealthText;
     }
 
     public void UpdateHealthText(int remainingHealth)
     {
-        healthText.text = remainingHealth.ToString();
+        var heartImages = Transform.FindObjectsOfType<Image>();
+        foreach (var item in heartImages)
+        {
+            if(item.name == "Heart(Clone)")
+                Destroy(item.gameObject);
+        }
+        for (int i = 0; i < remainingHealth; i++)
+        {
+            Instantiate(_heart, _heartPlaceholder.transform.position, Quaternion.identity, _heartPlaceholder.transform);
+        }
     }
 
     private void DereferencePlayerHealth(Scene loadedScene)

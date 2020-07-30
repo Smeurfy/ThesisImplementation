@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class StartGameButton : MonoBehaviour
 {
-    [SerializeField] private int dungeonIndex;
-    [SerializeField] private int creditsIndex;
     public GameObject _loading;
 
     private void Start()
@@ -15,7 +13,7 @@ public class StartGameButton : MonoBehaviour
     public void StartGame()
     {
         _loading.SetActive(true);
-        SceneManager.LoadSceneAsync(dungeonIndex);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void Credits()

@@ -1,0 +1,36 @@
+﻿Option: TryNow
+Life: 1
+Bullets: 10
+Shield: 1
+Room: 6
+
+Option: TryLater
+Life: 1
+Bullets: 30
+Shield: 1
+Room: 7
+
+Option: Skipped
+Life: 1
+Bullets: 2
+Shield: 1
+Room: 9
+
+Option: GiveUp
+Life: 1
+Bullets: 2
+Shield: 1
+Room: 10
+
+Rooms cleared: 9
+Score: 200
+Skips: 1
+Time: 115.36
+Skipped challenges
+maskedOrc tier 2 iceZombie tier 2
+Try later challenges
+swampy tier 1 orc tier 2
+Try now challenges
+muddy tier 3 imp tier 1
+----------------------------------------
+
