@@ -23,8 +23,6 @@ public class JsonWriter : MonoBehaviour
     public List<PossibleChallengeData> _tryLaterChallenges = new List<PossibleChallengeData>();
     public List<PossibleChallengeData> _tryNowChallenges = new List<PossibleChallengeData>();
 
-    public bool _resetValues;
-
     public int run;
 
     private void Awake()
@@ -35,7 +33,6 @@ public class JsonWriter : MonoBehaviour
 
     private void Start()
     {
-        _resetValues = true;
         SceneManager.sceneLoaded += ResetValues;
         run = PlayerPrefs.GetInt("run");
         run++;
@@ -44,7 +41,7 @@ public class JsonWriter : MonoBehaviour
 
     private void ResetValues(Scene arg0, LoadSceneMode arg1)
     {
-        if (arg0.buildIndex == 1 && _resetValues)
+        if (arg0.buildIndex == GameManager.instance.GetMainGameSceneNumber())
         {
             _btnClickedOnDeath = new List<string>();
             _health = new List<int>();
@@ -60,7 +57,7 @@ public class JsonWriter : MonoBehaviour
         }
     }
 
-    public void SaveLogs()
+    public void SaveLogs(bool loadNextScene)
     {
         DateTime dateTime = DateTime.Now;
 
@@ -81,6 +78,7 @@ public class JsonWriter : MonoBehaviour
             writer.WriteLine("Score: " + StatsForScoreScreen._score);
             writer.WriteLine("Skips: " + StatsForScoreScreen._skips);
             writer.WriteLine("Time: " + System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2));
+            writer.WriteLine();
             if (_skippedChallenges.Count > 0 || _tryLaterChallenges.Count > 0 || _tryNowChallenges.Count > 0)
             {
                 writer.WriteLine("Skipped challenges");
@@ -90,6 +88,7 @@ public class JsonWriter : MonoBehaviour
                                      item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
                 }
+                writer.WriteLine();
                 writer.WriteLine("Try later challenges");
                 foreach (var item in _tryLaterChallenges)
                 {
@@ -97,6 +96,7 @@ public class JsonWriter : MonoBehaviour
                                      item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
                 }
+                writer.WriteLine();
                 writer.WriteLine("Try now challenges");
                 foreach (var item in _tryNowChallenges)
                 {
@@ -104,7 +104,6 @@ public class JsonWriter : MonoBehaviour
                                      item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
                 }
-                writer.WriteLine("----------------------------------------");
             }
             else
             {
@@ -114,10 +113,10 @@ public class JsonWriter : MonoBehaviour
             writer.WriteLine();
         }
         stream.Close();
-        StartCoroutine(PostLogs(path));
+        StartCoroutine(PostLogs(path, loadNextScene));
     }
 
-    private IEnumerator PostLogs(string path)
+    private IEnumerator PostLogs(string path, bool loadNextScene)
     {
         List<IMultipartFormSection> wwwForm = new List<IMultipartFormSection>();
         var fileContent = System.IO.File.ReadAllText(path);
@@ -138,8 +137,10 @@ public class JsonWriter : MonoBehaviour
                 // Debug.Log("success");
             }
         }
-        _resetValues = true;
-        SceneManager.LoadScene("HighScore");
+        if (loadNextScene)
+        {
+            SceneManager.LoadScene("HighScore");
+        }
     }
 
 

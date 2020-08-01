@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     {
         HighScore.instance.SaveHighScore();
         StatsForScoreScreen.CalculateStats();
-        JsonWriter.instance.SaveLogs();
+        JsonWriter.instance.SaveLogs(true);
         if (!soundSource)
         {
             soundSource = instance.GetComponent<AudioSource>();

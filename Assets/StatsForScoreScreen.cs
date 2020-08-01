@@ -14,7 +14,6 @@ public class StatsForScoreScreen : MonoBehaviour
 
     private void Start()
     {
-
         _roomsCleared = 0;
         _monstersDefeated = 0;
         _skips = 0;

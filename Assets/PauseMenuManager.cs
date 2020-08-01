@@ -61,7 +61,7 @@ public class PauseMenuManager : MonoBehaviour
         StatsForScoreScreen.CalculateStats();
         HighScore.instance.SaveHighScore();
         Time.timeScale = 1;
-        JsonWriter.instance.SaveLogs();
+        JsonWriter.instance.SaveLogs(true);
         
     }
 

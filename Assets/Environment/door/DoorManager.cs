@@ -22,9 +22,9 @@ public class DoorManager : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         GetComponentInParent<RoomManager>().RoomCleared += OpenDoor;
-        AfterDeathOptions.instance.OnTryAgainNow += CloseDoor;
-        AfterDeathOptions.instance.OnSkip += CloseDoor;
-        AfterDeathOptions.instance.OnTryAgainLater += CloseDoor;
+        AfterDeathOptions.instance.OnTryAgainNow += CloseDoorWithNoSound;
+        AfterDeathOptions.instance.OnSkip += CloseDoorWithNoSound;
+        AfterDeathOptions.instance.OnTryAgainLater += CloseDoorWithNoSound;
         StartTriggerToCloseDoorAfterPlayerEnteredTheRoom();
     }
 
@@ -47,7 +47,7 @@ public class DoorManager : MonoBehaviour
             OnPlayerSurvivedRemaininBullets(true);
             OnPlayerEnteredRoom();
             UpdateCameraToLookAtNewRoom();
-            CloseDoor();
+            CloseDoorWithSound();
             DeletePlayerEnteredRoomTrigger();
         }
     }
@@ -78,11 +78,16 @@ public class DoorManager : MonoBehaviour
         animator.SetBool(animatorBoolIsOpened, true);
     }
 
-    private void CloseDoor()
+    private void CloseDoorWithSound()
     {
-
         ChangeDoorIsOpen(false);
         audioSource.PlayOneShot(closeDoor);
+        animator.SetBool(animatorBoolIsOpened, false);
+        OnPlayerSurvivedRemaininBullets(false);
+    }
+    private void CloseDoorWithNoSound()
+    {
+        ChangeDoorIsOpen(false);
         animator.SetBool(animatorBoolIsOpened, false);
         OnPlayerSurvivedRemaininBullets(false);
     }

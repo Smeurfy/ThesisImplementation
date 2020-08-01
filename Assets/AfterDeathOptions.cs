@@ -57,7 +57,8 @@ public class AfterDeathOptions : MonoBehaviour
     {
         Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("SameRun");
-        JsonWriter.instance._resetValues = false;
+        StatsForScoreScreen.CalculateStats();
+        JsonWriter.instance.SaveLogs(false);
         OnRestartSameRun();
     }
 
@@ -65,7 +66,8 @@ public class AfterDeathOptions : MonoBehaviour
     {
         Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("NewRun");
-        JsonWriter.instance._resetValues = false;
+        StatsForScoreScreen.CalculateStats();
+        JsonWriter.instance.SaveLogs(false);
         OnRestartNewRun();
     }
 
@@ -81,7 +83,7 @@ public class AfterDeathOptions : MonoBehaviour
         JsonWriter.instance._btnClickedOnDeath.Add("GiveUp");
         HighScore.instance.SaveHighScore();
         StatsForScoreScreen.CalculateStats();
-        JsonWriter.instance.SaveLogs();
+        JsonWriter.instance.SaveLogs(true);
     }
 
     public void UpdateBulletUI(int bullet)
