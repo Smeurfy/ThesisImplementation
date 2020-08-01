@@ -58,7 +58,7 @@ InputManager:
     descriptiveName: Use Shield
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: left ctrl
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: mouse 1
     gravity: 1000

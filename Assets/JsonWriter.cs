@@ -18,7 +18,7 @@ public class JsonWriter : MonoBehaviour
     public List<int> _bullets = new List<int>();
     public List<float> _shield = new List<float>();
     public List<int> _roomsOfDeath = new List<int>();
-
+    public List<PossibleChallengeData> _roomChallenge = new List<PossibleChallengeData>();
     public List<PossibleChallengeData> _skippedChallenges = new List<PossibleChallengeData>();
     public List<PossibleChallengeData> _tryLaterChallenges = new List<PossibleChallengeData>();
     public List<PossibleChallengeData> _tryNowChallenges = new List<PossibleChallengeData>();
@@ -48,6 +48,7 @@ public class JsonWriter : MonoBehaviour
             _bullets = new List<int>();
             _shield = new List<float>();
             _roomsOfDeath = new List<int>();
+            _roomChallenge = new List<PossibleChallengeData>();
             _skippedChallenges = new List<PossibleChallengeData>();
             _tryLaterChallenges = new List<PossibleChallengeData>();
             _tryNowChallenges = new List<PossibleChallengeData>();
@@ -72,13 +73,15 @@ public class JsonWriter : MonoBehaviour
                 writer.WriteLine("Bullets: " + _bullets[i]);
                 writer.WriteLine("Shield: " + _shield[i]);
                 writer.WriteLine("Room: " + _roomsOfDeath[i]);
-                writer.WriteLine();
+                writer.WriteLine("Challenge: " + _roomChallenge[i].GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[_roomChallenge[i].GetTypeOfEnemies()[0]] + " " +
+                                                 _roomChallenge[i].GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[_roomChallenge[i].GetTypeOfEnemies()[1]]);
+                writer.WriteLine("");
             }
             writer.WriteLine("Rooms cleared: " + StatsForScoreScreen._roomsCleared);
             writer.WriteLine("Score: " + StatsForScoreScreen._score);
             writer.WriteLine("Skips: " + StatsForScoreScreen._skips);
             writer.WriteLine("Time: " + System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2));
-            writer.WriteLine();
+            writer.WriteLine("");
             if (_skippedChallenges.Count > 0 || _tryLaterChallenges.Count > 0 || _tryNowChallenges.Count > 0)
             {
                 writer.WriteLine("Skipped challenges");
@@ -88,7 +91,7 @@ public class JsonWriter : MonoBehaviour
                                      item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
                 }
-                writer.WriteLine();
+                writer.WriteLine("");
                 writer.WriteLine("Try later challenges");
                 foreach (var item in _tryLaterChallenges)
                 {
@@ -96,7 +99,7 @@ public class JsonWriter : MonoBehaviour
                                      item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
 
                 }
-                writer.WriteLine();
+                writer.WriteLine("");
                 writer.WriteLine("Try now challenges");
                 foreach (var item in _tryNowChallenges)
                 {
@@ -110,7 +113,23 @@ public class JsonWriter : MonoBehaviour
                 writer.WriteLine("Player quit without dying or won the game");
                 writer.WriteLine("----------------------------------------");
             }
-            writer.WriteLine();
+
+            writer.WriteLine("");
+            writer.WriteLine("Challenges");
+            var enemyTier = new Dictionary<TypeOfEnemy, int>();
+            foreach (var enemy in EnemyLibrary.instance.GetAllPossibleEnemies())
+            {
+                enemyTier.Add(enemy, 0);
+            }
+            foreach (var finalChallenge in DungeonManager.instance._finalChallenges)
+            {
+                foreach (var typeE in finalChallenge.GetTypeOfEnemies())
+                {
+                    enemyTier[typeE]++;
+                }
+                writer.WriteLine(finalChallenge.GetTypeOfEnemies()[0].name + " tier " + enemyTier[finalChallenge.GetTypeOfEnemies()[0]] + " " +
+                                 finalChallenge.GetTypeOfEnemies()[1].name + " tier " + enemyTier[finalChallenge.GetTypeOfEnemies()[1]]);
+            }
         }
         stream.Close();
         StartCoroutine(PostLogs(path, loadNextScene));

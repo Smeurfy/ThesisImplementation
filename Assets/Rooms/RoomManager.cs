@@ -32,8 +32,6 @@ public class RoomManager : MonoBehaviour
 
     public TypeOfEnemy enem1;
     public TypeOfEnemy enem2;
-    public List<TypeOfEnemy> enemy1;
-    public List<TypeOfEnemy> enemy2;
 
     #region getters
 
@@ -244,6 +242,7 @@ public class RoomManager : MonoBehaviour
     {
         if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
         {
+            JsonWriter.instance._roomChallenge.Add(challengeOfThisRoom);
             JsonWriter.instance._tryNowChallenges.Add(challengeOfThisRoom);
             AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
             if (GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
@@ -279,6 +278,7 @@ public class RoomManager : MonoBehaviour
     {
         if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
         {
+            JsonWriter.instance._roomChallenge.Add(challengeOfThisRoom);
             JsonWriter.instance._skippedChallenges.Add(challengeOfThisRoom);
             AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
             GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] = 0;
@@ -324,6 +324,7 @@ public class RoomManager : MonoBehaviour
     {
         if (this == DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom))
         {
+            JsonWriter.instance._roomChallenge.Add(challengeOfThisRoom);
             JsonWriter.instance._tryLaterChallenges.Add(challengeOfThisRoom);
             var nextIndex = DungeonManager.instance.indexChallenge + 2;
             DungeonManager.instance._finalChallenges.Insert(nextIndex, challengeOfThisRoom);

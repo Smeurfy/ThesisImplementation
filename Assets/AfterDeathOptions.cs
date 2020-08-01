@@ -57,6 +57,7 @@ public class AfterDeathOptions : MonoBehaviour
     {
         Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("SameRun");
+        JsonWriter.instance._roomChallenge.Add(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).challengeOfThisRoom);
         StatsForScoreScreen.CalculateStats();
         JsonWriter.instance.SaveLogs(false);
         OnRestartSameRun();
@@ -66,6 +67,7 @@ public class AfterDeathOptions : MonoBehaviour
     {
         Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("NewRun");
+        JsonWriter.instance._roomChallenge.Add(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).challengeOfThisRoom);
         StatsForScoreScreen.CalculateStats();
         JsonWriter.instance.SaveLogs(false);
         OnRestartNewRun();
