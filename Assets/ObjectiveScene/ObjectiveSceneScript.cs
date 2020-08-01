@@ -5,8 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class ObjectiveSceneScript : MonoBehaviour
 {
-    public void LoadNextScene()
+  public GameObject loadingPrefab;
+    private bool animationDone = false;
+
+    public void AnimationDone()
     {
-		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        animationDone = true;
+    }
+
+    private void Update()
+    {
+        if (animationDone)
+        {
+            if (Input.anyKeyDown)
+            {
+              Instantiate(loadingPrefab, transform.position, Quaternion.identity, transform);
+              SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
     }
 }
