@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ShowMonsterTier : MonoBehaviour
 {
-
     private List<List<Image>> gridLayout = new List<List<Image>>();
     public List<Sprite> monstersImages = new List<Sprite>();
 

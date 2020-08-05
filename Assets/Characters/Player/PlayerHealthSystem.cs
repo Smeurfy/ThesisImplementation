@@ -214,7 +214,6 @@ public class PlayerHealthSystem : HealthSystem
 
             currentHp = startingHp;
         }
-
     }
 
     private void DestroyWeapons()

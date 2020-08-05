@@ -98,6 +98,7 @@ public class ShieldManager : MonoBehaviour
         if (PlayerMovement.characterCanReceiveInput && Input.GetButtonDown(activateShieldButton) && shieldIsCharged)
         {
             EnableShield();
+            JsonWriter.instance._usedShield++;
             shieldIsCharged = false;
             audioPlayer.PlayOneShot(shieldEnabled);
             StartCoroutine(DisableShieldAfterDepletion());

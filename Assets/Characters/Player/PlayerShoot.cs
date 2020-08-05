@@ -32,7 +32,7 @@ public class PlayerShoot : MonoBehaviour
     private AudioSource audioSource;
     private AudioClip shotSound;
     [SerializeField] private Weapon weaponBeforeChallenge;
-    [SerializeField] private int bulletsBeforeChallenge;
+    public int bulletsBeforeChallenge;
 
 
     private const string shootButton = "Shoot Weapon";
@@ -97,7 +97,7 @@ public class PlayerShoot : MonoBehaviour
     {
         try
         {
-            if(EventSystem.current.currentSelectedGameObject.name == "Button")
+            if (EventSystem.current.currentSelectedGameObject.name == "Button")
                 return true;
         }
         catch (NullReferenceException)

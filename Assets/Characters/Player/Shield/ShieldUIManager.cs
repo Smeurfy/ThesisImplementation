@@ -22,7 +22,7 @@ public class ShieldUIManager : MonoBehaviour
     private AudioSource audioPlayer;
     private Animator animator;
 
-    private float shieldBeforeChallenge = 0;
+    public float shieldBeforeChallenge = 0;
 
     private const string ANIM_CHARGED = "charged";
     private float timePassed = 0f;
