@@ -83,6 +83,7 @@ public class AfterDeathOptions : MonoBehaviour
     {
         Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("GiveUp");
+        JsonWriter.instance._roomChallenge.Add(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).challengeOfThisRoom);
         HighScore.instance.SaveHighScore();
         StatsForScoreScreen.CalculateStats();
         JsonWriter.instance.SaveLogs(true);

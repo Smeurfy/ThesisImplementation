@@ -6168,6 +6168,8 @@ MonoBehaviour:
   _bullets: 
   _shield: []
   _roomsOfDeath: 
+  _usedShield: 0
+  _usedTab: 0
   run: 0
 --- !u!4 &1064877289
 Transform:

@@ -49,21 +49,8 @@ public class DoorManager : MonoBehaviour
             UpdateCameraToLookAtNewRoom();
             CloseDoorWithSound();
             DeletePlayerEnteredRoomTrigger();
-            SaveDataToLogs();
+            JsonWriter.instance.SaveDataToLogs("NewChallenge");
         }
-    }
-
-    private void SaveDataToLogs()
-    {
-        JsonWriter.instance._btnClickedOnDeath.Add("New Challenge");
-        JsonWriter.instance._health.Add(PlayerHealthSystem.instance.GetCurrentHP());
-        JsonWriter.instance._bullets.Add(FindObjectOfType<PlayerShoot>().bulletsBeforeChallenge);
-        if (ShieldManager.isShieldUnlocked)
-            JsonWriter.instance._shield.Add(FindObjectOfType<ShieldUIManager>().shieldBeforeChallenge);
-        else
-            JsonWriter.instance._shield.Add(-1);
-        JsonWriter.instance._roomsOfDeath.Add(DungeonManager.instance.indexChallenge);
-        JsonWriter.instance._roomChallenge.Add(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).challengeOfThisRoom);
     }
 
     private void UpdateCameraToLookAtNewRoom()

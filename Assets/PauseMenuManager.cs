@@ -7,15 +7,12 @@ using UnityEngine.SceneManagement;
 public class PauseMenuManager : MonoBehaviour
 {
     public static PauseMenuManager instance;
-
     public event Action<bool> OnGameIsPaused = delegate { };
-
     [SerializeField] GameObject menuHolder;
-
     public static bool gameIsPaused = false;
     public Text playerID;
-
     private const string pauseMenu = "escape";
+    public GameObject loadingImage;
 
     private void Awake()
     {
@@ -56,13 +53,15 @@ public class PauseMenuManager : MonoBehaviour
 
     public void QuitGame()
     {
+        Instantiate(loadingImage, transform.parent);
+        JsonWriter.instance.SaveDataToLogs("GiveUpPauseMenu");
         GameObject.Find("player").SetActive(false);
         gameIsPaused = !gameIsPaused;
         StatsForScoreScreen.CalculateStats();
         HighScore.instance.SaveHighScore();
         Time.timeScale = 1;
         JsonWriter.instance.SaveLogs(true);
-        
+
     }
 
     public void ResumeGame()

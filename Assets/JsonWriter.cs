@@ -78,8 +78,8 @@ public class JsonWriter : MonoBehaviour
                 writer.WriteLine("Bullets: " + _bullets[i]);
                 writer.WriteLine("Shield: " + _shield[i]);
                 writer.WriteLine("Room: " + _roomsOfDeath[i]);
-                writer.WriteLine("Challenge: " + _roomChallenge[i].GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[_roomChallenge[i].GetTypeOfEnemies()[0]] + " " +
-                                                 _roomChallenge[i].GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[_roomChallenge[i].GetTypeOfEnemies()[1]]);
+                writer.WriteLine("Challenge: " + _roomChallenge[i].GetTypeOfEnemies()[0].name + " tier " + _roomChallenge[i]._enemyTiers[_roomChallenge[i].GetTypeOfEnemies()[0]] + " " +
+                                                 _roomChallenge[i].GetTypeOfEnemies()[1].name + " tier " + _roomChallenge[i]._enemyTiers[_roomChallenge[i].GetTypeOfEnemies()[1]]);
                 writer.WriteLine("");
             }
             writer.WriteLine("Rooms cleared: " + StatsForScoreScreen._roomsCleared);
@@ -94,24 +94,24 @@ public class JsonWriter : MonoBehaviour
                 writer.WriteLine("Skipped challenges");
                 foreach (var item in _skippedChallenges)
                 {
-                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
-                                     item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
+                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + item._enemyTiers[item.GetTypeOfEnemies()[0]] + " " +
+                                     item.GetTypeOfEnemies()[1].name + " tier " + item._enemyTiers[item.GetTypeOfEnemies()[1]]);
 
                 }
                 writer.WriteLine("");
                 writer.WriteLine("Try later challenges");
                 foreach (var item in _tryLaterChallenges)
                 {
-                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
-                                     item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
+                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + item._enemyTiers[item.GetTypeOfEnemies()[0]] + " " +
+                                     item.GetTypeOfEnemies()[1].name + " tier " + item._enemyTiers[item.GetTypeOfEnemies()[1]]);
 
                 }
                 writer.WriteLine("");
                 writer.WriteLine("Try now challenges");
                 foreach (var item in _tryNowChallenges)
                 {
-                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[0]] + " " +
-                                     item.GetTypeOfEnemies()[1].name + " tier " + DungeonManager.instance.tierOfEnemies[item.GetTypeOfEnemies()[1]]);
+                    writer.WriteLine(item.GetTypeOfEnemies()[0].name + " tier " + item._enemyTiers[item.GetTypeOfEnemies()[0]] + " " +
+                                     item.GetTypeOfEnemies()[1].name + " tier " + item._enemyTiers[item.GetTypeOfEnemies()[1]]);
 
                 }
             }
@@ -167,6 +167,22 @@ public class JsonWriter : MonoBehaviour
         {
             SceneManager.LoadScene("HighScore");
         }
+    }
+
+    public void SaveDataToLogs(string name)
+    {
+        if(name == "NewChallenge")
+            JsonWriter.instance._btnClickedOnDeath.Add("NewChallenge");
+        if(name == "GiveUpPauseMenu")
+            JsonWriter.instance._btnClickedOnDeath.Add("GiveUpPauseMenu");
+        JsonWriter.instance._health.Add(PlayerHealthSystem.instance.GetCurrentHP());
+        JsonWriter.instance._bullets.Add(FindObjectOfType<PlayerShoot>().bulletsBeforeChallenge);
+        if (ShieldManager.isShieldUnlocked)
+            JsonWriter.instance._shield.Add(FindObjectOfType<ShieldUIManager>().shieldBeforeChallenge);
+        else
+            JsonWriter.instance._shield.Add(-1);
+        JsonWriter.instance._roomsOfDeath.Add(DungeonManager.instance.indexChallenge);
+        JsonWriter.instance._roomChallenge.Add(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).challengeOfThisRoom);
     }
 
 

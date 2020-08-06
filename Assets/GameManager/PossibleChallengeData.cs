@@ -11,12 +11,12 @@ public class PossibleChallengeData
     private bool possibleChallenge = true;
 
     private List<PossibleChallengeData> _challenges;
-    private Dictionary<TypeOfEnemy, int> _enemyTiers;
+    public Dictionary<TypeOfEnemy, int> _enemyTiers;
 
     public PossibleChallengeData()
     {
         _challenges = DungeonManager.instance._finalChallenges;
-        _enemyTiers = DungeonManager.instance.tierOfEnemies;
+        _enemyTiers = new Dictionary<TypeOfEnemy, int>(DungeonManager.instance.tierOfEnemies);
     }
 
     public PossibleChallengeData GeneratePossibleChallenge()

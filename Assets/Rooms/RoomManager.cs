@@ -249,7 +249,7 @@ public class RoomManager : MonoBehaviour
                 FindObjectOfType<LaterChallengePopUp>().ShowPopUp();
             if (this.roomID == DungeonManager.instance.playersRoom)
             {
-                roomChallengeGenerator.CreateChallengeInGame(challengeOfThisRoom);
+                roomChallengeGenerator.GenerateChallengeForNextRoom();
             }
             HideChallenge();
             PlayerMovement.characterCanReceiveInput = false;

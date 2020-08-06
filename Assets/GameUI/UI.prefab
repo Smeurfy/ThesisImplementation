@@ -2006,6 +2006,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuHolder: {fileID: 1283664151645968}
   playerID: {fileID: 114753134946798828}
+  loadingImage: {fileID: 1218405644190562, guid: 473074c006fafeb438f46593b18ae0b5,
+    type: 2}
 --- !u!114 &114431523990938776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3307,6 +3309,7 @@ MonoBehaviour:
   incrementCharge: {fileID: 114504966413825542}
   shieldTutorial: {fileID: 1783478912609798}
   shieldDepletingColor: {r: 0.09, g: 0.3, b: 0.78, a: 1}
+  shieldBeforeChallenge: 0
 --- !u!114 &114753134946798828
 MonoBehaviour:
   m_ObjectHideFlags: 1
