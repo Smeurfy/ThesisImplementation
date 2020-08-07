@@ -34,6 +34,7 @@ public class HighScore : MonoBehaviour
             if (www.isNetworkError || www.isHttpError)
             {
                 Debug.Log(www.error);
+                StartCoroutine(GetHighScoreServer());
             }
             else
             {
