@@ -117,6 +117,11 @@ namespace Thesis.Enemy
         {
             if (stillAlive)
             {
+                if (GetComponent<ParticleSystem>() != null)
+                {
+                    Debug.Log("SAjbihzfdshogiuvdhogbiuadbhovsauobiuyhvdsa");
+                    GetComponent<ParticleSystem>().Clear();
+                }
                 if (hasEffectOnDeath)
                 {
                     ApplyEffectOnDeath();
@@ -158,6 +163,7 @@ namespace Thesis.Enemy
                 {
                     GetComponentInChildren<Collider2D>().enabled = false;
                 }
+
                 StartCoroutine(DestroyEnemy());
                 stillAlive = false;
             }
