@@ -108,19 +108,13 @@ namespace Thesis.Enemy
             return (float)currentHp / initialHp;
         }
 
-        public void FellInPit()
-        {
-            CharacterDied();
-        }
-
         internal override void CharacterDied()
         {
             if (stillAlive)
             {
-                if (GetComponent<ParticleSystem>() != null)
+                if (GetComponentsInChildren<ParticleSystem>().Length > 1 && GetComponentsInChildren<ParticleSystem>()[1] != null)
                 {
-                    Debug.Log("SAjbihzfdshogiuvdhogbiuadbhovsauobiuyhvdsa");
-                    GetComponent<ParticleSystem>().Clear();
+                    Destroy(GetComponentsInChildren<ParticleSystem>()[1]);
                 }
                 if (hasEffectOnDeath)
                 {
@@ -132,9 +126,6 @@ namespace Thesis.Enemy
                 }
                 audioSource.PlayOneShot(diedSoundFX);
                 OnEnemyDie();
-                // notify that character is dead -> for roomManager 
-                // notify that character is dead -> for points
-                // notify that character is dead -> for performance model
                 SpriteRenderer sr = GetComponent<SpriteRenderer>();
                 if (sr)
                 {
