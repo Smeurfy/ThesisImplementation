@@ -3518,7 +3518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96f2a986dfd9494db8a81c5996ed825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageToDealtToChargeShield: 25
+  damageToDealtToChargeShield: 30
   shieldCharged: {fileID: 8300000, guid: 68e773e2bcf5b7d45b38d1c1eb81c1b9, type: 3}
   currentCharge: {fileID: 114488953266232794}
   incrementCharge: {fileID: 114770558028776944}

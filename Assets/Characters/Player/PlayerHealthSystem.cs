@@ -99,9 +99,7 @@ public class PlayerHealthSystem : HealthSystem
             transform.position = DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).GetPlayerRoomInitialPosition();
             canTakeDamage = true;
             gameObject.SetActive(true);
-
         }
-
     }
 
     public void EnablePlayerControls()

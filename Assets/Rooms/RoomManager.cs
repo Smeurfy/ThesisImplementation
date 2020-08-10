@@ -283,7 +283,8 @@ public class RoomManager : MonoBehaviour
             AfterDeathOptions.instance.afterDeathMenu.SetActive(false);
             GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] = 0;
             GameManager.instance.GetComponentInChildren<ScoreManager>().UpdateScore(true);
-            DungeonManager.instance.indexChallenge++;
+            if (DungeonManager.instance.indexChallenge < 24)
+                DungeonManager.instance.indexChallenge++;
             if (GameManager.instance.GetComponentInChildren<ScoreManager>()._victoryAndLoses[DungeonManager.instance.indexChallenge] == 2)
                 FindObjectOfType<LaterChallengePopUp>().ShowPopUp();
             foreach (TypeOfEnemy enemy in challengeOfThisRoom.GetTypeOfEnemies())

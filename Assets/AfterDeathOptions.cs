@@ -9,7 +9,6 @@ public class AfterDeathOptions : MonoBehaviour
 {
     public static AfterDeathOptions instance;
 
-    [SerializeField]
     public GameObject afterDeathMenu;
     public GameObject health;
     public GameObject bullets;
@@ -33,7 +32,7 @@ public class AfterDeathOptions : MonoBehaviour
     void Start()
     {
         afterDeathMenu.SetActive(false);
-        GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += CheckTryAgainLaterAvailability;
+        // GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += CheckTryAgainLaterAvailability;
     }
 
     public void TryAgainNow()
@@ -43,7 +42,6 @@ public class AfterDeathOptions : MonoBehaviour
             JsonWriter.instance._btnClickedOnDeath.Add("TryNow");
             OnTryAgainNow();
         }
-
     }
     public void TryAgainLater()
     {
@@ -96,7 +94,7 @@ public class AfterDeathOptions : MonoBehaviour
     }
     public void UpdateShieldUI(float shield)
     {
-        this.shield.GetComponentInChildren<Text>().text = shield * 100 + "% Shield";
+        this.shield.GetComponentInChildren<Text>().text = Math.Round(shield * 100, 0) + "% Shield";
         this.shield.GetComponent<Image>().fillAmount = shield;
     }
 
@@ -105,12 +103,22 @@ public class AfterDeathOptions : MonoBehaviour
         health.GetComponentInChildren<Text>().text = hp + " Health";
     }
 
-    public void CheckTryAgainLaterAvailability()
+    public void OnEnable()
     {
-        var nextIndex = DungeonManager.instance.indexChallenge + 2;
-        if (nextIndex > 24)
+        try
         {
-            tryAgainLater.interactable = false;
+            var nextIndex = DungeonManager.instance.indexChallenge + 2;
+            if (nextIndex > 24)
+            {
+                tryAgainLater.interactable = false;
+            }
+            else
+            {
+                tryAgainLater.interactable = true;
+            }
+        }
+        catch(NullReferenceException){
+            Debug.Log("null reference");
         }
     }
 

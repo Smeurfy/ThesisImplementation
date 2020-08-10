@@ -49,7 +49,8 @@ public class DoorManager : MonoBehaviour
             UpdateCameraToLookAtNewRoom();
             CloseDoorWithSound();
             DeletePlayerEnteredRoomTrigger();
-            JsonWriter.instance.SaveDataToLogs("NewChallenge");
+            if (DungeonManager.instance.indexChallenge < 25)
+                JsonWriter.instance.SaveDataToLogs("NewChallenge");
         }
     }
 

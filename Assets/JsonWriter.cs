@@ -81,7 +81,7 @@ public class JsonWriter : MonoBehaviour
                 if (_btnClickedOnDeath.Count > 1)//ignore initial room if exits on PauseMenu
                     writer.WriteLine("Challenge: " + _roomChallenge[i].GetTypeOfEnemies()[0].name + " tier " + _roomChallenge[i]._enemyTiers[_roomChallenge[i].GetTypeOfEnemies()[0]] + " " +
                                                     _roomChallenge[i].GetTypeOfEnemies()[1].name + " tier " + _roomChallenge[i]._enemyTiers[_roomChallenge[i].GetTypeOfEnemies()[1]]);
-                else    
+                else
                     writer.WriteLine("Challenge: initialRoom");
                 writer.WriteLine("");
             }
@@ -117,11 +117,6 @@ public class JsonWriter : MonoBehaviour
                                      item.GetTypeOfEnemies()[1].name + " tier " + item._enemyTiers[item.GetTypeOfEnemies()[1]]);
 
                 }
-            }
-            else
-            {
-                writer.WriteLine("Player quit without dying or won the game");
-                writer.WriteLine("----------------------------------------");
             }
 
             writer.WriteLine("");

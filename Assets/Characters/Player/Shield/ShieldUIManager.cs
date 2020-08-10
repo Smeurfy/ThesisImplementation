@@ -9,7 +9,7 @@ public class ShieldUIManager : MonoBehaviour
 {
     public event Action OnShieldIsCharged = delegate { };
 
-    [SerializeField] private byte damageToDealtToChargeShield = 30;
+    [SerializeField] private int damageToDealtToChargeShield;
     [SerializeField] private AudioClip shieldCharged;
     [SerializeField] private Image currentCharge;
     [SerializeField] private Image incrementCharge;
@@ -161,7 +161,7 @@ public class ShieldUIManager : MonoBehaviour
 
     private float GetChargeAsPercentage()
     {
-        return (float)damageDealt / damageToDealtToChargeShield;
+        return (float)(damageDealt / damageToDealtToChargeShield);
     }
 
     private void DereferenceEnemyTakeDamage(Scene loadedScene)
@@ -190,7 +190,7 @@ public class ShieldUIManager : MonoBehaviour
 
     public void UndoShieldCharge()
     {
-        damageDealt = 0;
+        this.damageDealt = 0;
         isFullyCharged = false;
         animator.SetBool(ANIM_CHARGED, false);
         currentCharge.color = Color.green;
