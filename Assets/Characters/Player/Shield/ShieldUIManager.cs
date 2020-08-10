@@ -61,11 +61,13 @@ public class ShieldUIManager : MonoBehaviour
                 //bah
             }
             JsonWriter.instance._shield.Add(-1.0f);
+            AfterDeathOptions.instance.UpdateShieldUI(0);
             ShieldManager.isShieldUnlocked = false;
         }
         else
         {
             JsonWriter.instance._shield.Add(shieldBeforeChallenge);
+            AfterDeathOptions.instance.UpdateShieldUI(shieldBeforeChallenge);
         }
     }
 

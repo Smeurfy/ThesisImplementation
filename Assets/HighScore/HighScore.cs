@@ -79,7 +79,6 @@ public class HighScore : MonoBehaviour
         {
             //bah
         }
-        Debug.Log("Undo score bonus");
     }
 
     public void SubscribeToRoom(GameObject gObj)

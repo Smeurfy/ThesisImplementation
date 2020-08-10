@@ -13,6 +13,7 @@ public class AfterDeathOptions : MonoBehaviour
     public GameObject afterDeathMenu;
     public GameObject health;
     public GameObject bullets;
+    public GameObject shield;
     public GameObject loadingImage;
 
     public Button tryAgainLater;
@@ -92,6 +93,11 @@ public class AfterDeathOptions : MonoBehaviour
     public void UpdateBulletUI(int bullet)
     {
         bullets.GetComponentInChildren<Text>().text = bullet + " Bullets";
+    }
+    public void UpdateShieldUI(float shield)
+    {
+        this.shield.GetComponentInChildren<Text>().text = shield * 100 + "% Shield";
+        this.shield.GetComponent<Image>().fillAmount = shield;
     }
 
     public void UpdateHealthUI(int hp)
