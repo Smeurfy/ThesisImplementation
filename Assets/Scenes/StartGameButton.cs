@@ -7,7 +7,8 @@ public class StartGameButton : MonoBehaviour
 
     private void Start()
     {
-        _loading.SetActive(false);
+        if(_loading != null)
+            _loading.SetActive(false);
     }
 
     public void StartGame()
@@ -18,7 +19,7 @@ public class StartGameButton : MonoBehaviour
 
     public void Credits()
     {
-        //SceneManager.LoadScene(creditsIndex);
+        SceneManager.LoadScene("credits");
     }
 
     public void ExitGame()

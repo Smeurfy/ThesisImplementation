@@ -22,8 +22,11 @@ public class AcknowledgementScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        _text.text = "Your ID is: " + PlayerPrefs.GetString("playerID");
-        StartCoroutine(EnableBtn());
+        if (_text != null)
+        {
+            _text.text = "Your ID is: " + PlayerPrefs.GetString("playerID");
+            StartCoroutine(EnableBtn());
+        }
     }
 
     private IEnumerator EnableBtn()
