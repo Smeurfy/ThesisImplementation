@@ -280,6 +280,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114895215370476106, guid: a150f86785d78064fa2ac1a55a6c0bef,
+        type: 2}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 2063239591}
     - target: {fileID: 114700332756993422, guid: a150f86785d78064fa2ac1a55a6c0bef,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -290,11 +295,6 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114895215370476106, guid: a150f86785d78064fa2ac1a55a6c0bef,
-        type: 2}
-      propertyPath: _player
-      value: 
-      objectReference: {fileID: 2063239591}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a150f86785d78064fa2ac1a55a6c0bef, type: 2}
   m_IsPrefabAsset: 0

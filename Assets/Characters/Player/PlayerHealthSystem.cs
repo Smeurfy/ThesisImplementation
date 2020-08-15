@@ -174,7 +174,7 @@ public class PlayerHealthSystem : HealthSystem
     private void TakeCollisionDamageFromEnemy(GameObject enemy)
     {
         TakeDamage(1);
-        enemy.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        // enemy.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
     private void UpdateShieldState(bool shieldState)
