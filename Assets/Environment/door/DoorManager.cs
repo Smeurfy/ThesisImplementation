@@ -51,6 +51,7 @@ public class DoorManager : MonoBehaviour
             DeletePlayerEnteredRoomTrigger();
             if (DungeonManager.instance.indexChallenge < 25)
                 JsonWriter.instance.SaveDataToLogs("NewChallenge");
+            HighScore.instance.SubscribeToRoom();
         }
     }
 

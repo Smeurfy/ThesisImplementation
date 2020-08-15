@@ -290,7 +290,7 @@ public class RoomManager : MonoBehaviour
             foreach (TypeOfEnemy enemy in challengeOfThisRoom.GetTypeOfEnemies())
             {
                 DungeonManager.instance.tierOfEnemies[enemy]++;
-                FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy], "lose");
+                // FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy], "lose");
             }
             if (this.roomID == DungeonManager.instance.playersRoom)
             {
@@ -377,7 +377,7 @@ public class RoomManager : MonoBehaviour
                     if (DungeonManager.instance.tierOfEnemies[enemy] < 5)
                     {
                         DungeonManager.instance.tierOfEnemies[enemy]++;
-                        FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy], "win");
+                        // FindObjectOfType<MonsterTierView>().canvas.GetComponent<ShowMonsterTier>().ChangeColor(EnemyLibrary.instance.GetEnemyTypePrefab(enemy).GetComponentInChildren<SpriteRenderer>().sprite.name, DungeonManager.instance.tierOfEnemies[enemy], "win");
                     }
                 }
                 catch (KeyNotFoundException)

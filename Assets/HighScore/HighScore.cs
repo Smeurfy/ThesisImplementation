@@ -9,11 +9,12 @@ using UnityEngine.Networking;
 public class HighScore : MonoBehaviour
 {
     public static HighScore instance;
-    public int _scoreBeforeChallenge = 0;
-    public Text _currentScore;
-    public Text _highScore;
+    public GameObject _currentScore;
+    public GameObject _highScore;
 
+    public int _scoreBeforeChallenge = 0;
     public int _score = 0;
+    public GameObject _player;
     private void Awake()
     {
         MakeThisObjectSingleton();
@@ -21,8 +22,15 @@ public class HighScore : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoScoreBonus;
+        _player = FindObjectOfType<PlayerHealthSystem>().gameObject;
+        _player.GetComponent<PlayerHealthSystem>().OnPlayerDied += UndoScoreBonus;
         SceneManager.sceneLoaded += GetHighScore;
+        SceneManager.sceneUnloaded += RemoveEvents;
+    }
+
+    private void RemoveEvents(Scene arg0)
+    {
+        _player.GetComponent<PlayerHealthSystem>().OnPlayerDied -= UndoScoreBonus;
     }
 
     public IEnumerator GetHighScoreServer()
@@ -39,7 +47,7 @@ public class HighScore : MonoBehaviour
             else
             {
                 // Show results as text
-                _highScore.text = "High Score: " + www.downloadHandler.text;
+                _highScore.GetComponent<Text>().text = "High Score: " + www.downloadHandler.text;
             }
         }
     }
@@ -69,7 +77,8 @@ public class HighScore : MonoBehaviour
         _score = _scoreBeforeChallenge;
         try
         {
-            _currentScore.text = "Score: " + _score;
+            // _currentScore.text = "Score: " + _score;
+            _currentScore.GetComponent<Text>().text = "Score: " + _score;
         }
         catch (MissingReferenceException)
         {
@@ -81,16 +90,15 @@ public class HighScore : MonoBehaviour
         }
     }
 
-    public void SubscribeToRoom(GameObject gObj)
+    public void SubscribeToRoom()
     {
-        // gObj.GetComponent<Thesis.Enemy.EnemyHealthSystem>().OnEnemyDie += UpdateScore;
         _scoreBeforeChallenge = _score;
     }
 
     public void UpdateScore(int value)
     {
         _score += value;
-        _currentScore.text = "Score: " + _score;
+        _currentScore.GetComponent<Text>().text = "Score: " + _score;
     }
 
     public void SaveHighScore()

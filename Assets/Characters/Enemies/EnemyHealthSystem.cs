@@ -44,7 +44,6 @@ namespace Thesis.Enemy
             InitializeHealthBar();
             base.Start();
             AfterDeathOptions.instance.OnTryAgainNow += EnableVariables;
-            HighScore.instance.SubscribeToRoom(gameObject);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

@@ -3780,10 +3780,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e4370db2804fa42b685b979c828f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentScore: {fileID: 1341293363915210}
+  _highScore: {fileID: 1260769630049212}
   _scoreBeforeChallenge: 0
-  _currentScore: {fileID: 114335036737141760}
-  _highScore: {fileID: 114569768682757932}
   _score: 0
+  _player: {fileID: 0}
 --- !u!114 &114948348249331954
 MonoBehaviour:
   m_ObjectHideFlags: 1

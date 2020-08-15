@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayersIDManager : MonoBehaviour
 {
-
     void Start()
     {
         StartCoroutine(HighScore.instance.GetHighScoreServer());
@@ -14,6 +13,7 @@ public class PlayersIDManager : MonoBehaviour
 
     public static IEnumerator GetNewID()
     {
+        var receivedID = false;
         using (UnityWebRequest www = UnityWebRequest.Get("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/IDManager.php"))
         {
             yield return www.SendWebRequest();
@@ -21,6 +21,8 @@ public class PlayersIDManager : MonoBehaviour
             if (www.isNetworkError || www.isHttpError)
             {
                 Debug.Log(www.error);
+                receivedID = false;
+                GetNewID();
             }
             else
             {
@@ -28,8 +30,10 @@ public class PlayersIDManager : MonoBehaviour
                 // Debug.Log(www.downloadHandler.text);
                 string id = www.downloadHandler.text;
                 PlayerPrefs.SetString("playerID", id);
+                receivedID = true;
             }
         }
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        if(receivedID)
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

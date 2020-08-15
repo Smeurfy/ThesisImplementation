@@ -32,7 +32,6 @@ public class AfterDeathOptions : MonoBehaviour
     void Start()
     {
         afterDeathMenu.SetActive(false);
-        // GameObject.Find("player").GetComponent<PlayerHealthSystem>().OnPlayerDied += CheckTryAgainLaterAvailability;
     }
 
     public void TryAgainNow()
