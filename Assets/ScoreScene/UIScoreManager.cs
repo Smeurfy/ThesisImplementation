@@ -33,8 +33,10 @@ public class UIScoreManager : MonoBehaviour
         time.text = "Time: " + System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2).ToString();
         // monstersDeafeated.text = "Monsters Defeated: " + StatsForScoreScreen._monstersDefeated.ToString();
         CalculateSkipPoints();
-        skips.text = "Your score is " + (StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2)) + "/" + ((StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2)) + skipsTotal) + " because you skipped " + StatsForScoreScreen._skips + " rooms";
-        
+        if(StatsForScoreScreen._skips > 0)
+            skips.text = "Your score is " + (StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2)) + "/" + ((StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2)) + skipsTotal) + " because you skipped " + StatsForScoreScreen._skips + " rooms";
+        else
+            skips.text = "You skipped 0 rooms";
     }
 
     private string CalculateSkipPoints()
