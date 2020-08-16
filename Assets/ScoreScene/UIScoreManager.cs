@@ -27,12 +27,14 @@ public class UIScoreManager : MonoBehaviour
         roomsCleared.transform.GetComponentsInChildren<Text>()[1].text = "+" + StatsForScoreScreen._score.ToString();
         // skips.transform.GetComponentsInChildren<Text>()[1].text = CalculateSkipPoints() + " Max Score";
         time.transform.GetComponentsInChildren<Text>()[1].text = "+" + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2);
+        score.transform.GetComponentsInChildren<Text>()[1].text = "" + (StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2));
 
         roomsCleared.text = "Rooms Cleared: " + StatsForScoreScreen._roomsCleared.ToString();
-        monstersDeafeated.text = "Monsters Defeated: " + StatsForScoreScreen._monstersDefeated.ToString();
-        skips.text = "You skipped " + StatsForScoreScreen._skips + " rooms. You lost " + skipsTotal + " points";
         time.text = "Time: " + System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2).ToString();
-        score.text = "Score: " + (StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2));
+        // monstersDeafeated.text = "Monsters Defeated: " + StatsForScoreScreen._monstersDefeated.ToString();
+        CalculateSkipPoints();
+        skips.text = "Your score is " + (StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2)) + "/" + ((StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2)) + skipsTotal) + " because you skipped " + StatsForScoreScreen._skips + " rooms";
+        
     }
 
     private string CalculateSkipPoints()
@@ -74,7 +76,7 @@ public class UIScoreManager : MonoBehaviour
             else
             {
                 // Show results as text
-                highScore.text = "High Score: " + www.downloadHandler.text;
+                highScore.transform.GetComponentsInChildren<Text>()[1].text = www.downloadHandler.text;
             }
         }
     }

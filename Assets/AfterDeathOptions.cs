@@ -82,8 +82,8 @@ public class AfterDeathOptions : MonoBehaviour
         Instantiate(loadingImage, transform.parent);
         JsonWriter.instance._btnClickedOnDeath.Add("GiveUp");
         JsonWriter.instance._roomChallenge.Add(DungeonManager.instance.GetRoomManagerByRoomID(DungeonManager.instance.playersRoom).challengeOfThisRoom);
-        HighScore.instance.SaveHighScore();
         StatsForScoreScreen.CalculateStats();
+        HighScore.instance.SaveHighScore();
         JsonWriter.instance.SaveLogs(true);
     }
 
@@ -116,7 +116,8 @@ public class AfterDeathOptions : MonoBehaviour
                 tryAgainLater.interactable = true;
             }
         }
-        catch(NullReferenceException){
+        catch (NullReferenceException)
+        {
             Debug.Log("null reference");
         }
     }
