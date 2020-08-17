@@ -51,6 +51,24 @@ public class PlayerHealthSystem : HealthSystem
         HealthBonus.instance.OnHeartFull += GainOneHeart;
     }
 
+    private void OnEnable()
+    {
+        // StartCoroutine(TryAssignReference());
+    }
+
+    private IEnumerator TryAssignReference()
+    {
+        yield return new WaitForSeconds(0.2f);
+        try
+        {
+            HighScore.instance._player = gameObject;
+        }
+        catch (NullReferenceException)
+        {
+            TryAssignReference();
+        }
+    }
+
     private void GainOneHeart()
     {
         currentHp++;

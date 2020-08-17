@@ -17,11 +17,6 @@ public class SamePlayer : MonoBehaviour
         StartCoroutine(CheckIfThePlayersFolderExists());
     }
 
-    private void Start()
-    {
-        
-    }
-
     private IEnumerator CheckIfThePlayersFolderExists()
     {
         //Check if the folder exists in the server
