@@ -8,11 +8,18 @@ using UnityEngine.Networking;
 
 public class SamePlayer : MonoBehaviour
 {
+    public GameObject _note;
     private bool _playersFolderExist = false;
 
     private void Awake()
     {
+        _note.SetActive(false);
         StartCoroutine(CheckIfThePlayersFolderExists());
+    }
+
+    private void Start()
+    {
+        
     }
 
     private IEnumerator CheckIfThePlayersFolderExists()
@@ -24,16 +31,14 @@ public class SamePlayer : MonoBehaviour
 
             if (www.isNetworkError || www.isHttpError)
             {
-                Debug.Log("false");
                 _playersFolderExist = false;
             }
             else
             {
-                Debug.Log("true");
                 _playersFolderExist = true;
             }
         }
-        //if the folder doesnt exist or fresh player deactivate btn
+        //if the folder doesnt exist or is a fresh player then deactivate btn
         if (!_playersFolderExist || PlayerPrefs.GetString("playerID", "none") == "none")
         {
             GetComponent<Button>().interactable = false;
@@ -41,6 +46,7 @@ public class SamePlayer : MonoBehaviour
         else
         {
             GetComponent<Button>().interactable = true;
+            _note.SetActive(true);
         }
     }
 }

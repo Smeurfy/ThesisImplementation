@@ -30,7 +30,8 @@ public class HighScore : MonoBehaviour
 
     private void RemoveEvents(Scene arg0)
     {
-        _player.GetComponent<PlayerHealthSystem>().OnPlayerDied -= UndoScoreBonus;
+        if (arg0.buildIndex == GameManager.instance.GetMainGameSceneNumber())
+            _player.GetComponent<PlayerHealthSystem>().OnPlayerDied -= UndoScoreBonus;
     }
 
     public IEnumerator GetHighScoreServer()
