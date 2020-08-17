@@ -109,7 +109,7 @@ public class HighScore : MonoBehaviour
     private IEnumerator PostHighScore()
     {
         List<IMultipartFormSection> wwwForm = new List<IMultipartFormSection>();
-        wwwForm.Add(new MultipartFormDataSection("currentScore", _score.ToString()));
+        wwwForm.Add(new MultipartFormDataSection("currentScore", "" + (StatsForScoreScreen._score + System.Math.Round((StatsForScoreScreen._score / System.Math.Round(StatsForScoreScreen._time.TotalSeconds, 2)), 2))));
         wwwForm.Add(new MultipartFormDataSection("playerID", PlayerPrefs.GetString("playerID")));
 
         UnityWebRequest www = UnityWebRequest.Post("http://web.tecnico.ulisboa.pt/~ist424747/HolidayKnight/Post_HighScore.php", wwwForm);
