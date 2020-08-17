@@ -31,7 +31,7 @@ public class AcknowledgementScreen : MonoBehaviour
 
     private IEnumerator EnableBtn()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.7f);
         mainMenu.interactable = true;
         exitGame.interactable = true;
     }
