@@ -27,9 +27,6 @@ namespace Thesis.Enemy
         public EnemyData enemyData;
 
         public event Action OnEnemyDie = delegate { };
-        // public event Action OnEnemyTakeFirstDamage = delegate { };
-        // public event Action<int> OnEnemyTakeDamageFromItem = delegate { };
-        // public event Action<int> OnEnemyTakeDamageFromBullet = delegate { };
         public static event Action<float> OnEnemyTakeDamage = delegate { };
 
         private new void Start()
@@ -115,9 +112,9 @@ namespace Thesis.Enemy
                 {
                     Destroy(GetComponentsInChildren<ParticleSystem>()[1]);
                 }
-                if (hasEffectOnDeath)
+                if (gameObject.name == "iceZombieTest")
                 {
-                    ApplyEffectOnDeath();
+                    GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 }
                 if (HUD && !isBullseye)
                 {
