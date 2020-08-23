@@ -29,20 +29,17 @@ public class SamePlayer : MonoBehaviour
             {
                 if (_calls < 5)
                 {
-                    Debug.Log("1");
                     StartCoroutine(CheckIfThePlayersFolderExists());
                     _calls++;
                 }
                 else
                 {
-                    Debug.Log("2");
                     _calls = 5;
                     _playersFolderExist = false;
                 }
             }
             else
             {
-                Debug.Log("3");
                 _calls = 5;
                 _playersFolderExist = true;
             }
@@ -52,12 +49,10 @@ public class SamePlayer : MonoBehaviour
             //if the folder doesnt exist or is a fresh player then deactivate btn
             if (!_playersFolderExist || PlayerPrefs.GetString("playerID", "none") == "none")
             {
-                Debug.Log("4");
                 GetComponent<Button>().interactable = false;
             }
             else
             {
-                Debug.Log("5");
                 GetComponent<Button>().interactable = true;
                 _note.SetActive(true);
             }
