@@ -52,9 +52,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -147,4 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656cddd0e0b68554ba0677ca5b03eacf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musics: []
+  musics:
+  - {fileID: 8300000, guid: f01ea6fb5a248624da368884c4641637, type: 3}
+  - {fileID: 8300000, guid: 8c2e10a861b37f447b60e6de026e4c96, type: 3}
+  - {fileID: 8300000, guid: 864acfdafe703d54c90ab71facb18761, type: 3}
+  - {fileID: 8300000, guid: b54c0ee6625b120409f5bb13725a98e3, type: 3}
+  - {fileID: 8300000, guid: c06e22b175d8f274bb9da61fd659a24f, type: 3}
+  - {fileID: 8300000, guid: c5d4579858621d04989c7e7a19fabdfd, type: 3}
+  currentIndex: 1

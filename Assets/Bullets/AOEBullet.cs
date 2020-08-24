@@ -78,6 +78,7 @@ public class AOEBullet : TypeOfBullet
         if(collision.gameObject.GetComponent<HealthSystem>())
         {
             rb.velocity = Vector2.zero;
+            
         }
     }
 }

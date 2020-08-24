@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class MusicManager : MonoBehaviour 
+public class MusicManager : MonoBehaviour
 {
     public static MusicManager instance;
 
     [SerializeField] private AudioClip[] musics;
 
-    private int currentIndex = -1;
+    public int currentIndex = 1;
     private AudioSource musicPlayer;
 
     private void Start()
     {
         musicPlayer = GetComponent<AudioSource>();
-        if(musics.Length > 0)
+        if (musics.Length > 0)
         {
-            int newIndex = Random.Range(0, musics.Length);
-            currentIndex = newIndex;
             musicPlayer.PlayOneShot(musics[currentIndex]);
+            musicPlayer.clip = musics[currentIndex];
             PlaySong();
         }
         else
@@ -26,36 +26,37 @@ public class MusicManager : MonoBehaviour
         MakeThisObjectSingleton();
     }
 
-    public void ChangeVolume(float volume)
+    public void ChangeVolume(Slider slider)
     {
-        musicPlayer.volume = volume;
+        musicPlayer.volume = slider.value;
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            musicPlayer.Stop();
+            PickNextSongToPlay();
+            PlaySong();
+        }
         if (!musicPlayer.isPlaying)
         {
-            PickNextSongToPlay();
             PlaySong();
         }
     }
 
     private void PickNextSongToPlay()
     {
-        if(musics.Length > 1)
-        {
-            int newIndex = Random.Range(0, musics.Length);
-            while(newIndex == currentIndex)
-            {
-                newIndex = Random.Range(0, musics.Length);
-            }
-            currentIndex = newIndex;
-        }
+        if (currentIndex == (musics.Length - 1))
+            currentIndex = 0;
+        else
+            currentIndex++;
     }
 
     private void PlaySong()
     {
         musicPlayer.PlayOneShot(musics[currentIndex]);
+        musicPlayer.clip = musics[currentIndex];
     }
 
     private void MakeThisObjectSingleton()
@@ -68,6 +69,5 @@ public class MusicManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
 }
