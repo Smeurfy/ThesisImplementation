@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ObjectiveSceneScript : MonoBehaviour
 {
-  public GameObject loadingPrefab;
+    private bool _clickedBn = false;
+    public GameObject loadingPrefab;
     private bool animationDone = false;
 
     public void AnimationDone()
@@ -17,10 +18,11 @@ public class ObjectiveSceneScript : MonoBehaviour
     {
         if (animationDone)
         {
-            if (Input.anyKeyDown)
+            if (Input.anyKeyDown && !_clickedBn)
             {
-              Instantiate(loadingPrefab, transform.position, Quaternion.identity, transform);
-              SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+                _clickedBn = true;
+                Instantiate(loadingPrefab, transform.position, Quaternion.identity, transform);
+                SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
     }
